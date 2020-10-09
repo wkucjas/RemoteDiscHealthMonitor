@@ -1,3 +1,3 @@
 project(RemoteDiscHealthMonitor) 
 
-ADD_SUBDIRECTORY(src)
+add_subdirectory(src/agent)
