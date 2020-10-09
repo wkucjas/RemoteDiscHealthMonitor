@@ -1,6 +1,6 @@
 #include "HealthChecker.h"
 
-void HealthChecker::CheckDiscHealth(std::string& _discHealth)
+std::string HealthChecker::CheckDiscHealth()
 {
-	_discHealth = std::string("Disc is totally fine!\n");
+	return std::string("Disc is totally fine!\n");
 }

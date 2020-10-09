@@ -9,11 +9,9 @@
 int main(void)
 {
 
-	std::unique_ptr<HealthChecker> healthyPointer(new HealthChecker());
+	HealthChecker checker;
 	
-	std::string health;
-
-	healthyPointer->CheckDiscHealth(health);
+	std::string health = checker.CheckDiscHealth();
 
 	std::cout << health;
 

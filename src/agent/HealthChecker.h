@@ -5,5 +5,5 @@
 class HealthChecker
 {
 public:
-	void CheckDiscHealth(std::string& _discHealth);
+	std::string CheckDiscHealth();
 };
