@@ -6,6 +6,6 @@ add_executable(monitor
 )
 
 target_link_libraries(monitor
-                        PRIVATE
-                            Qt::Widgets
+    PRIVATE
+        Qt::Widgets
 )
