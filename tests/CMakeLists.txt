@@ -6,3 +6,8 @@ add_executable(sampleTest
 target_link_libraries(sampleTest
     gmock_main
 )
+
+add_test(
+    NAME sampleTest
+    COMMAND sampleTest
+)
