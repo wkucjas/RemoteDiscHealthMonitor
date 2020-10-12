@@ -6,8 +6,6 @@ class SmartReader
 {
 public:
 
-	SmartReader();
-	std::unique_ptr<SmartReader> GetProperSMARTReader();
-	virtual std::string ReadSMARTData();
+	virtual std::string ReadSMARTData() = 0;
 
 };

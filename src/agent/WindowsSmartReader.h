@@ -5,4 +5,5 @@ class WindowsSmartReader : public SmartReader
 {
 
 	std::string ReadSMARTData();
+
 };

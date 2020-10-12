@@ -3,7 +3,10 @@ ADD_EXECUTABLE( agent
 				HealthChecker.h 
 				HealthChecker.cpp
 				SmartReader.h
-				SmartReader.cpp
 				WindowsSmartReader.h
 				WindowsSmartReader.cpp 
+				SmartReaderFactory.h
+				SmartReaderFactory.cpp 
+				LinuxSmartReader.h
+				LinuxSmartReader.cpp
 				)
