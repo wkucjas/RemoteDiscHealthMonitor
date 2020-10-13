@@ -5,7 +5,6 @@
 class ISmartReader
 {
 public:
-
+	virtual ~ISmartReader() = default;
 	virtual std::string ReadSMARTData() = 0;
-
 };
