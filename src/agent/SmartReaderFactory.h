@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SmartReader.h"
+#include "ISmartReader.h"
 
 class SmartReaderFactory
 {
