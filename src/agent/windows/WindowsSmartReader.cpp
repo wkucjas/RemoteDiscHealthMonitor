@@ -1,6 +1,6 @@
-#include "WindowsSmartReader.h"
+#include "../SmartReader.h"
 
-std::string WindowsSmartReader::ReadSMARTData()
+std::string SmartReader::ReadSMARTData()
 {
 	return std::string("Windows S.M.A.R.T. DATA");
 }

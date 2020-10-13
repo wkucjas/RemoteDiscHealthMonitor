@@ -1,12 +1,10 @@
 
 if(WIN32)
     set(system_specific_sources
-    			windows/WindowsSmartReader.h
 				windows/WindowsSmartReader.cpp
     )
 elseif(UNIX AND NOT APPLE)
     set(system_specific_sources
-				linux/LinuxSmartReader.h
 				linux/LinuxSmartReader.cpp
     )
 else()
@@ -18,6 +16,7 @@ ADD_EXECUTABLE( agent
 				HealthChecker.h
 				HealthChecker.cpp
 				ISmartReader.h
+				SmartReader.h
 				SmartReaderFactory.h
 				SmartReaderFactory.cpp
 				${system_specific_sources}

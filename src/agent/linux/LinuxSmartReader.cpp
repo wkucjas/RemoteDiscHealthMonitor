@@ -1,6 +1,6 @@
-#include "LinuxSmartReader.h"
+#include "../SmartReader.h"
 
-std::string LinuxSmartReader::ReadSMARTData()
+std::string SmartReader::ReadSMARTData()
 {
 	return std::string("Linux S.M.A.R.T. DATA");
 }
