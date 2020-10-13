@@ -4,6 +4,6 @@
 class WindowsSmartReader : public SmartReader
 {
 
-	std::string ReadSMARTData();
+	std::string ReadSMARTData() override;
 
 };
