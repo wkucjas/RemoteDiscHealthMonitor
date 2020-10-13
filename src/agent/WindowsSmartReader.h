@@ -1,7 +1,7 @@
 #pragma once
 #include "SmartReader.h"
 
-class WindowsSmartReader : public SmartReader
+class WindowsSmartReader : public ISmartReader
 {
 
 	std::string ReadSMARTData() override;

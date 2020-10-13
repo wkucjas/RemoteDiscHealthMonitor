@@ -2,7 +2,7 @@
 
 #include "SmartReader.h"
 
-class LinuxSmartReader : public SmartReader
+class LinuxSmartReader : public ISmartReader
 {
 
 	std::string ReadSMARTData() override;

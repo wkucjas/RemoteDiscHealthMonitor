@@ -2,7 +2,7 @@ ADD_EXECUTABLE( agent
 				main.cpp 
 				HealthChecker.h 
 				HealthChecker.cpp
-				SmartReader.h
+				ISmartReader.h
 				WindowsSmartReader.h
 				WindowsSmartReader.cpp 
 				SmartReaderFactory.h

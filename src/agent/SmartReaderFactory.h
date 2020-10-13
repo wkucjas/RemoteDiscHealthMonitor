@@ -6,5 +6,5 @@ class SmartReaderFactory
 {
 public:
 
-	std::unique_ptr<SmartReader> GetSMARTReader();
+	std::unique_ptr<ISmartReader> GetSMARTReader();
 };

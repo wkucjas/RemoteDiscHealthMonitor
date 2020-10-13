@@ -6,7 +6,7 @@ std::string HealthChecker::CheckDiscHealth()
 {
 	SmartReaderFactory readerFactory;
 
-	std::unique_ptr<SmartReader> discSMARTReader = readerFactory.GetSMARTReader();
+	std::unique_ptr<ISmartReader> discSMARTReader = readerFactory.GetSMARTReader();
 	
 	return discSMARTReader->ReadSMARTData();
 }

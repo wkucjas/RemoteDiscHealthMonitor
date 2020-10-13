@@ -2,7 +2,7 @@
 #include <memory>
 #include <string>
 
-class SmartReader
+class ISmartReader
 {
 public:
 
