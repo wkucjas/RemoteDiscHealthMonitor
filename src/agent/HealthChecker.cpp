@@ -1,6 +1,12 @@
 #include "HealthChecker.h"
+#include "SmartReaderFactory.h"
+#include <iostream>
 
 std::string HealthChecker::CheckDiscHealth()
 {
-	return std::string("Disc is totally fine!\n");
+	SmartReaderFactory readerFactory;
+
+	std::unique_ptr<ISmartReader> discSMARTReader = readerFactory.GetSMARTReader();
+	
+	return discSMARTReader->ReadSMARTData();
 }
