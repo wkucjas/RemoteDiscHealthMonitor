@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ISmartReader.h"
+#include "../ISmartReader.h"
 
 class LinuxSmartReader : public ISmartReader
 {

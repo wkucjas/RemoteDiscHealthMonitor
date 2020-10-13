@@ -2,9 +2,9 @@
 #include "SmartReaderFactory.h"
 
 #if defined _WIN32
-#include "WindowsSmartReader.h"
+#include "windows/WindowsSmartReader.h"
 #else
-#include "LinuxSmartReader.h"
+#include "linux/LinuxSmartReader.h"
 #endif
 
 
