@@ -19,6 +19,8 @@ ADD_EXECUTABLE( agent
 				HealthChecker.cpp
 				ISmartReader.h
 				SmartReader.h
+				WMICommunication.h
+				WMICommunication.cpp
 				${system_specific_sources}
 )
 
