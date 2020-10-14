@@ -4,7 +4,5 @@
 
 class LinuxSmartReader : public ISmartReader
 {
-
 	std::string ReadSMARTData() override;
-
 };

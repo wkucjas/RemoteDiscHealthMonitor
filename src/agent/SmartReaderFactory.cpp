@@ -1,5 +1,12 @@
+
 #include "SmartReaderFactory.h"
+
+#if defined _WIN32
 #include "WindowsSmartReader.h"
+#else
+#include "LinuxSmartReader.h"
+#endif
+
 
 std::unique_ptr<ISmartReader> SmartReaderFactory::GetSMARTReader()
 {
@@ -10,8 +17,7 @@ std::unique_ptr<ISmartReader> SmartReaderFactory::GetSMARTReader()
 
 #else
 
-	std::unique_ptr<SmartReader> ptr(new LinuxSmartReader());
+	std::unique_ptr<ISmartReader> ptr(new LinuxSmartReader());
 	return ptr;
-
 #endif
 }
