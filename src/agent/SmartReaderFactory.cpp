@@ -1,23 +1,10 @@
 
 #include "SmartReaderFactory.h"
-
-#if defined _WIN32
-#include "WindowsSmartReader.h"
-#else
-#include "LinuxSmartReader.h"
-#endif
+#include "SmartReader.h"
 
 
 std::unique_ptr<ISmartReader> SmartReaderFactory::GetSMARTReader()
 {
-#if defined _WIN32
-
-	std::unique_ptr<ISmartReader> ptr(new WindowsSmartReader());
+	std::unique_ptr<ISmartReader> ptr = std::make_unique<SmartReader>();
 	return ptr;
-
-#else
-
-	std::unique_ptr<ISmartReader> ptr(new LinuxSmartReader());
-	return ptr;
-#endif
 }
