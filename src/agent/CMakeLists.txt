@@ -17,7 +17,5 @@ ADD_EXECUTABLE( agent
 				HealthChecker.cpp
 				ISmartReader.h
 				SmartReader.h
-				SmartReaderFactory.h
-				SmartReaderFactory.cpp
 				${system_specific_sources}
-				)
+)

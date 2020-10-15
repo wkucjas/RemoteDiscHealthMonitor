@@ -1,13 +1,15 @@
 
 #include "HealthChecker.h"
-#include "SmartReaderFactory.h"
+#include "ISmartReader.h"
+
+HealthChecker::HealthChecker(ISmartReader& reader)
+    : m_smartReader(reader)
+{
+
+}
 
 
 std::string HealthChecker::CheckDiscHealth()
 {
-	SmartReaderFactory readerFactory;
-
-	std::unique_ptr<ISmartReader> discSMARTReader = readerFactory.GetSMARTReader();
-
-	return discSMARTReader->ReadSMARTData();
+	return m_smartReader.ReadSMARTData();
 }

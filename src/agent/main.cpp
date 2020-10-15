@@ -2,10 +2,12 @@
 #include <iostream>
 
 #include "HealthChecker.h"
+#include "SmartReader.h"
 
 int main(void)
 {
-	HealthChecker checker;
+    SmartReader smartReader;
+	HealthChecker checker(smartReader);
 
 	std::string health = checker.CheckDiscHealth();
 
