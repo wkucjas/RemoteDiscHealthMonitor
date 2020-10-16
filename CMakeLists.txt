@@ -6,7 +6,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+if(MSVC)
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)      # when msvc, build gtest with shared crt library
+endif()
 
 set(BUILD_SHARED_LIBS ON)
 
