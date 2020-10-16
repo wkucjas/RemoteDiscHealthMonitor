@@ -1,5 +1,5 @@
 
-find_package(Qt5 REQUIRED COMPONENTS Widgets)
+find_package(Qt5 REQUIRED COMPONENTS Widgets Network)
 
 add_executable(monitor
     AgentsEnumerator.cpp
@@ -10,4 +10,13 @@ add_executable(monitor
 target_link_libraries(monitor
     PRIVATE
         Qt::Widgets
+        Qt::Network
+        QtZeroConf
 )
+
+target_include_directories(monitor
+    PRIVATE
+        ${PROJECT_SOURCE_DIR}
+)
+
+set_target_properties(monitor PROPERTIES AUTOMOC TRUE)
