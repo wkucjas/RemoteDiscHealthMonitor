@@ -17,6 +17,7 @@ target_link_libraries(monitor
 target_include_directories(monitor
     PRIVATE
         ${PROJECT_SOURCE_DIR}
+        ${PROJECT_SOURCE_DIR}/src
 )
 
 set_target_properties(monitor PROPERTIES AUTOMOC TRUE)

@@ -2,6 +2,7 @@
 #include <QDebug>
 
 #include "AgentsEnumerator.hpp"
+#include "common/constants.hpp"
 
 
 AgentsEnumerator::AgentsEnumerator(QObject* parent)
@@ -13,7 +14,7 @@ AgentsEnumerator::AgentsEnumerator(QObject* parent)
 
 void AgentsEnumerator::startListening()
 {
-    m_zeroConf.startBrowser("_RDHMonitor._tcp");
+    m_zeroConf.startBrowser(ZeroConfServiceName);
 }
 
 
