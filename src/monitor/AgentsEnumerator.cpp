@@ -1,5 +1,8 @@
 
+#include <QDebug>
+
 #include "AgentsEnumerator.hpp"
+
 
 AgentsEnumerator::AgentsEnumerator(QObject* parent)
 {
@@ -14,13 +17,13 @@ void AgentsEnumerator::startListening()
 }
 
 
-void AgentsEnumerator::newAgent(const QZeroConfService&)
+void AgentsEnumerator::newAgent(const QZeroConfService& info)
 {
-
+    qDebug() << "New agent discovered on: " << info->host() << ":" << info->port();
 }
 
 
-void AgentsEnumerator::lostAgent(const QZeroConfService&)
+void AgentsEnumerator::lostAgent(const QZeroConfService& info)
 {
-
+    qDebug() << "Agent lost: " << info->host() << ":" << info->port();
 }
