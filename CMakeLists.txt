@@ -8,6 +8,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
+set(BUILD_SHARED_LIBS ON)
+
 enable_testing()
 
 #external projects
