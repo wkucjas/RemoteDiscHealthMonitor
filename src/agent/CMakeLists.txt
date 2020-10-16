@@ -1,5 +1,5 @@
 
-find_package(Qt5 5.15 REQUIRED COMPONENTS Network)
+find_package(Qt5 5.15 REQUIRED COMPONENTS Core Network)
 
 if(WIN32)
     set(system_specific_sources
@@ -31,5 +31,6 @@ target_include_directories(agent
 target_link_libraries(agent
     PRIVATE
         QtZeroConf
+        Qt::Core
         Qt::Network
 )
