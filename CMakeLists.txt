@@ -10,7 +10,11 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
 enable_testing()
 
+#external projects
 add_subdirectory(googletest)
+add_subdirectory(QtZeroConf)
+#
+
 add_subdirectory(src/agent)
 add_subdirectory(src/monitor)
 add_subdirectory(tests)
