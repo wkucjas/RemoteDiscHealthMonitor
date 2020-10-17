@@ -8,10 +8,9 @@
 class WMICommunication
 {
 public:
-	WMICommunication();
 	~WMICommunication();
 
-//private:
+
 	bool WMIInit();
 
 	bool GetSMARTDataViaWMI();
@@ -19,9 +18,10 @@ public:
 	std::shared_ptr<IWbemLocator> initialLocatorToWMI;
 	IWbemServices* services;
 	IEnumWbemClassObject* pEnumerator;
-
-	std::vector<unsigned char> dataVector;
-	void FeedSmartDataStructure(BYTE* data, int dataSize);
+	
+private:
+	std::vector<unsigned char> dataVector;	// In future here will be SMARTDATA structure
+	void FeedSmartDataStructure(BYTE* data, LONG& dataSize);
 	
 	
 };

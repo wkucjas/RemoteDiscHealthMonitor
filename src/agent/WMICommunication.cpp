@@ -7,11 +7,6 @@
 #include <comdef.h>
 #pragma comment(lib, "wbemuuid.lib")
 
-#include <vector>
-
-WMICommunication::WMICommunication()
-{
-}
 
 WMICommunication::~WMICommunication()
 {
@@ -184,7 +179,6 @@ bool WMICommunication::GetSMARTDataViaWMI()
                             if (pData != NULL)
                             {
                                 FeedSmartDataStructure(pData, itemCount);
-                                std::cout << "\nA TO WYNIK: " << dataVector.size() << std::endl;
                             }
                         }
                     }
@@ -196,9 +190,11 @@ bool WMICommunication::GetSMARTDataViaWMI()
 
         pclsObj->Release();
     }
+
+    return true;
 }
 
-void WMICommunication::FeedSmartDataStructure(BYTE* data, int dataSize)
+void WMICommunication::FeedSmartDataStructure(BYTE* data, LONG& dataSize)
 {
     for (int i = 0; i < dataSize; ++i)
     {
