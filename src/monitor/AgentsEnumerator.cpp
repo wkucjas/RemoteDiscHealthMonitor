@@ -21,10 +21,16 @@ void AgentsEnumerator::startListening()
 void AgentsEnumerator::newAgent(const QZeroConfService& info)
 {
     qDebug() << "New agent discovered on: " << info->host() << ":" << info->port();
+
+    AgentInformation agentInfo(info->name(), info->host(), info->port());
+    emit agentDiscovered(agentInfo);
 }
 
 
 void AgentsEnumerator::lostAgent(const QZeroConfService& info)
 {
     qDebug() << "Agent lost: " << info->host() << ":" << info->port();
+
+    AgentInformation agentInfo(info->name(), info->host(), info->port());
+    emit agentLost(agentInfo);
 }
