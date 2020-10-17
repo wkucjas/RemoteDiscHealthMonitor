@@ -8,12 +8,12 @@
 #include "AgentInformation.hpp"
 
 
-class AgentsEnumerator: public QObject
+class AgentsExplorer: public QObject
 {
     Q_OBJECT
 
 public:
-    AgentsEnumerator(QObject* parent = nullptr);
+    AgentsExplorer(QObject* parent = nullptr);
 
     void startListening();
 

@@ -9,7 +9,7 @@ int main(int argc, char** argv)
 {
     QApplication app(argc, argv);
 
-    AgentsEnumerator agentsEnumerator;
+    AgentsExplorer agentsEnumerator;
     agentsEnumerator.startListening();
 
     QLabel l("monitor");

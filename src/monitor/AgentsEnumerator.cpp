@@ -5,20 +5,20 @@
 #include "common/constants.hpp"
 
 
-AgentsEnumerator::AgentsEnumerator(QObject* parent)
+AgentsExplorer::AgentsExplorer(QObject* parent)
 {
-    connect(&m_zeroConf, &QZeroConf::serviceAdded, this, &AgentsEnumerator::newAgent);
-    connect(&m_zeroConf, &QZeroConf::serviceRemoved, this, &AgentsEnumerator::lostAgent);
+    connect(&m_zeroConf, &QZeroConf::serviceAdded, this, &AgentsExplorer::newAgent);
+    connect(&m_zeroConf, &QZeroConf::serviceRemoved, this, &AgentsExplorer::lostAgent);
 }
 
 
-void AgentsEnumerator::startListening()
+void AgentsExplorer::startListening()
 {
     m_zeroConf.startBrowser(ZeroConfServiceName);
 }
 
 
-void AgentsEnumerator::newAgent(const QZeroConfService& info)
+void AgentsExplorer::newAgent(const QZeroConfService& info)
 {
     qDebug() << "New agent discovered on: " << info->host() << ":" << info->port();
 
@@ -27,7 +27,7 @@ void AgentsEnumerator::newAgent(const QZeroConfService& info)
 }
 
 
-void AgentsEnumerator::lostAgent(const QZeroConfService& info)
+void AgentsExplorer::lostAgent(const QZeroConfService& info)
 {
     qDebug() << "Agent lost: " << info->host() << ":" << info->port();
 
