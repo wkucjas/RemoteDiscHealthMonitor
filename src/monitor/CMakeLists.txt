@@ -2,6 +2,8 @@
 find_package(Qt5 REQUIRED COMPONENTS Widgets Network)
 
 add_executable(monitor
+    ActiveAgentsList.cpp
+    ActiveAgentsList.hpp
     AgentInformation.cpp
     AgentInformation.hpp
     AgentsExplorer.cpp
