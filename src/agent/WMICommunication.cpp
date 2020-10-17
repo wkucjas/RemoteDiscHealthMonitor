@@ -1,4 +1,6 @@
 #include "WMICommunication.h"
+#include "WMICommunication.h"
+#include "WMICommunication.h"
 
 #define _WIN32_DCOM
 #include <iostream>
@@ -7,6 +9,14 @@
 
 WMICommunication::WMICommunication()
 {
+}
+
+WMICommunication::~WMICommunication()
+{
+    initialLocatorToWMI->Release();
+    services->Release();
+    pEnumerator->Release();
+    CoUninitialize();
 }
 
 bool WMICommunication::WMIInit()
@@ -100,4 +110,50 @@ bool WMICommunication::WMIInit()
     }
 
 	return true;
+}
+
+void WMICommunication::GetSMARTDataViaWMI()
+{
+
+    HRESULT hres = services->ExecQuery(
+        bstr_t("WQL"),
+        //bstr_t("SELECT * FROM Win32_OperatingSystem"),
+        bstr_t("SELECT * FROM MSStorageDriver_ATAPISmartData"),
+        WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY,
+        NULL,
+        &pEnumerator);
+
+    if (FAILED(hres))
+    {
+        services->Release();
+        services->Release();
+        CoUninitialize();
+        throw std::exception("Query for operating system name failed. Error code = 0x");
+        //return 1;               // Program has failed.
+    }
+
+    IWbemClassObject* pclsObj = NULL;
+    ULONG uReturn = 0;
+
+    while (pEnumerator)
+    {
+        HRESULT hr = pEnumerator->Next(WBEM_INFINITE, 1,
+            &pclsObj, &uReturn);
+
+        if (0 == uReturn)
+        {
+            break;
+        }
+
+        VARIANT vtProp;
+
+        // Get the value of the Name property
+        //hr = pclsObj->Get(L"Name", 0, &vtProp, 0, 0);
+        hr = pclsObj->Get(L"VendorSpecific", 0, &vtProp, 0, 0);
+
+        std::wcout << " OS Name : " << vtProp.bstrVal << std::endl;
+        VariantClear(&vtProp);
+
+        pclsObj->Release();
+    }
 }
