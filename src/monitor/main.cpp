@@ -2,7 +2,7 @@
 #include <QApplication>
 #include <QLabel>
 
-#include "AgentsEnumerator.hpp"
+#include "AgentsExplorer.hpp"
 
 
 int main(int argc, char** argv)
