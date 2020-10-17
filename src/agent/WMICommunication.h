@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <vector>
 #include <Wbemidl.h>
 
 
@@ -13,10 +14,14 @@ public:
 //private:
 	bool WMIInit();
 
-	void GetSMARTDataViaWMI();
+	bool GetSMARTDataViaWMI();
 
 	std::shared_ptr<IWbemLocator> initialLocatorToWMI;
 	IWbemServices* services;
 	IEnumWbemClassObject* pEnumerator;
+
+	std::vector<unsigned char> dataVector;
+	void FeedSmartDataStructure(BYTE* data, int dataSize);
+	
 	
 };
