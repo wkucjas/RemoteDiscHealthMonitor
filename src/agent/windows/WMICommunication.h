@@ -15,9 +15,9 @@ public:
 
 	bool GetSMARTDataViaWMI();
 
-	std::shared_ptr<IWbemLocator> initialLocatorToWMI;
-	IWbemServices* services;
-	IEnumWbemClassObject* pEnumerator;
+	std::shared_ptr<IWbemLocator> m_initialLocatorToWMI;
+	IWbemServices* m_services;
+	IEnumWbemClassObject* m_pEnumerator;
 	
 private:
 	std::vector<unsigned char> dataVector;	// In future here will be SMARTDATA structure

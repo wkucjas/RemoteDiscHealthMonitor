@@ -5,14 +5,13 @@
 #define _WIN32_DCOM
 #include <iostream>
 #include <comdef.h>
-//#pragma comment(lib, "wbemuuid.lib")
 
 
 WMICommunication::~WMICommunication()
 {
-    initialLocatorToWMI->Release();
-    services->Release();
-    pEnumerator->Release();
+    m_initialLocatorToWMI->Release();
+    m_services->Release();
+    m_pEnumerator->Release();
     CoUninitialize();
 }
 
@@ -47,14 +46,14 @@ bool WMICommunication::WMIInit()
             CLSID_WbemLocator,
             0,
             CLSCTX_INPROC_SERVER,
-            IID_IWbemLocator, (LPVOID*)&initialLocatorToWMI);
+            IID_IWbemLocator, (LPVOID*)&m_initialLocatorToWMI);
 
         if (FAILED(hres))
         {
             throw std::exception("Failed to create IWbemLocator object. Err code = 0x");
         }
 
-        hres = initialLocatorToWMI->ConnectServer(
+        hres = m_initialLocatorToWMI->ConnectServer(
             _bstr_t(L"ROOT\\WMI"),   // Object path of WMI namespace
             NULL,                    // User name. NULL = current user
             NULL,                    // User password. NULL = current
@@ -62,7 +61,7 @@ bool WMICommunication::WMIInit()
             NULL,                    // Security flags.
             0,                       // Authority (for example, Kerberos)
             0,                       // Context object 
-            &services                // pointer to IWbemServices proxy
+            &m_services                // pointer to IWbemServices proxy
         );
 
         if (FAILED(hres))
@@ -71,7 +70,7 @@ bool WMICommunication::WMIInit()
         }
 
         hres = CoSetProxyBlanket(
-            services,                    // Indicates the proxy to set
+            m_services,                    // Indicates the proxy to set
             RPC_C_AUTHN_WINNT,           // RPC_C_AUTHN_xxx
             RPC_C_AUTHZ_NONE,            // RPC_C_AUTHZ_xxx
             NULL,                        // Server principal name 
@@ -91,14 +90,14 @@ bool WMICommunication::WMIInit()
     catch (...)
     {
         CoUninitialize();
-        if (initialLocatorToWMI != NULL)
+        if (m_initialLocatorToWMI != NULL)
         {
-            initialLocatorToWMI->Release();
+            m_initialLocatorToWMI->Release();
         }
 
-        if (services != NULL)
+        if (m_services != NULL)
         {
-            services->Release();
+            m_services->Release();
         }
 
         return false;
@@ -108,12 +107,12 @@ bool WMICommunication::WMIInit()
 bool WMICommunication::GetSMARTDataViaWMI()
 {
     try {
-        HRESULT hres = services->ExecQuery(
+        HRESULT hres = m_services->ExecQuery(
             bstr_t("WQL"),
             bstr_t("SELECT * FROM MSStorageDriver_FailurePredictData"),
             WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY,
             NULL,
-            &pEnumerator);
+            &m_pEnumerator);
 
         if (FAILED(hres))
         {
@@ -123,9 +122,9 @@ bool WMICommunication::GetSMARTDataViaWMI()
         IWbemClassObject* pclsObj = NULL;
         ULONG uReturn = 0;
 
-        while (pEnumerator)
+        while (m_pEnumerator)
         {
-            HRESULT hr = pEnumerator->Next(WBEM_INFINITE, 1,
+            HRESULT hr = m_pEnumerator->Next(WBEM_INFINITE, 1,
                 &pclsObj, &uReturn);
 
             if (0 == uReturn)
@@ -190,14 +189,14 @@ bool WMICommunication::GetSMARTDataViaWMI()
     }
     catch (...)
     {
-        if (services != NULL)
+        if (m_services != NULL)
         {
-            services->Release();
+            m_services->Release();
         }
 
-        if (initialLocatorToWMI != NULL)
+        if (m_initialLocatorToWMI != NULL)
         {
-            initialLocatorToWMI->Release();
+            m_initialLocatorToWMI->Release();
         }
 
         CoUninitialize();
