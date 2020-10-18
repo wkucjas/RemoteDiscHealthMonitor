@@ -18,6 +18,6 @@ public:
 	
 private:
 	std::vector<unsigned char> dataVector;	// In future here will be SMARTDATA structure
-	void FeedSmartDataStructure(BYTE* data, LONG& dataSize);
+	void FeedSmartDataStructure(std::vector<BYTE>& data, const LONG& dataSize);
 		
 };

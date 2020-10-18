@@ -151,28 +151,28 @@ bool WMICommunication::GetSMARTDataViaWMI()
 
                             if (SUCCEEDED(SafeArrayGetLBound(pSafeArray, 1, &lBound)) && SUCCEEDED(SafeArrayGetUBound(pSafeArray, 1, &uBound)))
                             {
-                                LONG itemCount = uBound - lBound + 1;
+                                const LONG itemCount = uBound - lBound + 1;
 
-                                BYTE* pData = new BYTE[itemCount];
+                                std::vector<BYTE> dataFromArray(itemCount);
 
                                 BYTE* safearrayData;
                                 hr = SafeArrayAccessData(pSafeArray, reinterpret_cast<LPVOID*>(&safearrayData));
                                 if (FAILED(hr))
                                 {
-                                    delete[] pData;
+                                    dataFromArray.clear();
                                 }
 
-                                memcpy(pData, safearrayData, itemCount);
+                                memcpy(dataFromArray.data(), safearrayData, itemCount);
 
                                 hr = SafeArrayUnaccessData(pSafeArray);
                                 if (FAILED(hr))
                                 {
-                                    delete[] pData;
+                                    dataFromArray.clear();
                                 }
 
-                                if (pData != NULL)
+                                if (dataFromArray.empty() != true)
                                 {
-                                    FeedSmartDataStructure(pData, itemCount);
+                                    FeedSmartDataStructure(dataFromArray, itemCount);
                                 }
                             }
                         }
@@ -205,11 +205,11 @@ bool WMICommunication::GetSMARTDataViaWMI()
     }
 }
 
-void WMICommunication::FeedSmartDataStructure(BYTE* data, LONG& dataSize)
+void WMICommunication::FeedSmartDataStructure(std::vector<BYTE>& data, const LONG& dataSize)
 {
     for (int i = 0; i < dataSize; ++i)
     {
-        dataVector.push_back(data[i]);
+        dataVector.push_back(data.at(i));
     }
 }
 
