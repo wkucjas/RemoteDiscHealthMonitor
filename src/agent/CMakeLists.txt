@@ -1,5 +1,6 @@
 
 find_package(Qt5 5.15 REQUIRED COMPONENTS Core Network)
+find_library(WBEMUUID_LIBRARY wbemuuid REQUIRED)
 
 if(WIN32)
     set(system_specific_sources
@@ -35,5 +36,5 @@ target_link_libraries(agent
         QtZeroConf
         Qt::Core
         Qt::Network
-        wbemuuid
+        ${WBEMUUID_LIBRARY}
 )
