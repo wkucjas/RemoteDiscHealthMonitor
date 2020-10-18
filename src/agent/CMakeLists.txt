@@ -35,4 +35,5 @@ target_link_libraries(agent
         QtZeroConf
         Qt::Core
         Qt::Network
+        wbemuuid
 )
