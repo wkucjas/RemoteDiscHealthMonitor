@@ -4,6 +4,8 @@ find_package(Qt5 5.15 REQUIRED COMPONENTS Core Network)
 if(WIN32)
     set(system_specific_sources
 				windows/WindowsSmartReader.cpp
+                windows/WMICommunication.h
+				windows/WMICommunication.cpp
     )
 elseif(UNIX AND NOT APPLE)
     set(system_specific_sources
@@ -19,8 +21,6 @@ ADD_EXECUTABLE( agent
 				HealthChecker.cpp
 				ISmartReader.h
 				SmartReader.h
-				WMICommunication.h
-				WMICommunication.cpp
 				${system_specific_sources}
 )
 
