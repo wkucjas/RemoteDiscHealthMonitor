@@ -107,90 +107,103 @@ bool WMICommunication::WMIInit()
 
 bool WMICommunication::GetSMARTDataViaWMI()
 {
+    try {
+        HRESULT hres = services->ExecQuery(
+            bstr_t("WQL"),
+            bstr_t("SELECT * FROM MSStorageDriver_FailurePredictData"),
+            WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY,
+            NULL,
+            &pEnumerator);
 
-    HRESULT hres = services->ExecQuery(
-        bstr_t("WQL"),
-        bstr_t("SELECT * FROM MSStorageDriver_FailurePredictData"),
-        WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY,
-        NULL,
-        &pEnumerator);
-
-    if (FAILED(hres))
-    {
-        services->Release();
-        initialLocatorToWMI->Release();
-        CoUninitialize();
-        throw std::exception("Query for operating system name failed. Error code = 0x");
-        return false;
-    }
-
-    IWbemClassObject* pclsObj = NULL;
-    ULONG uReturn = 0;
-
-    while (pEnumerator)
-    {
-        HRESULT hr = pEnumerator->Next(WBEM_INFINITE, 1,
-            &pclsObj, &uReturn);
-
-        if (0 == uReturn)
+        if (FAILED(hres))
         {
-            break;
+            throw std::exception("Query for operating system name failed. Error code = 0x");
         }
 
-        VARIANT vtProp;
-        hr = pclsObj->Get(L"VendorSpecific", 0, &vtProp, 0, 0);
+        IWbemClassObject* pclsObj = NULL;
+        ULONG uReturn = 0;
 
-        if (V_ISARRAY(&vtProp))
+        while (pEnumerator)
         {
-            LPSAFEARRAY pSafeArray = V_ARRAY(&vtProp);
+            HRESULT hr = pEnumerator->Next(WBEM_INFINITE, 1,
+                &pclsObj, &uReturn);
 
-            VARTYPE itemType;
-            if (SUCCEEDED(SafeArrayGetVartype(pSafeArray, &itemType)))
+            if (0 == uReturn)
             {
-                if (itemType == VT_UI1)
+                break;
+            }
+
+            VARIANT vtProp;
+            hr = pclsObj->Get(L"VendorSpecific", 0, &vtProp, 0, 0);
+
+            if (V_ISARRAY(&vtProp))
+            {
+                LPSAFEARRAY pSafeArray = V_ARRAY(&vtProp);
+
+                VARTYPE itemType;
+                if (SUCCEEDED(SafeArrayGetVartype(pSafeArray, &itemType)))
                 {
-                    if (SafeArrayGetDim(pSafeArray) == 1)
+                    if (itemType == VT_UI1)
                     {
-                        LONG lBound;
-                        LONG uBound;
-
-                        if (SUCCEEDED(SafeArrayGetLBound(pSafeArray, 1, &lBound)) && SUCCEEDED(SafeArrayGetUBound(pSafeArray, 1, &uBound)))
+                        if (SafeArrayGetDim(pSafeArray) == 1)
                         {
-                            LONG itemCount = uBound - lBound + 1;
+                            LONG lBound;
+                            LONG uBound;
 
-                            BYTE* pData = new BYTE[itemCount];
-
-                            BYTE* safearrayData;
-                            hr = SafeArrayAccessData(pSafeArray, reinterpret_cast<LPVOID*>(&safearrayData));
-                            if (FAILED(hr))
+                            if (SUCCEEDED(SafeArrayGetLBound(pSafeArray, 1, &lBound)) && SUCCEEDED(SafeArrayGetUBound(pSafeArray, 1, &uBound)))
                             {
-                                delete[] pData;
-                            }
+                                LONG itemCount = uBound - lBound + 1;
 
-                            memcpy(pData, safearrayData, itemCount);
+                                BYTE* pData = new BYTE[itemCount];
 
-                            hr = SafeArrayUnaccessData(pSafeArray);
-                            if (FAILED(hr))
-                            {
-                                delete[] pData;
-                            }
+                                BYTE* safearrayData;
+                                hr = SafeArrayAccessData(pSafeArray, reinterpret_cast<LPVOID*>(&safearrayData));
+                                if (FAILED(hr))
+                                {
+                                    delete[] pData;
+                                }
 
-                            if (pData != NULL)
-                            {
-                                FeedSmartDataStructure(pData, itemCount);
+                                memcpy(pData, safearrayData, itemCount);
+
+                                hr = SafeArrayUnaccessData(pSafeArray);
+                                if (FAILED(hr))
+                                {
+                                    delete[] pData;
+                                }
+
+                                if (pData != NULL)
+                                {
+                                    FeedSmartDataStructure(pData, itemCount);
+                                }
                             }
                         }
                     }
                 }
             }
+
+            VariantClear(&vtProp);
+
+            pclsObj->Release();
         }
-       
-        VariantClear(&vtProp);
 
-        pclsObj->Release();
+        return true;
     }
+    catch (...)
+    {
+        if (services != NULL)
+        {
+            services->Release();
+        }
 
-    return true;
+        if (initialLocatorToWMI != NULL)
+        {
+            initialLocatorToWMI->Release();
+        }
+
+        CoUninitialize();
+
+        return false;
+    }
 }
 
 void WMICommunication::FeedSmartDataStructure(BYTE* data, LONG& dataSize)
