@@ -1,5 +1,13 @@
 
+#include <QHash>
+
 #include "AgentInformation.hpp"
+
+
+uint qHash(const AgentInformation& info, uint seed)
+{
+    return qHash(info.m_name, seed) ^ qHash(info.m_host, seed) ^ qHash(info.m_port, seed);
+}
 
 
 AgentInformation::AgentInformation(const QString& name, const QString& host, quint16 port)
@@ -11,13 +19,13 @@ AgentInformation::AgentInformation(const QString& name, const QString& host, qui
 }
 
 
-const QString & AgentInformation::name() const
+const QString& AgentInformation::name() const
 {
     return m_name;
 }
 
 
-const QString & AgentInformation::host() const
+const QString& AgentInformation::host() const
 {
     return m_host;
 }
@@ -26,4 +34,10 @@ const QString & AgentInformation::host() const
 quint16 AgentInformation::port() const
 {
     return m_port;
+}
+
+
+bool AgentInformation::operator==(const AgentInformation& other) const
+{
+    return std::tie(m_port, m_host, m_name) == std::tie(other.m_port, other.m_host, other.m_name);
 }

@@ -3,6 +3,8 @@ find_package(Qt5 REQUIRED COMPONENTS Core)
 
 add_executable(monitorTests
     ActiveAgentsListTests.cpp
+    ${PROJECT_SOURCE_DIR}/src/monitor/ActiveAgentsList.cpp
+    ${PROJECT_SOURCE_DIR}/src/monitor/AgentInformation.cpp
 )
 
 target_include_directories(monitorTests
