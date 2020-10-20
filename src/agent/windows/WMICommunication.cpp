@@ -87,7 +87,7 @@ bool WMICommunication::WMIInit()
 
         return true;
     }
-    catch (...)
+    catch (std::exception e)
     {
         CoUninitialize();
         if (m_initialLocatorToWMI != NULL)
@@ -187,7 +187,7 @@ bool WMICommunication::GetSMARTDataViaWMI()
 
         return true;
     }
-    catch (...)
+    catch (std::exception e)
     {
         if (m_services != NULL)
         {
@@ -209,7 +209,7 @@ void WMICommunication::FeedSmartDataStructure(std::vector<BYTE>& data, const LON
 {
     for (int i = 0; i < dataSize; ++i)
     {
-        dataVector.push_back(data.at(i));
+        m_dataVector.push_back(data.at(i));
     }
 }
 
