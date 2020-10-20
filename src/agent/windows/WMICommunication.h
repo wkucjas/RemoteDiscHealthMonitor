@@ -1,13 +1,16 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 #include <Wbemidl.h>
+#include "../../common/SmartData.h"
 
 
 class WMICommunication
 {
 
 public:
+	WMICommunication();
 	~WMICommunication();
 
 	bool WMIInit();
@@ -18,7 +21,7 @@ private:
 	IWbemLocator* m_initialLocatorToWMI;
 	IWbemServices* m_services;
 	IEnumWbemClassObject* m_pEnumerator;
-	std::vector<unsigned char> m_dataVector;	// In future here will be SMARTDATA structure
+	std::shared_ptr<SmartData> m_smartData;
 	void FeedSmartDataStructure(std::vector<BYTE>& data, const LONG& dataSize);
 		
 };

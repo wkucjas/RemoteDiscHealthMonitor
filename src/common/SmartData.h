@@ -6,6 +6,8 @@ class SmartData
 {
 public:
 
+ 
+
     enum SmartAttributeType : unsigned char
     {
         ReadErrorRate = 0x01,
@@ -70,19 +72,20 @@ public:
         ReadErrorRetryRate = 0xFA,
         FreeFallProtection = 0xFE,
     };
-    struct AttrData;
-
-    std::map<unsigned char, AttrData> smartData;
-
-private:
-
+   
     struct AttrData
     {
         int status;
         int value;
         int worst;
         int rawVal;
-        int rewVal2;
+        int rawVal2;
     };
+
+    std::map<unsigned char, AttrData> smartData;
+
+private:
+
+
 
 };
