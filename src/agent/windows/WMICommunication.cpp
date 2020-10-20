@@ -87,7 +87,7 @@ bool WMICommunication::WMIInit()
 
         return true;
     }
-    catch (std::exception e)
+    catch (const std::exception& e)
     {
         CoUninitialize();
         if (m_initialLocatorToWMI != NULL)
@@ -187,7 +187,7 @@ bool WMICommunication::GetSMARTDataViaWMI()
 
         return true;
     }
-    catch (std::exception e)
+    catch (const std::exception& e)
     {
         if (m_services != NULL)
         {
