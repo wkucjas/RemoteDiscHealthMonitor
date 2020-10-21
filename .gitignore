@@ -84,3 +84,4 @@
 /out/
 /.vs/
 /CMakeSettings.json
+/src/monitor/out/

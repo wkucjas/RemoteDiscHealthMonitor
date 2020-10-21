@@ -1,25 +1,12 @@
 
 find_package(Qt5 5.15 REQUIRED COMPONENTS Core Network)
 
-if(WIN32)
-    set(system_specific_sources
-				windows/WindowsSmartReader.cpp
-    )
-elseif(UNIX AND NOT APPLE)
-    set(system_specific_sources
-				linux/LinuxSmartReader.cpp
-    )
-else()
-    message(FATAL_ERROR "Unsupported system")
-endif()
-
 ADD_EXECUTABLE( agent
 				main.cpp
 				HealthChecker.h
 				HealthChecker.cpp
 				ISmartReader.h
 				SmartReader.h
-				${system_specific_sources}
 )
 
 target_include_directories(agent
@@ -34,3 +21,26 @@ target_link_libraries(agent
         Qt::Core
         Qt::Network
 )
+
+if(WIN32)
+    find_library(WBEMUUID_LIBRARY wbemuuid REQUIRED)
+
+    target_sources(agent
+        PRIVATE
+            windows/WindowsSmartReader.cpp
+            windows/WMICommunication.h
+            windows/WMICommunication.cpp
+    )
+
+    target_link_libraries(agent
+        PRIVATE
+            ${WBEMUUID_LIBRARY}
+    )
+elseif(UNIX AND NOT APPLE)
+    target_sources(agent
+        PRIVATE
+            linux/LinuxSmartReader.cpp
+    )
+else()
+    message(FATAL_ERROR "Unsupported system")
+endif()
