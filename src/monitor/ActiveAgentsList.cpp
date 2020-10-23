@@ -1,6 +1,14 @@
 
 #include "ActiveAgentsList.hpp"
 
+
+ActiveAgentsList::ActiveAgentsList(QObject* p)
+    : QAbstractListModel(p)
+{
+
+}
+
+
 void ActiveAgentsList::addAgent(const AgentInformation& info)
 {
     m_agents.insert(info);
@@ -29,3 +37,13 @@ QVariant ActiveAgentsList::data(const QModelIndex& index, int role) const
 {
     return 0;
 }
+
+
+QHash<int, QByteArray> ActiveAgentsList::roleNames() const
+{
+    auto existingRoles = QAbstractListModel::roleNames();
+    existingRoles.insert(AgentNameRole, "agentName");
+
+    return existingRoles;
+}
+

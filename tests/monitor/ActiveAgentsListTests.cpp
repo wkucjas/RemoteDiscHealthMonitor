@@ -5,6 +5,7 @@
 
 
 using testing::Contains;
+using testing::IsSupersetOf;
 
 
 TEST(ActiveAgentsListTest, isConstructible)
@@ -56,4 +57,18 @@ TEST(ActiveAgentsListTest, agentRemoval)
 
     const auto& agents = aal.agents();
     EXPECT_THAT(agents, Contains(info2));
+}
+
+
+TEST(ActiveAgentsListTest, listofAvailableRoles)
+{
+    ActiveAgentsList aal;
+
+    QStringList listOfRoles;
+
+    const auto roles = aal.roleNames();
+    for(auto it = roles.begin(); it != roles.end(); ++it)
+        listOfRoles.append(it.value());
+
+    EXPECT_THAT(listOfRoles, IsSupersetOf( {"agentName"} ));
 }
