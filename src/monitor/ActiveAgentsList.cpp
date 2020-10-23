@@ -7,6 +7,18 @@ void ActiveAgentsList::addAgent(const AgentInformation& info)
 }
 
 
+void ActiveAgentsList::removeAgent(const AgentInformation& info)
+{
+    m_agents.remove(info);
+}
+
+
+const QSet<AgentInformation> & ActiveAgentsList::agents() const
+{
+    return m_agents;
+}
+
+
 int ActiveAgentsList::rowCount(const QModelIndex& parent) const
 {
     return m_agents.size();

@@ -13,6 +13,8 @@ public:
     void addAgent(const AgentInformation &);
     void removeAgent(const AgentInformation &);
 
+    const QSet<AgentInformation>& agents() const;
+
     // QAbstractListModel:
     int rowCount(const QModelIndex & parent) const override;
     QVariant data(const QModelIndex & index, int role) const override;
