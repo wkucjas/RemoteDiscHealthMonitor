@@ -1,4 +1,6 @@
 
+#include <iterator>
+
 #include "ActiveAgentsList.hpp"
 
 
@@ -35,7 +37,20 @@ int ActiveAgentsList::rowCount(const QModelIndex& parent) const
 
 QVariant ActiveAgentsList::data(const QModelIndex& index, int role) const
 {
-    return 0;
+    QVariant result;
+
+    if (index.column() == 0 && index.row() < m_agents.size())
+    {
+        const int row = index.row();
+
+        auto it = m_agents.begin();
+        std::advance(it, row);
+
+        if (role == AgentNameRole)
+            result = it->name();
+    }
+
+    return result;
 }
 
 

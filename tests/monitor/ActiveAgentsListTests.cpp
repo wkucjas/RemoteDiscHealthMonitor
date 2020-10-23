@@ -72,3 +72,21 @@ TEST(ActiveAgentsListTest, listofAvailableRoles)
 
     EXPECT_THAT(listOfRoles, IsSupersetOf( {"agentName"} ));
 }
+
+
+TEST(ActiveAgentsListTest, exposesAgentsToView)
+{
+    ActiveAgentsList aal;
+
+    AgentInformation info1("Krzysiu", "192.168.1.12", 2300);
+    AgentInformation info2("Zbysiu", "192.168.1.45", 2301);
+
+    aal.addAgent(info1);
+    aal.addAgent(info2);
+
+    const auto idx1 = aal.index(0, 0);
+    const auto idx2 = aal.index(1, 0);
+
+    EXPECT_EQ(idx1.data(ActiveAgentsList::AgentNameRole), "Krzysiu");
+    EXPECT_EQ(idx2.data(ActiveAgentsList::AgentNameRole), "Zbysiu");
+}
