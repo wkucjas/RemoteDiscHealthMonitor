@@ -1,5 +1,9 @@
 
-find_package(Qt5 REQUIRED COMPONENTS Widgets Network)
+find_package(Qt5 REQUIRED COMPONENTS Quick Network Gui)
+
+qt5_add_resources(QML_RESOURCES
+                    Qml/resources.qrc
+)
 
 add_executable(monitor
     ActiveAgentsList.cpp
@@ -9,12 +13,14 @@ add_executable(monitor
     AgentsExplorer.cpp
     AgentsExplorer.hpp
     main.cpp
+    ${QML_RESOURCES}
 )
 
 target_link_libraries(monitor
     PRIVATE
-        Qt::Widgets
         Qt::Network
+        Qt::Quick
+        Qt::Gui
         QtZeroConf
 )
 
