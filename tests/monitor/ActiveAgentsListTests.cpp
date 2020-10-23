@@ -22,3 +22,17 @@ TEST(ActiveAgentsListTest, savesNewAgentInfo)
 
     ASSERT_EQ(aal.rowCount({}), 2);
 }
+
+
+TEST(ActiveAgentsListTest, noDuplicatesAllowed)
+{
+    ActiveAgentsList aal;
+
+    AgentInformation info1("Krzysiu", "192.168.1.12", 2300);
+    AgentInformation info2("Krzysiu", "192.168.1.12", 2300);
+
+    aal.addAgent(info1);
+    aal.addAgent(info2);
+
+    ASSERT_EQ(aal.rowCount({}), 1);
+}
