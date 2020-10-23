@@ -6,7 +6,7 @@
 
 using testing::Contains;
 using testing::IsSupersetOf;
-
+using testing::UnorderedElementsAre;
 
 TEST(ActiveAgentsListTest, isConstructible)
 {
@@ -87,6 +87,9 @@ TEST(ActiveAgentsListTest, exposesAgentsToView)
     const auto idx1 = aal.index(0, 0);
     const auto idx2 = aal.index(1, 0);
 
-    EXPECT_EQ(idx1.data(ActiveAgentsList::AgentNameRole), "Krzysiu");
-    EXPECT_EQ(idx2.data(ActiveAgentsList::AgentNameRole), "Zbysiu");
+    QStringList names;
+    names.append(idx1.data(ActiveAgentsList::AgentNameRole).toString());
+    names.append(idx2.data(ActiveAgentsList::AgentNameRole).toString());
+
+    EXPECT_THAT(names, UnorderedElementsAre("Krzysiu", "Zbysiu"));
 }
