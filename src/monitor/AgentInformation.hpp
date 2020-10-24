@@ -21,6 +21,3 @@ private:
     QString m_host;
     quint16 m_port;
 };
-
-
-uint qHash(const AgentInformation &, uint seed);

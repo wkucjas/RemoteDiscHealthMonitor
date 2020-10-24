@@ -1,13 +1,5 @@
 
-#include <QHash>
-
 #include "AgentInformation.hpp"
-
-
-uint qHash(const AgentInformation& info, uint seed)
-{
-    return qHash(info.m_name, seed) ^ qHash(info.m_host, seed) ^ qHash(info.m_port, seed);
-}
 
 
 AgentInformation::AgentInformation(const QString& name, const QString& host, quint16 port)
