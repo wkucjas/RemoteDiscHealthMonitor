@@ -28,9 +28,13 @@ void ActiveAgentsList::addAgent(const AgentInformation& info)
 void ActiveAgentsList::removeAgent(const AgentInformation& info)
 {
     auto it = std::find(m_agents.begin(), m_agents.end(), info);
-    const int pos = std::distance(m_agents.begin(), it);
 
-    m_agents.removeAt(pos);
+    if (it != m_agents.end())
+    {
+        const int pos = std::distance(m_agents.begin(), it);
+
+        m_agents.removeAt(pos);
+    }
 }
 
 

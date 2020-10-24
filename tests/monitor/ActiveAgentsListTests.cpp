@@ -43,6 +43,25 @@ TEST(ActiveAgentsListTest, noDuplicatesAllowed)
 }
 
 
+TEST(ActiveAgentsListTest, doubleAgentRemoveShouldBeSafe)
+{
+    ActiveAgentsList aal;
+
+    AgentInformation info1("Krzysiu", "192.168.1.12", 2300);
+    AgentInformation info2("Zbysiu", "192.168.1.45", 2301);
+
+    aal.addAgent(info1);
+    aal.addAgent(info2);
+
+    EXPECT_NO_THROW({
+        aal.removeAgent(info1);
+        aal.removeAgent(info1);
+        aal.removeAgent(info2);
+        aal.removeAgent(info2);
+    });
+}
+
+
 TEST(ActiveAgentsListTest, agentRemoval)
 {
     ActiveAgentsList aal;
