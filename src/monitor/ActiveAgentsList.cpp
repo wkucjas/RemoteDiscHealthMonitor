@@ -33,7 +33,9 @@ void ActiveAgentsList::removeAgent(const AgentInformation& info)
     {
         const int pos = std::distance(m_agents.begin(), it);
 
+        beginRemoveRows({}, pos, pos);
         m_agents.removeAt(pos);
+        endRemoveRows();
     }
 }
 

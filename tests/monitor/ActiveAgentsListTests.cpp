@@ -136,6 +136,35 @@ TEST(ActiveAgentsListTest, emitsSignalsWhenAgentsAdded)
 
     // verify second emission
     EXPECT_EQ(newRowsSpy.at(1).at(0), QModelIndex());   // no parent
-    EXPECT_EQ(newRowsSpy.at(1).at(1), 1);               // first row
+    EXPECT_EQ(newRowsSpy.at(1).at(1), 1);               // second row
     EXPECT_EQ(newRowsSpy.at(1).at(2), 1);               // 1 item
+}
+
+
+TEST(ActiveAgentsListTest, emitsSignalsWhenAgentsRemoved)
+{
+    ActiveAgentsList aal;
+
+    AgentInformation info1("Krzysiu", "192.168.1.12", 2300);
+    AgentInformation info2("Zbysiu", "192.168.1.45", 2301);
+
+    QSignalSpy removedRowsSpy(&aal, &ActiveAgentsList::rowsRemoved);
+
+    aal.addAgent(info1);
+    aal.addAgent(info2);
+
+    aal.removeAgent(info2);
+    aal.removeAgent(info1);
+
+    ASSERT_EQ(removedRowsSpy.count(), 2);
+
+    // verify first emission
+    EXPECT_EQ(removedRowsSpy.at(0).at(0), QModelIndex());   // no parent
+    EXPECT_EQ(removedRowsSpy.at(0).at(1), 1);               // second row
+    EXPECT_EQ(removedRowsSpy.at(0).at(2), 1);               // 1 item
+
+    // verify second emission
+    EXPECT_EQ(removedRowsSpy.at(1).at(0), QModelIndex());   // no parent
+    EXPECT_EQ(removedRowsSpy.at(1).at(1), 0);               // first row
+    EXPECT_EQ(removedRowsSpy.at(1).at(2), 0);               // 1 item
 }
