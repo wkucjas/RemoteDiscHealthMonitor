@@ -168,3 +168,21 @@ TEST(ActiveAgentsListTest, emitsSignalsWhenAgentsRemoved)
     EXPECT_EQ(removedRowsSpy.at(1).at(1), 0);               // first row
     EXPECT_EQ(removedRowsSpy.at(1).at(2), 0);               // 1 item
 }
+
+
+TEST(ActiveAgentsListTest, itemsShouldBeChildless)
+{
+    ActiveAgentsList aal;
+
+    AgentInformation info1("Krzysiu", "192.168.1.12", 2300);
+    AgentInformation info2("Zbysiu", "192.168.1.45", 2301);
+
+    aal.addAgent(info1);
+    aal.addAgent(info2);
+
+    const QModelIndex idx1 = aal.index(0, 0, {});
+    const QModelIndex idx2 = aal.index(1, 0, {});
+
+    EXPECT_EQ(aal.rowCount(idx1), 0);
+    EXPECT_EQ(aal.rowCount(idx2), 0);
+}

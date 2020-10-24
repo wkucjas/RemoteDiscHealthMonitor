@@ -48,7 +48,7 @@ const QVector<AgentInformation> & ActiveAgentsList::agents() const
 
 int ActiveAgentsList::rowCount(const QModelIndex& parent) const
 {
-    return m_agents.size();
+    return parent.isValid()? 0: m_agents.size();
 }
 
 
