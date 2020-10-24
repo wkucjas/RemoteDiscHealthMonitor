@@ -2,7 +2,7 @@
 #pragma once
 
 #include <QAbstractListModel>
-#include <QSet>
+#include <QVector>
 
 #include "AgentInformation.hpp"
 
@@ -15,7 +15,7 @@ public:
     void addAgent(const AgentInformation &);
     void removeAgent(const AgentInformation &);
 
-    const QSet<AgentInformation>& agents() const;
+    const QVector<AgentInformation>& agents() const;
 
     // QAbstractListModel:
     int rowCount(const QModelIndex & parent) const override;
@@ -28,5 +28,5 @@ public:
     };
 
 private:
-    QSet<AgentInformation> m_agents;
+    QVector<AgentInformation> m_agents;
 };

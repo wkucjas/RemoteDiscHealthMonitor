@@ -13,17 +13,28 @@ ActiveAgentsList::ActiveAgentsList(QObject* p)
 
 void ActiveAgentsList::addAgent(const AgentInformation& info)
 {
-    m_agents.insert(info);
+    auto it = std::find(m_agents.begin(), m_agents.end(), info);
+
+    // we do not need duplicates
+    if (it == m_agents.end())
+    {
+        beginInsertRows({}, m_agents.size(), m_agents.size());
+        m_agents.append(info);
+        endInsertRows();
+    }
 }
 
 
 void ActiveAgentsList::removeAgent(const AgentInformation& info)
 {
-    m_agents.remove(info);
+    auto it = std::find(m_agents.begin(), m_agents.end(), info);
+    const int pos = std::distance(m_agents.begin(), it);
+
+    m_agents.removeAt(pos);
 }
 
 
-const QSet<AgentInformation> & ActiveAgentsList::agents() const
+const QVector<AgentInformation> & ActiveAgentsList::agents() const
 {
     return m_agents;
 }

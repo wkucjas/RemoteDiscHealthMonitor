@@ -1,5 +1,5 @@
 
-find_package(Qt5 REQUIRED COMPONENTS Core)
+find_package(Qt5 REQUIRED COMPONENTS Core Test)
 
 add_executable(monitorTests
     ActiveAgentsListTests.cpp
@@ -15,6 +15,7 @@ target_include_directories(monitorTests
 target_link_libraries(monitorTests
     gmock_main
     Qt::Core
+    Qt::Test
 )
 
 add_test(
