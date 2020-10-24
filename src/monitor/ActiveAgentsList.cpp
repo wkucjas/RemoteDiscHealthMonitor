@@ -60,11 +60,8 @@ QVariant ActiveAgentsList::data(const QModelIndex& index, int role) const
     {
         const int row = index.row();
 
-        auto it = m_agents.begin();
-        std::advance(it, row);
-
         if (role == AgentNameRole)
-            result = it->name();
+            result = m_agents[row].name();
     }
 
     return result;
