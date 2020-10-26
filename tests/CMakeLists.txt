@@ -1,13 +1,7 @@
 
-add_executable(sampleTest
-    sample_test.cpp
-)
+add_subdirectory(monitor)
 
-target_link_libraries(sampleTest
-    gmock_main
-)
-
-add_test(
-    NAME sampleTest
-    COMMAND sampleTest
+add_custom_target(RunUnitTests ALL
+    COMMAND ctest
+    DEPENDS monitorTests
 )
