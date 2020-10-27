@@ -215,17 +215,17 @@ std::shared_ptr<SmartData> WMICommunication::GetSMARTData()
 void WMICommunication::FeedSmartDataStructure(const std::vector<BYTE>& data, const LONG& dataSize)
 {
 
-    for (int iterator = 0; data.size() > iterator; iterator += 12)
+    for (int i = 0; data.size() > i; i += 12)
     {
-        if (data.size() >= (iterator + 12))
+        if (data.size() >= (i + 12))
         {
             SmartData::AttrData attrData;
-            attrData.status = data.at(iterator + 3);
-            attrData.value = data.at(iterator + 5);
-            attrData.worst = data.at(iterator + 6);
-            attrData.rawVal = data.at(iterator + 7);
-            attrData.rawVal2 = data.at(iterator + 8);
-            m_smartData->smartData.insert(std::pair<unsigned char, SmartData::AttrData>(data.at(iterator + 2), attrData));
+            attrData.status = data.at(i + 3);
+            attrData.value = data.at(i + 5);
+            attrData.worst = data.at(i + 6);
+            attrData.rawVal = data.at(i + 7);
+            attrData.rawVal2 = data.at(i + 8);
+            m_smartData->smartData.insert(std::pair<unsigned char, SmartData::AttrData>(data.at(i + 2), attrData));
         }
         
     }
