@@ -16,12 +16,14 @@ public:
 	bool WMIInit();
 	bool CollectSMARTDataViaWMI();
 
+	std::shared_ptr<SmartData> GetSMARTData();
+
 private:
 
 	IWbemLocator* m_initialLocatorToWMI;
 	IWbemServices* m_services;
 	IEnumWbemClassObject* m_pEnumerator;
-	std::unique_ptr<SmartData> m_smartData;
+	std::shared_ptr<SmartData> m_smartData;
 	void FeedSmartDataStructure(const std::vector<BYTE>& data, const LONG& dataSize);
 		
 };

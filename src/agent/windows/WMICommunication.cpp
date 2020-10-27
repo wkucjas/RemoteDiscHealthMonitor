@@ -207,6 +207,11 @@ bool WMICommunication::CollectSMARTDataViaWMI()
     }
 }
 
+std::shared_ptr<SmartData> WMICommunication::GetSMARTData()
+{
+    return m_smartData;
+}
+
 void WMICommunication::FeedSmartDataStructure(const std::vector<BYTE>& data, const LONG& dataSize)
 {
 
