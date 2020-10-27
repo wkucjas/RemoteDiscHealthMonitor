@@ -14,7 +14,7 @@ public:
 	~WMICommunication();
 
 	bool WMIInit();
-	bool GetSMARTDataViaWMI();
+	bool CollectSMARTDataViaWMI();
 
 private:
 

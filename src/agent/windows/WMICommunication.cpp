@@ -106,7 +106,7 @@ bool WMICommunication::WMIInit()
     }
 }
 
-bool WMICommunication::GetSMARTDataViaWMI()
+bool WMICommunication::CollectSMARTDataViaWMI()
 {
     try {
         HRESULT hres = m_services->ExecQuery(
