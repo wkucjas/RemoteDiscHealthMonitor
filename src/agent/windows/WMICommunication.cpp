@@ -207,7 +207,7 @@ bool WMICommunication::GetSMARTDataViaWMI()
     }
 }
 
-void WMICommunication::FeedSmartDataStructure(std::vector<BYTE>& data, const LONG& dataSize)
+void WMICommunication::FeedSmartDataStructure(const std::vector<BYTE>& data, const LONG& dataSize)
 {
 
     for (int iterator = 0; data.size() > iterator; iterator += 12)
@@ -225,7 +225,5 @@ void WMICommunication::FeedSmartDataStructure(std::vector<BYTE>& data, const LON
         
     }
     
-
-
 }
 

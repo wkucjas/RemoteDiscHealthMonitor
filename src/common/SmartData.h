@@ -6,8 +6,6 @@ class SmartData
 {
 public:
 
- 
-
     enum SmartAttributeType : unsigned char
     {
         ReadErrorRate = 0x01,
@@ -83,9 +81,5 @@ public:
     };
 
     std::map<unsigned char, AttrData> smartData;
-
-private:
-
-
 
 };

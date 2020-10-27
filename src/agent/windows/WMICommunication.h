@@ -21,7 +21,7 @@ private:
 	IWbemLocator* m_initialLocatorToWMI;
 	IWbemServices* m_services;
 	IEnumWbemClassObject* m_pEnumerator;
-	std::shared_ptr<SmartData> m_smartData;
-	void FeedSmartDataStructure(std::vector<BYTE>& data, const LONG& dataSize);
+	std::unique_ptr<SmartData> m_smartData;
+	void FeedSmartDataStructure(const std::vector<BYTE>& data, const LONG& dataSize);
 		
 };
