@@ -4,11 +4,6 @@
 #include <iostream>
 #include <comdef.h>
 
-
-WMICommunication::WMICommunication() : m_smartData(new SmartData())
-{
-}
-
 WMICommunication::~WMICommunication()
 {
     m_initialLocatorToWMI->Release();
@@ -207,7 +202,7 @@ bool WMICommunication::CollectSMARTDataViaWMI()
     }
 }
 
-std::shared_ptr<SmartData> WMICommunication::GetSMARTData()
+const SmartData& WMICommunication::GetSMARTData() const
 {
     return m_smartData;
 }
@@ -225,7 +220,7 @@ void WMICommunication::FeedSmartDataStructure(const std::vector<BYTE>& data, con
             attrData.worst = data.at(i + 6);
             attrData.rawVal = data.at(i + 7);
             attrData.rawVal2 = data.at(i + 8);
-            m_smartData->smartData.insert(std::pair<unsigned char, SmartData::AttrData>(data.at(i + 2), attrData));
+            m_smartData.smartData.insert(std::pair<unsigned char, SmartData::AttrData>(data.at(i + 2), attrData));
         }
         
     }
