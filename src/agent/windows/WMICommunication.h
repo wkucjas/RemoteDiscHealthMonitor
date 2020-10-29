@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 #include <Wbemidl.h>
-#include "../../common/SmartData.h"
+#include "common/SmartData.h"
 
 
 class WMICommunication
