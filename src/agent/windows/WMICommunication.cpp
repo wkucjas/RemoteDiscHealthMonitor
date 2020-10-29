@@ -1,11 +1,8 @@
 #include "WMICommunication.h"
-#include "WMICommunication.h"
-#include "WMICommunication.h"
 
 #define _WIN32_DCOM
 #include <iostream>
 #include <comdef.h>
-
 
 WMICommunication::~WMICommunication()
 {
@@ -104,7 +101,7 @@ bool WMICommunication::WMIInit()
     }
 }
 
-bool WMICommunication::GetSMARTDataViaWMI()
+bool WMICommunication::CollectSMARTDataViaWMI()
 {
     try {
         HRESULT hres = m_services->ExecQuery(
@@ -205,11 +202,28 @@ bool WMICommunication::GetSMARTDataViaWMI()
     }
 }
 
-void WMICommunication::FeedSmartDataStructure(std::vector<BYTE>& data, const LONG& dataSize)
+const SmartData& WMICommunication::GetSMARTData() const
 {
-    for (int i = 0; i < dataSize; ++i)
+    return m_smartData;
+}
+
+void WMICommunication::FeedSmartDataStructure(const std::vector<BYTE>& data, const LONG& dataSize)
+{
+
+    for (int i = 0; data.size() > i; i += 12)
     {
-        m_dataVector.push_back(data.at(i));
+        if (data.size() >= (i + 12))
+        {
+            SmartData::AttrData attrData;
+            attrData.status = data.at(i + 3);
+            attrData.value = data.at(i + 5);
+            attrData.worst = data.at(i + 6);
+            attrData.rawVal = data.at(i + 7);
+            attrData.rawVal2 = data.at(i + 8);
+            m_smartData.smartData.insert(std::pair<unsigned char, SmartData::AttrData>(data.at(i + 2), attrData));
+        }
+        
     }
+    
 }
 
