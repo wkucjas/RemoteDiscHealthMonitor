@@ -7,7 +7,8 @@ ADD_EXECUTABLE( agent
 				HealthChecker.cpp
 				ISmartReader.h
 				SmartReader.h
-)
+                Server.h
+                Server.cpp)
 
 target_include_directories(agent
     PRIVATE
