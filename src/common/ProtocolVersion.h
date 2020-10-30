@@ -1,6 +1,5 @@
 #pragma once
-#include <QTGlobal>
-
+#include <QtGlobal>
 
 enum class ProtocolVersion : quint8
 {
