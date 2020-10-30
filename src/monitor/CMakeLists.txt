@@ -12,8 +12,11 @@ add_executable(monitor
     AgentInformation.hpp
     AgentsExplorer.cpp
     AgentsExplorer.hpp
+    AgentsStatusProvider.cpp
+    AgentsStatusProvider.hpp
     AgentStatusFetcher.cpp
     AgentStatusFetcher.hpp
+    IAgentsStatusProvider.hpp
     main.cpp
     ${QML_RESOURCES}
 )
