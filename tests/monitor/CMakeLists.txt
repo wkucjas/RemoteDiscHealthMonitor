@@ -10,6 +10,7 @@ add_executable(monitorTests
 target_include_directories(monitorTests
     PRIVATE
         ${PROJECT_SOURCE_DIR}/src/monitor
+        ${PROJECT_SOURCE_DIR}/src
 )
 
 target_link_libraries(monitorTests
