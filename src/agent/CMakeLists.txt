@@ -24,6 +24,8 @@ target_link_libraries(agent
         Qt::Network
 )
 
+set_target_properties(agent PROPERTIES AUTOMOC TRUE)
+
 if(WIN32)
     find_library(WBEMUUID_LIBRARY wbemuuid REQUIRED)
 
