@@ -4,8 +4,12 @@
 #include "ActiveAgentsList.hpp"
 
 
-ActiveAgentsList::ActiveAgentsList(QObject* p)
+using namespace std::placeholders;
+
+
+ActiveAgentsList::ActiveAgentsList(IAgentsStatusProvider& statusProvider, QObject* p)
     : QAbstractListModel(p)
+    , m_statusProvider(statusProvider)
 {
 
 }
@@ -18,6 +22,8 @@ void ActiveAgentsList::addAgent(const AgentInformation& info)
     // we do not need duplicates
     if (it == m_agents.end())
     {
+        m_statusProvider.fetchStatusOf(info, std::bind(&ActiveAgentsList::updateAgentHealth, this, _1, _2));
+
         beginInsertRows({}, m_agents.size(), m_agents.size());
         m_agents.append(info);
         endInsertRows();
@@ -76,3 +82,7 @@ QHash<int, QByteArray> ActiveAgentsList::roleNames() const
     return existingRoles;
 }
 
+
+void ActiveAgentsList::updateAgentHealth(const AgentInformation& info, const GeneralHealth::Health& health)
+{
+}

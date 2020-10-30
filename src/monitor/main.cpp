@@ -5,13 +5,15 @@
 
 #include "ActiveAgentsList.hpp"
 #include "AgentsExplorer.hpp"
+#include "AgentsStatusProvider.hpp"
 
 
 int main(int argc, char** argv)
 {
     QGuiApplication app(argc, argv);
 
-    ActiveAgentsList activeAgents;
+    AgentsStatusProvider statusProvider;
+    ActiveAgentsList activeAgents(statusProvider);
 
     AgentsExplorer agentsEnumerator;
     QObject::connect(&agentsEnumerator, &AgentsExplorer::agentDiscovered, &activeAgents, &ActiveAgentsList::addAgent);

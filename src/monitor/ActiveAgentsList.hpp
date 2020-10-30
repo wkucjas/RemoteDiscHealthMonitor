@@ -4,13 +4,15 @@
 #include <QAbstractListModel>
 #include <QVector>
 
+#include "common/GeneralHealth.h"
 #include "AgentInformation.hpp"
+#include "IAgentsStatusProvider.hpp"
 
 
 class ActiveAgentsList: public QAbstractListModel
 {
 public:
-    ActiveAgentsList(QObject* parent = nullptr);
+    ActiveAgentsList(IAgentsStatusProvider &, QObject* parent = nullptr);
 
     void addAgent(const AgentInformation &);
     void removeAgent(const AgentInformation &);
@@ -29,4 +31,7 @@ public:
 
 private:
     QVector<AgentInformation> m_agents;
+    IAgentsStatusProvider& m_statusProvider;
+
+    void updateAgentHealth(const AgentInformation &, const GeneralHealth::Health &);
 };
