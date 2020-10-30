@@ -8,7 +8,8 @@ class Server : public QObject
 
 public:
     Server(QObject* parent = nullptr);
-    void Init();
+    bool Init();
+private:
     void SendData();
 
    QTcpServer tcpServer;

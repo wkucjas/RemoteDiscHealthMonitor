@@ -1,5 +1,7 @@
 #include "Server.h"
 #include <qnetworkinterface.h>
+#include <qdatastream.h>
+#include <qtcpsocket.h>
 #include <iostream>
 
 
@@ -8,11 +10,10 @@ Server::Server(QObject * parent)
     connect(&tcpServer, &QTcpServer::newConnection, this, &Server::SendData);
 }
 
-void Server::Init()
+bool Server::Init()
 {
-    try {
         if (!tcpServer.listen()) {
-            throw std::exception("Unable to start the server");
+            return false;
         }
 
         QString ipAddress;
@@ -34,14 +35,24 @@ void Server::Init()
         }
 
         std::cout << "The server is running on IP: " << ipAddress.toStdString() << " port: "<< tcpServer.serverPort() << std::endl;
-    }
-    catch (std::exception e)
-    {
-    }
+
+        return true;
 }
 
 void Server::SendData()
 {
-    std::cout << "Halooooooo!" << std::endl;
+    std::cout << "TEST" << std::endl;
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_5_10);
+
+    out << "Hallo";
+
+    QTcpSocket* clientConnection = tcpServer.nextPendingConnection();
+
+    connect(clientConnection, &QAbstractSocket::disconnected,clientConnection, &QObject::deleteLater);
+
+    clientConnection->write(block);
+    clientConnection->disconnectFromHost();
 }
 
