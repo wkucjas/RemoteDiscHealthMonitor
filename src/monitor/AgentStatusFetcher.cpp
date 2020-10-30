@@ -1,5 +1,6 @@
 
 #include "AgentStatusFetcher.hpp"
+#include "common/ProtocolVersion.h"
 
 
 AgentStatusFetcher::AgentStatusFetcher(const AgentInformation& info)
@@ -22,13 +23,17 @@ void AgentStatusFetcher::readStatus()
 {
     m_inputStream.startTransaction();
 
-    QString status;
-    m_inputStream >> status;
+    ProtocolVersion version;
+    m_inputStream >> version;
+
+    if (m_inputStream.commitTransaction() == false || version != ProtocolVersion::VER_1)
+        return;
+
+    m_inputStream.startTransaction();
+
+    GeneralHealth::Health health;
+    m_inputStream >> health;
 
     if (m_inputStream.commitTransaction())
-    {
-        qDebug() << "Client status: " << status;
-
-        emit statusAvailable(status);
-    }
+        emit statusAvailable(health);
 }

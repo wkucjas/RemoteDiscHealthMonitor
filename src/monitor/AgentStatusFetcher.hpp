@@ -5,6 +5,7 @@
 #include <QTcpSocket>
 #include <QDataStream>
 
+#include "common/GeneralHealth.h"
 #include "AgentInformation.hpp"
 
 
@@ -16,7 +17,7 @@ class AgentStatusFetcher: public QObject
         AgentStatusFetcher(const AgentInformation &);
 
     signals:
-        void statusAvailable(const QString &);
+        void statusAvailable(const GeneralHealth::Health &);
 
     private:
         QTcpSocket m_socket;
