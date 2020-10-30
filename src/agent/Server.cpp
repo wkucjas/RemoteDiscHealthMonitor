@@ -3,6 +3,11 @@
 #include <iostream>
 
 
+Server::Server(QObject * parent)
+{
+    connect(&tcpServer, &QTcpServer::newConnection, this, &Server::SendData);
+}
+
 void Server::Init()
 {
     try {
@@ -34,3 +39,9 @@ void Server::Init()
     {
     }
 }
+
+void Server::SendData()
+{
+
+}
+

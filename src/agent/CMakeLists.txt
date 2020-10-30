@@ -8,7 +8,8 @@ ADD_EXECUTABLE( agent
 				ISmartReader.h
 				SmartReader.h
                 Server.h
-                Server.cpp)
+                Server.cpp
+                )
 
 target_include_directories(agent
     PRIVATE
