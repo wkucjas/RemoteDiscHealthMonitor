@@ -42,6 +42,6 @@ void Server::Init()
 
 void Server::SendData()
 {
-
+    std::cout << "Halooooooo!" << std::endl;
 }
 
