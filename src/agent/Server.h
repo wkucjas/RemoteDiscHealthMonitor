@@ -1,7 +1,6 @@
 #pragma once
 #include <qtcpserver.h>
 
-
 class Server : public QObject
 {
     Q_OBJECT

@@ -42,12 +42,15 @@ bool Server::Init()
 
 void Server::SendData()
 {
-    std::cout << "TEST" << std::endl;
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_10);
 
-    out << "Hallo";
+    qint8 temporaryResponse_1 = 1;
+    quint8 temporaryResponse_2 = 1;
+
+    out << temporaryResponse_1;
+    out << temporaryResponse_2;
 
     QTcpSocket* clientConnection = tcpServer.nextPendingConnection();
 
