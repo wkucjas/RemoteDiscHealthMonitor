@@ -3,6 +3,7 @@ find_package(Qt5 REQUIRED COMPONENTS Core Test)
 
 add_executable(monitorTests
     ActiveAgentsListTests.cpp
+    IAgentsStatusProviderMock.hpp
     ${PROJECT_SOURCE_DIR}/src/monitor/ActiveAgentsList.cpp
     ${PROJECT_SOURCE_DIR}/src/monitor/AgentInformation.cpp
 )
