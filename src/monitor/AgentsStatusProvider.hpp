@@ -6,6 +6,5 @@
 class AgentsStatusProvider : public IAgentsStatusProvider
 {
 public:
-    virtual void fetchStatusOf(const AgentInformation& , const IAgentsStatusProvider::StatusCallback& ) = 0;
-
+    void fetchStatusOf(const AgentInformation& , const IAgentsStatusProvider::StatusCallback& ) override;
 };

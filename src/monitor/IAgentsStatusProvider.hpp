@@ -7,7 +7,7 @@
 class IAgentsStatusProvider
 {
     public:
-        typedef std::function<void(const AgentInformation &, const GeneralHealth &)> StatusCallback;
+        typedef std::function<void(const AgentInformation &, const GeneralHealth::Health &)> StatusCallback;
 
         virtual ~IAgentsStatusProvider() = default;
 
