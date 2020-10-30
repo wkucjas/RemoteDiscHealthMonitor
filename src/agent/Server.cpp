@@ -3,6 +3,7 @@
 #include <qdatastream.h>
 #include <qtcpsocket.h>
 #include <iostream>
+#include "common/constants.hpp"
 
 
 Server::Server(QObject * parent)
@@ -12,7 +13,7 @@ Server::Server(QObject * parent)
 
 bool Server::Init()
 {
-        if (!tcpServer.listen()) {
+        if (!tcpServer.listen(QHostAddress::Any, RDHMPort)) {
             return false;
         }
 
