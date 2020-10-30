@@ -4,6 +4,7 @@
 #include <QTcpSocket>
 #include <iostream>
 #include "common/constants.hpp"
+#include "common/ProtocolVersion.h"
 
 
 Server::Server(QObject * parent)
@@ -42,15 +43,14 @@ bool Server::Init()
 
 void Server::SendData()
 {
+    CollectInfoAboutDiscs();
+
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_10);
 
-    qint8 temporaryResponse_1 = 1;
-    quint8 temporaryResponse_2 = 1;
-
-    out << temporaryResponse_1;
-    out << temporaryResponse_2;
+    out << m_protocolVersion;
+    out << static_cast<quint8>(m_health.GetStatus());
 
     QTcpSocket* clientConnection = m_tcpServer.nextPendingConnection();
 
@@ -58,5 +58,10 @@ void Server::SendData()
 
     clientConnection->write(block);
     clientConnection->disconnectFromHost();
+}
+
+void Server::CollectInfoAboutDiscs()
+{
+    m_health.SetStatus( GeneralHealth::GOOD);
 }
 
