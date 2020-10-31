@@ -2,6 +2,7 @@
 #include <QTcpServer>
 #include "common/ProtocolVersion.h"
 #include "common/GeneralHealth.h"
+#include "common/constants.hpp"
 
 class Server : public QObject
 {
@@ -14,7 +15,7 @@ private:
     void SendData();
     void CollectInfoAboutDiscs();
 
-    ProtocolVersion m_protocolVersion = ProtocolVersion::VER_1;
+    ProtocolVersion m_protocolVersion = VersionOfProtocol;
     GeneralHealth m_health;
 
    QTcpServer m_tcpServer;

@@ -4,7 +4,6 @@
 #include <QTcpSocket>
 #include <iostream>
 #include "common/constants.hpp"
-#include "common/ProtocolVersion.h"
 
 
 Server::Server(QObject * parent)
