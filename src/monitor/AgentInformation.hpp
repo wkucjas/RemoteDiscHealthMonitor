@@ -15,6 +15,8 @@ public:
     bool operator==(const AgentInformation &) const;
 
 private:
+    friend uint qHash(const AgentInformation &, uint);
+
     QString m_name;
     QString m_host;
     quint16 m_port;
