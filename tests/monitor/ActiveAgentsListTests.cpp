@@ -8,6 +8,7 @@
 
 using testing::_;
 using testing::Contains;
+using testing::InvokeArgument;
 using testing::IsSupersetOf;
 using testing::NiceMock;
 using testing::UnorderedElementsAre;
@@ -219,4 +220,27 @@ TEST(ActiveAgentsListTest, fetchHealthOfNewAgents)
     aal.addAgent(info2);
 
     ASSERT_EQ(aal.rowCount({}), 2);
+}
+
+
+TEST(ActiveAgentsListTest, healthUpdatesAfterFetch)
+{
+    IAgentsStatusProviderMock statusProvider;
+
+    ActiveAgentsList aal(statusProvider);
+
+    AgentInformation info1("John Connor", "192.168.1.15", 1998);
+    AgentInformation info2("T-1000", "192.168.1.16", 1998);
+
+    EXPECT_CALL(statusProvider, fetchStatusOf(info1, _)).WillOnce(InvokeArgument<1>(info1, GeneralHealth::GOOD));
+    EXPECT_CALL(statusProvider, fetchStatusOf(info2, _)).WillOnce(InvokeArgument<1>(info2, GeneralHealth::BAD));
+
+    aal.addAgent(info1);
+    aal.addAgent(info2);
+
+    const QModelIndex idx1 = aal.index(0, 0);
+    const QModelIndex idx2 = aal.index(1, 0);
+
+    EXPECT_EQ(idx1.data(ActiveAgentsList::AgentHealthRole), GeneralHealth::Health::GOOD);
+    EXPECT_EQ(idx2.data(ActiveAgentsList::AgentHealthRole), GeneralHealth::Health::BAD);
 }

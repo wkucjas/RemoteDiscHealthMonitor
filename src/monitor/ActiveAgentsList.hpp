@@ -2,6 +2,7 @@
 #pragma once
 
 #include <QAbstractListModel>
+#include <QHash>
 #include <QVector>
 
 #include "common/GeneralHealth.h"
@@ -27,10 +28,12 @@ public:
     enum Roles
     {
         AgentNameRole = Qt::UserRole + 1,
+        AgentHealthRole,
     };
 
 private:
     QVector<AgentInformation> m_agents;
+    QHash<AgentInformation, GeneralHealth::Health> m_health;
     IAgentsStatusProvider& m_statusProvider;
 
     void updateAgentHealth(const AgentInformation &, const GeneralHealth::Health &);
