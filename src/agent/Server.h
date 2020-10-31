@@ -1,5 +1,5 @@
 #pragma once
-#include <qtcpserver.h>
+#include <QTcpServer>
 
 class Server : public QObject
 {
@@ -11,5 +11,5 @@ public:
 private:
     void SendData();
 
-   QTcpServer tcpServer;
+   QTcpServer m_tcpServer;
 };
