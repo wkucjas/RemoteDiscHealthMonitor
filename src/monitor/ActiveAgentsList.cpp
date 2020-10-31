@@ -85,6 +85,7 @@ QHash<int, QByteArray> ActiveAgentsList::roleNames() const
 {
     auto existingRoles = QAbstractListModel::roleNames();
     existingRoles.insert(AgentNameRole, "agentName");
+    existingRoles.insert(AgentHealthRole, "agentHealth");
 
     return existingRoles;
 }

@@ -100,7 +100,7 @@ TEST(ActiveAgentsListTest, listofAvailableRoles)
     for(auto it = roles.begin(); it != roles.end(); ++it)
         listOfRoles.append(it.value());
 
-    EXPECT_THAT(listOfRoles, IsSupersetOf( {"agentName"} ));
+    EXPECT_THAT(listOfRoles, IsSupersetOf( {"agentName", "agentHealth"} ));
 }
 
 
