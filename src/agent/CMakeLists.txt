@@ -7,7 +7,9 @@ ADD_EXECUTABLE( agent
 				HealthChecker.cpp
 				ISmartReader.h
 				SmartReader.h
-)
+                Server.h
+                Server.cpp
+                )
 
 target_include_directories(agent
     PRIVATE
@@ -21,6 +23,8 @@ target_link_libraries(agent
         Qt::Core
         Qt::Network
 )
+
+set_target_properties(agent PROPERTIES AUTOMOC TRUE)
 
 if(WIN32)
     find_library(WBEMUUID_LIBRARY wbemuuid REQUIRED)

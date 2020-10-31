@@ -6,6 +6,7 @@
 #include "HealthChecker.h"
 #include "SmartReader.h"
 #include "common/constants.hpp"
+#include "Server.h"
 
 int main(int argc, char** argv)
 {
@@ -20,9 +21,12 @@ int main(int argc, char** argv)
 
 	std::string health = checker.CheckDiscHealth();
 
-	std::cout << health;
+	std::cout << health << std::endl;
+
+    Server srv;
+    srv.Init();
 
     app.exec();
 
-	return 0;
+    return 0;
 }
