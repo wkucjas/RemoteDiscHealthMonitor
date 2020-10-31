@@ -3,6 +3,7 @@
 
 #include "AgentInformation.hpp"
 #include "common/GeneralHealth.h"
+#include <functional>
 
 class IAgentsStatusProvider
 {
