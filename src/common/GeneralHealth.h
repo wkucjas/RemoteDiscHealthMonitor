@@ -1,16 +1,20 @@
 #pragma once
-#include <stdint.h>
+#include <QObject>
 
-class GeneralHealth
+class GeneralHealth: public QObject
 {
+    Q_OBJECT
+
 public:
-    enum Health : uint8_t
+    enum Health : quint8
     {
         UNKNOWN = 0,
         GOOD,
         BAD,
         CHECK_STATUS
     };
+
+    Q_ENUMS(Health)
 
     uint8_t GetStatus()
     {
