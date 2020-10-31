@@ -19,6 +19,8 @@ target_include_directories(agent
 
 target_link_libraries(agent
     PRIVATE
+        common
+
         QtZeroConf
         Qt::Core
         Qt::Network

@@ -15,7 +15,9 @@ target_include_directories(monitorTests
 )
 
 target_link_libraries(monitorTests
+    common
     gmock_main
+
     Qt::Core
     Qt::Test
 )

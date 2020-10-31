@@ -1,3 +1,4 @@
+
 cmake_policy(SET CMP0048 NEW)
 project(RemoteDiscHealthMonitor)
 cmake_minimum_required(VERSION 3.17)
@@ -20,6 +21,7 @@ add_subdirectory(googletest)
 add_subdirectory(QtZeroConf)
 #
 
+add_subdirectory(src/common)
 add_subdirectory(src/agent)
 add_subdirectory(src/monitor)
 add_subdirectory(tests)
