@@ -6,6 +6,7 @@ class GeneralHealth
 public:
     enum Health : uint8_t
     {
+        UNKNOWN = 0,
         GOOD,
         BAD,
         CHECK_STATUS
