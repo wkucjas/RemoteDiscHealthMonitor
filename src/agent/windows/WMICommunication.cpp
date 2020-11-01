@@ -205,8 +205,7 @@ bool WMICommunication::CollectSMARTDataViaWMI()
 
 GeneralHealth& WMICommunication::CollectDiskStatus()
 {
-    std::string command = "wmic diskdrive get status";
-    const std::string commandResult = ExecuteCommand(command);
+    const std::string commandResult = ExecuteDiscStatusCommand();
 
     m_generalHealth.SetStatus(GeneralHealth::Health::UNKNOWN);
 
@@ -251,17 +250,38 @@ void WMICommunication::FeedSmartDataStructure(const std::vector<BYTE>& _data, co
     
 }
 
-std::string WMICommunication::ExecuteCommand(const std::string& _command) const
+std::string WMICommunication::ExecuteDiscStatusCommand() const
 {
+    std::string command = "wmic diskdrive get status";
     std::string fileName = "dh.txt";
-    system((_command + " > " + fileName).c_str());
+    system((command + " > " + fileName).c_str());
 
     std::ifstream ifs(fileName);
-    std::string ret{ std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>() };
-    ifs.close(); // must close the inout stream so the file can be cleaned up
+    std::string ret( (std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>() ));
+
+    ifs.close();
     if (std::remove(fileName.c_str()) != 0) {
         std::cout << "Error deleting temporary file" << std::endl;
     }
-    return ret;
+
+    std::string::iterator retEnd = ret.end();
+    for (auto i = ret.begin(); i < retEnd; ++i)
+    {
+        if (*i == '\0' || *i == '\n' || *i == '\r' || *i == ' ')
+        { 
+            ret.erase(i);
+
+            if (i > ret.begin())
+            {
+                --i;
+            }
+            --retEnd;
+        }
+
+    }
+
+    std::string response = (ret.substr(ret.find("Status") + 6));
+
+    return response;
 }
 

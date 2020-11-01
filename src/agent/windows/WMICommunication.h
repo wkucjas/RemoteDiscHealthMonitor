@@ -27,6 +27,6 @@ private:
 	SmartData m_smartData;
 	GeneralHealth m_generalHealth;
 	void FeedSmartDataStructure(const std::vector<BYTE>& _data, const LONG& _dataSize);
-	std::string ExecuteCommand(const std::string& _command) const;
+	std::string ExecuteDiscStatusCommand() const;
 		
 };
