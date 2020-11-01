@@ -4,6 +4,7 @@
 #include <QTcpSocket>
 #include <iostream>
 #include "common/constants.hpp"
+#include "common/ProtocolVersion.h"
 
 
 Server::Server(QObject * parent)
@@ -48,7 +49,7 @@ void Server::SendData()
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_10);
 
-    out << m_protocolVersion;
+    out << ProtocolVersion::VER_1;
     out << static_cast<quint8>(m_health.GetStatus());
 
     QTcpSocket* clientConnection = m_tcpServer.nextPendingConnection();

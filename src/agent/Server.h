@@ -1,6 +1,5 @@
 #pragma once
 #include <QTcpServer>
-#include "common/ProtocolVersion.h"
 #include "common/GeneralHealth.h"
 #include "common/constants.hpp"
 
@@ -15,7 +14,6 @@ private:
     void SendData();
     void CollectInfoAboutDiscs();
 
-    ProtocolVersion m_protocolVersion = VersionOfProtocol;
     GeneralHealth m_health;
 
    QTcpServer m_tcpServer;
