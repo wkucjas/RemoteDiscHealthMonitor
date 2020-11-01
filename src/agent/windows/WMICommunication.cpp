@@ -203,13 +203,27 @@ bool WMICommunication::CollectSMARTDataViaWMI()
     }
 }
 
-const GeneralHealth WMICommunication::CollectDiskStatus() const
+GeneralHealth& WMICommunication::CollectDiskStatus()
 {
     std::string command = "wmic diskdrive get status";
     const std::string commandResult = ExecuteCommand(command);
 
+    m_generalHealth.SetStatus(GeneralHealth::Health::UNKNOWN);
 
-    return GeneralHealth();
+        if (commandResult == "OK")
+        {
+            m_generalHealth.SetStatus(GeneralHealth::Health::GOOD);
+        }
+        else if (commandResult == "Degraded")
+        {
+            m_generalHealth.SetStatus(GeneralHealth::Health::CHECK_STATUS);
+        }
+        else if (commandResult == "Pred Fail")
+        { 
+            m_generalHealth.SetStatus(GeneralHealth::Health::BAD);
+        }
+    
+    return m_generalHealth;
 }
 
 const SmartData& WMICommunication::GetSMARTData() const

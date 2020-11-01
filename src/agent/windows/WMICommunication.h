@@ -15,7 +15,7 @@ public:
 
 	bool WMIInit();
 	bool CollectSMARTDataViaWMI();
-	const GeneralHealth CollectDiskStatus() const;
+	GeneralHealth& CollectDiskStatus();
 
 	const SmartData& GetSMARTData() const;
 
