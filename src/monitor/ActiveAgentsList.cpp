@@ -4,8 +4,12 @@
 #include "ActiveAgentsList.hpp"
 
 
-ActiveAgentsList::ActiveAgentsList(QObject* p)
+using namespace std::placeholders;
+
+
+ActiveAgentsList::ActiveAgentsList(IAgentsStatusProvider& statusProvider, QObject* p)
     : QAbstractListModel(p)
+    , m_statusProvider(statusProvider)
 {
 
 }
@@ -21,6 +25,8 @@ void ActiveAgentsList::addAgent(const AgentInformation& info)
         beginInsertRows({}, m_agents.size(), m_agents.size());
         m_agents.append(info);
         endInsertRows();
+
+        m_statusProvider.fetchStatusOf(info, std::bind(&ActiveAgentsList::updateAgentHealth, this, _1, _2));
     }
 }
 
@@ -35,6 +41,7 @@ void ActiveAgentsList::removeAgent(const AgentInformation& info)
 
         beginRemoveRows({}, pos, pos);
         m_agents.removeAt(pos);
+        m_health.remove(info);
         endRemoveRows();
     }
 }
@@ -62,6 +69,12 @@ QVariant ActiveAgentsList::data(const QModelIndex& index, int role) const
 
         if (role == AgentNameRole)
             result = m_agents[row].name();
+        else if (role == AgentHealthRole)
+        {
+            auto it = m_health.find(m_agents[row]);
+
+            result = it == m_health.end()? GeneralHealth::UNKNOWN: it.value();
+        }
     }
 
     return result;
@@ -72,7 +85,23 @@ QHash<int, QByteArray> ActiveAgentsList::roleNames() const
 {
     auto existingRoles = QAbstractListModel::roleNames();
     existingRoles.insert(AgentNameRole, "agentName");
+    existingRoles.insert(AgentHealthRole, "agentHealth");
 
     return existingRoles;
 }
 
+
+void ActiveAgentsList::updateAgentHealth(const AgentInformation& info, const GeneralHealth::Health& health)
+{
+    auto it = std::find(m_agents.begin(), m_agents.end(), info);
+
+    if (it != m_agents.end())
+    {
+        m_health[info] = health;
+
+        const int pos = std::distance(m_agents.begin(), it);
+        const QModelIndex idx = index(pos, 0);
+
+        emit dataChanged(idx, idx, {AgentHealthRole});
+    }
+}

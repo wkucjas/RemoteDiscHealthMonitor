@@ -3,21 +3,27 @@
 #include <QSignalSpy>
 
 #include "ActiveAgentsList.hpp"
+#include "IAgentsStatusProviderMock.hpp"
 
 
+using testing::_;
 using testing::Contains;
+using testing::InvokeArgument;
 using testing::IsSupersetOf;
+using testing::NiceMock;
 using testing::UnorderedElementsAre;
+
 
 TEST(ActiveAgentsListTest, isConstructible)
 {
-    EXPECT_TRUE(std::is_constructible_v<ActiveAgentsList>);
+    EXPECT_TRUE( (std::is_constructible_v<ActiveAgentsList, IAgentsStatusProvider&, QObject *>) );
 }
 
 
 TEST(ActiveAgentsListTest, savesNewAgentInfo)
 {
-    ActiveAgentsList aal;
+    NiceMock<IAgentsStatusProviderMock> statusProvider;
+    ActiveAgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300);
     AgentInformation info2("Zbysiu", "192.168.1.45", 2301);
@@ -31,7 +37,8 @@ TEST(ActiveAgentsListTest, savesNewAgentInfo)
 
 TEST(ActiveAgentsListTest, noDuplicatesAllowed)
 {
-    ActiveAgentsList aal;
+    NiceMock<IAgentsStatusProviderMock> statusProvider;
+    ActiveAgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300);
     AgentInformation info2("Krzysiu", "192.168.1.12", 2300);
@@ -45,7 +52,8 @@ TEST(ActiveAgentsListTest, noDuplicatesAllowed)
 
 TEST(ActiveAgentsListTest, doubleAgentRemoveShouldBeSafe)
 {
-    ActiveAgentsList aal;
+    NiceMock<IAgentsStatusProviderMock> statusProvider;
+    ActiveAgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300);
     AgentInformation info2("Zbysiu", "192.168.1.45", 2301);
@@ -64,7 +72,8 @@ TEST(ActiveAgentsListTest, doubleAgentRemoveShouldBeSafe)
 
 TEST(ActiveAgentsListTest, agentRemoval)
 {
-    ActiveAgentsList aal;
+    NiceMock<IAgentsStatusProviderMock> statusProvider;
+    ActiveAgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300);
     AgentInformation info2("Zbysiu", "192.168.1.45", 2301);
@@ -82,7 +91,8 @@ TEST(ActiveAgentsListTest, agentRemoval)
 
 TEST(ActiveAgentsListTest, listofAvailableRoles)
 {
-    ActiveAgentsList aal;
+    NiceMock<IAgentsStatusProviderMock> statusProvider;
+    ActiveAgentsList aal(statusProvider);
 
     QStringList listOfRoles;
 
@@ -90,13 +100,14 @@ TEST(ActiveAgentsListTest, listofAvailableRoles)
     for(auto it = roles.begin(); it != roles.end(); ++it)
         listOfRoles.append(it.value());
 
-    EXPECT_THAT(listOfRoles, IsSupersetOf( {"agentName"} ));
+    EXPECT_THAT(listOfRoles, IsSupersetOf( {"agentName", "agentHealth"} ));
 }
 
 
 TEST(ActiveAgentsListTest, exposesAgentsToView)
 {
-    ActiveAgentsList aal;
+    NiceMock<IAgentsStatusProviderMock> statusProvider;
+    ActiveAgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300);
     AgentInformation info2("Zbysiu", "192.168.1.45", 2301);
@@ -117,7 +128,8 @@ TEST(ActiveAgentsListTest, exposesAgentsToView)
 
 TEST(ActiveAgentsListTest, emitsSignalsWhenAgentsAdded)
 {
-    ActiveAgentsList aal;
+    NiceMock<IAgentsStatusProviderMock> statusProvider;
+    ActiveAgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300);
     AgentInformation info2("Zbysiu", "192.168.1.45", 2301);
@@ -143,7 +155,8 @@ TEST(ActiveAgentsListTest, emitsSignalsWhenAgentsAdded)
 
 TEST(ActiveAgentsListTest, emitsSignalsWhenAgentsRemoved)
 {
-    ActiveAgentsList aal;
+    NiceMock<IAgentsStatusProviderMock> statusProvider;
+    ActiveAgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300);
     AgentInformation info2("Zbysiu", "192.168.1.45", 2301);
@@ -172,7 +185,8 @@ TEST(ActiveAgentsListTest, emitsSignalsWhenAgentsRemoved)
 
 TEST(ActiveAgentsListTest, itemsShouldBeChildless)
 {
-    ActiveAgentsList aal;
+    NiceMock<IAgentsStatusProviderMock> statusProvider;
+    ActiveAgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300);
     AgentInformation info2("Zbysiu", "192.168.1.45", 2301);
@@ -185,4 +199,48 @@ TEST(ActiveAgentsListTest, itemsShouldBeChildless)
 
     EXPECT_EQ(aal.rowCount(idx1), 0);
     EXPECT_EQ(aal.rowCount(idx2), 0);
+}
+
+
+TEST(ActiveAgentsListTest, fetchHealthOfNewAgents)
+{
+    IAgentsStatusProviderMock statusProvider;
+
+    ActiveAgentsList aal(statusProvider);
+
+    AgentInformation info1("Krzysiu", "192.168.1.12", 2300);
+    AgentInformation info2("Zbysiu", "192.168.1.45", 2301);
+
+
+    EXPECT_CALL(statusProvider, fetchStatusOf(info1, _)).Times(1);
+    EXPECT_CALL(statusProvider, fetchStatusOf(info2, _)).Times(1);
+
+    aal.addAgent(info1);
+    aal.addAgent(info2);
+    aal.addAgent(info2);
+
+    ASSERT_EQ(aal.rowCount({}), 2);
+}
+
+
+TEST(ActiveAgentsListTest, healthUpdatesAfterFetch)
+{
+    IAgentsStatusProviderMock statusProvider;
+
+    ActiveAgentsList aal(statusProvider);
+
+    AgentInformation info1("John Connor", "192.168.1.15", 1998);
+    AgentInformation info2("T-1000", "192.168.1.16", 1998);
+
+    EXPECT_CALL(statusProvider, fetchStatusOf(info1, _)).WillOnce(InvokeArgument<1>(info1, GeneralHealth::GOOD));
+    EXPECT_CALL(statusProvider, fetchStatusOf(info2, _)).WillOnce(InvokeArgument<1>(info2, GeneralHealth::BAD));
+
+    aal.addAgent(info1);
+    aal.addAgent(info2);
+
+    const QModelIndex idx1 = aal.index(0, 0);
+    const QModelIndex idx2 = aal.index(1, 0);
+
+    EXPECT_EQ(idx1.data(ActiveAgentsList::AgentHealthRole), GeneralHealth::Health::GOOD);
+    EXPECT_EQ(idx2.data(ActiveAgentsList::AgentHealthRole), GeneralHealth::Health::BAD);
 }

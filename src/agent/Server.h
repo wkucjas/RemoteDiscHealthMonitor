@@ -1,5 +1,7 @@
 #pragma once
 #include <QTcpServer>
+#include "common/GeneralHealth.h"
+#include "common/constants.hpp"
 
 class Server : public QObject
 {
@@ -10,6 +12,9 @@ public:
     bool Init();
 private:
     void SendData();
+    void CollectInfoAboutDiscs();
+
+    GeneralHealth m_health;
 
    QTcpServer m_tcpServer;
 };

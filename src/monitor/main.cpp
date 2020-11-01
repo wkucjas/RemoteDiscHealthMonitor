@@ -1,17 +1,22 @@
 
 #include <QGuiApplication>
+#include <QQmlEngine>
 #include <QQuickItem>
 #include <QQuickView>
 
 #include "ActiveAgentsList.hpp"
 #include "AgentsExplorer.hpp"
-
+#include "AgentsStatusProvider.hpp"
+#include "common/GeneralHealth.h"
 
 int main(int argc, char** argv)
 {
     QGuiApplication app(argc, argv);
 
-    ActiveAgentsList activeAgents;
+    qmlRegisterType<GeneralHealth>("RDHM", 1, 0, "HealthEnum");
+
+    AgentsStatusProvider statusProvider;
+    ActiveAgentsList activeAgents(statusProvider);
 
     AgentsExplorer agentsEnumerator;
     QObject::connect(&agentsEnumerator, &AgentsExplorer::agentDiscovered, &activeAgents, &ActiveAgentsList::addAgent);

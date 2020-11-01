@@ -2,15 +2,18 @@
 #pragma once
 
 #include <QAbstractListModel>
+#include <QHash>
 #include <QVector>
 
+#include "common/GeneralHealth.h"
 #include "AgentInformation.hpp"
+#include "IAgentsStatusProvider.hpp"
 
 
 class ActiveAgentsList: public QAbstractListModel
 {
 public:
-    ActiveAgentsList(QObject* parent = nullptr);
+    ActiveAgentsList(IAgentsStatusProvider &, QObject* parent = nullptr);
 
     void addAgent(const AgentInformation &);
     void removeAgent(const AgentInformation &);
@@ -25,8 +28,13 @@ public:
     enum Roles
     {
         AgentNameRole = Qt::UserRole + 1,
+        AgentHealthRole,
     };
 
 private:
     QVector<AgentInformation> m_agents;
+    QHash<AgentInformation, GeneralHealth::Health> m_health;
+    IAgentsStatusProvider& m_statusProvider;
+
+    void updateAgentHealth(const AgentInformation &, const GeneralHealth::Health &);
 };
