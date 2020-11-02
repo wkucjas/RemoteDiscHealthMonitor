@@ -5,6 +5,7 @@
 #include <iostream>
 #include "common/constants.hpp"
 #include "common/ProtocolVersion.h"
+#include "SmartReader.h"
 
 
 Server::Server(QObject * parent)
@@ -62,6 +63,8 @@ void Server::SendData()
 
 void Server::CollectInfoAboutDiscs()
 {
-    m_health.SetStatus( GeneralHealth::GOOD);
+    //m_health.SetStatus( GeneralHealth::GOOD);
+    SmartReader reader;
+    m_health = reader.ReadDisksStatus();
 }
 

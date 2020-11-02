@@ -4,7 +4,7 @@
 #include <memory>
 #include <Wbemidl.h>
 #include "common/SmartData.h"
-#include "common/GeneralHealth.h"
+
 
 
 class WMICommunication
@@ -15,18 +15,15 @@ public:
 
 	bool WMIInit();
 	bool CollectSMARTDataViaWMI();
-	GeneralHealth& CollectDiskStatus();
 
 	const SmartData& GetSMARTData() const;
 
 private:
-
 	IWbemLocator* m_initialLocatorToWMI;
 	IWbemServices* m_services;
 	IEnumWbemClassObject* m_pEnumerator;
 	SmartData m_smartData;
-	GeneralHealth m_generalHealth;
+
 	void FeedSmartDataStructure(const std::vector<BYTE>& _data, const LONG& _dataSize);
-	std::string ExecuteDiscStatusCommand() const;
-		
+	
 };

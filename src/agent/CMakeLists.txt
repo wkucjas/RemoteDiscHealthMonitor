@@ -3,13 +3,13 @@ find_package(Qt5 5.15 REQUIRED COMPONENTS Core Network)
 
 ADD_EXECUTABLE( agent
 				main.cpp
-				HealthChecker.h
-				HealthChecker.cpp
+				
+				
 				ISmartReader.h
 				SmartReader.h
                 Server.h
                 Server.cpp
-                )
+                 "windows/CMDCommunication.h" "windows/CMDCommunication.cpp")
 
 target_include_directories(agent
     PRIVATE
