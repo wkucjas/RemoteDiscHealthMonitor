@@ -51,7 +51,6 @@ std::string CMDCommunication::ExecuteDiscStatusCommand() const
             }
             --retEnd;
         }
-
     }
 
     std::string response = (ret.substr(ret.find("Status") + 6));

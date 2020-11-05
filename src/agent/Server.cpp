@@ -63,7 +63,6 @@ void Server::SendData()
 
 void Server::CollectInfoAboutDiscs()
 {
-    //m_health.SetStatus( GeneralHealth::GOOD);
     SmartReader reader;
     m_health = reader.ReadDisksStatus();
 }
