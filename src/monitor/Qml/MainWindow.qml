@@ -1,52 +1,69 @@
 
 import QtQuick 2.15
-import RDHM 1.0
 
 Item {
-    ListView {
-        id: listView
-        objectName: "activeAgents"
+    id: mainView
 
-        anchors.fill: parent
+    Rectangle {
+        id: zeroConfContainer
 
-        delegate: Item {
-            width: ListView.view.width
-            height: childrenRect.height
+        height: childrenRect.height
 
-            Rectangle {
-                id: statusIndicator
-                width: 20
-                height: 20
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
 
-                anchors.top: parent.top
-                anchors.left: parent.left
-                anchors.margins: 5
+        Text {
+            id: zeroConfLabel
+            text: qsTr("Discovered agents:")
+            anchors.top: parent.top
+            font.pixelSize: 12
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
 
-                radius: 10
-                color: {
-                    switch(agentHealth) {
-                        case HealthEnum.UNKNOWN: return "blue";
-                        case HealthEnum.GOOD: return "green";
-                        case HealthEnum.BAD: return "red";
-                        case HealthEnum.CHECK_STATUS: return "orange";
-                        default: return "silver";
-                    }
-                }
-            }
+        ListView {
+            id: zeroConfList
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: zeroConfLabel.bottom
+            anchors.bottom: parent.bottom
+            objectName: "activeAgents"
 
-            Text {
-                text: agentName
+            delegate: AgentDelegate {}
+        }
+    }
 
-                anchors.left: statusIndicator.right
-                anchors.verticalCenter: statusIndicator.verticalCenter
-                anchors.margins: 5
-            }
+    Rectangle {
+        id: hardcodedContainer
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: zeroConfContainer.bottom
+        anchors.bottom: parent.bottom
+
+        Text {
+            id: hardcodedLabel
+            text: qsTr("Hardcoded agents:")
+            anchors.top: parent.top
+            font.pixelSize: 12
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        ListView {
+            id: hardcodedList
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: hardcodedLabel.bottom
+            anchors.bottom: parent.bottom
+
+            objectName: "hardcodedActiveAgents"
+
+            delegate: AgentDelegate {}
         }
     }
 }
 
 /*##^##
 Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:1}
+    D{i:0;autoSize:true;height:480;width:640}
 }
 ##^##*/
