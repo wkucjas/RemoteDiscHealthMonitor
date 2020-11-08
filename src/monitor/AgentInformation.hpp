@@ -6,7 +6,12 @@
 class AgentInformation
 {
 public:
-    AgentInformation(const QString& name, const QString& host, quint16 port);
+    enum class DetectionSource {
+        ZeroConf,
+        Hardcoded,
+    };
+
+    AgentInformation(const QString& name, const QString& host, quint16 port, DetectionSource);
 
     const QString& name() const;
     const QString& host() const;
@@ -14,17 +19,13 @@ public:
 
     bool operator==(const AgentInformation &) const;
 
-    enum class DetectionSource {
-        ZeroConf,
-        Hardcoded,
-    };
-
 private:
     friend uint qHash(const AgentInformation &, uint);
 
     QString m_name;
     QString m_host;
     quint16 m_port;
+    DetectionSource m_detectionSource;
 };
 
 
