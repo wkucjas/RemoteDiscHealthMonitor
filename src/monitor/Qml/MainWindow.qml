@@ -1,64 +1,66 @@
 
 import QtQuick 2.15
+import QtQuick.Layouts 1.15
 
 Item {
     id: mainView
 
-    Rectangle {
-        id: zeroConfContainer
+    ColumnLayout {
+        id: column
+        anchors.fill: parent
 
-        height: childrenRect.height
+        ColumnLayout {
+            id: zeroConfContainer
 
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
+            Layout.fillWidth: true
+            Layout.fillHeight: true
 
-        Text {
-            id: zeroConfLabel
-            text: qsTr("Discovered agents:")
-            anchors.top: parent.top
-            font.pixelSize: 12
-            anchors.horizontalCenter: parent.horizontalCenter
+            Text {
+                id: zeroConfLabel
+                Layout.alignment: Qt.AlignHCenter
+                Layout.fillWidth: false
+
+                text: qsTr("Discovered agents:")
+                font.pixelSize: 12
+            }
+
+            ListView {
+                id: zeroConfList
+                objectName: "activeAgents"
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                delegate: AgentDelegate {}
+            }
         }
 
-        ListView {
-            id: zeroConfList
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: zeroConfLabel.bottom
-            anchors.bottom: parent.bottom
-            objectName: "activeAgents"
+        ColumnLayout {
+            id: hardcodedContainer
 
-            delegate: AgentDelegate {}
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+
+            Text {
+                id: hardcodedLabel
+
+                Layout.alignment: Qt.AlignHCenter
+
+                text: qsTr("Hardcoded agents:")
+                font.pixelSize: 12
+            }
+
+            ListView {
+                id: hardcodedList
+                objectName: "hardcodedActiveAgents"
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+
+                delegate: AgentDelegate {}
+            }
         }
-    }
 
-    Rectangle {
-        id: hardcodedContainer
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: zeroConfContainer.bottom
-        anchors.bottom: parent.bottom
-
-        Text {
-            id: hardcodedLabel
-            text: qsTr("Hardcoded agents:")
-            anchors.top: parent.top
-            font.pixelSize: 12
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-
-        ListView {
-            id: hardcodedList
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: hardcodedLabel.bottom
-            anchors.bottom: parent.bottom
-
-            objectName: "hardcodedActiveAgents"
-
-            delegate: AgentDelegate {}
-        }
     }
 }
 
