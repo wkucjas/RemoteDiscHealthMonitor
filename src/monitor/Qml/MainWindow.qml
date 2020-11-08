@@ -5,7 +5,7 @@ import QtQuick.Controls 2.15
 
 Item {
     id: mainView
-    width: 200
+    width: 250
     height: 420
 
     ColumnLayout {
@@ -35,7 +35,71 @@ Item {
             id: button
             text: qsTr("Add agent...")
         }
+
+        GridLayout {
+            id: grid
+
+            Layout.fillHeight: true
+            Layout.fillWidth: false
+
+            Layout.margins: 5
+            columns: 2
+
+            Text {
+                text: qsTr("Name:")
+                font.pixelSize: 12
+            }
+
+            TextField {
+                id: nameInput
+
+                font.pixelSize: 12
+                selectByMouse: true
+            }
+
+            Text {
+                text: qsTr("IP:")
+                font.pixelSize: 12
+            }
+
+            TextField {
+                id: ipInput
+
+                validator: RegularExpressionValidator { regularExpression: /([0-9]{1,3}\.){3}[0-9]{1,3}/ }
+                font.pixelSize: 12
+                selectByMouse: true
+            }
+
+            Text {
+                text: qsTr("Port:")
+                font.pixelSize: 12
+            }
+
+            TextField {
+                id: portInput
+
+                validator: IntValidator { top: 65535; bottom: 0; }
+                font.pixelSize: 12
+                selectByMouse: true
+            }
+        }
     }
+    states: [
+        State {
+            name: "NormalState"
+
+            PropertyChanges {
+                target: grid
+                visible: false
+            }
+        },
+        State {
+            name: "AddingAgentState"
+
+            PropertyChanges {
+                target: button
+                text: qsTr("Cancel")
+            }
+        }
+    ]
 }
-
-
