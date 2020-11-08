@@ -9,56 +9,21 @@ Item {
         id: column
         anchors.fill: parent
 
-        ColumnLayout {
-            id: zeroConfContainer
+        AgentsView {
+            objectName: "activeAgents"
 
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            Text {
-                id: zeroConfLabel
-                Layout.alignment: Qt.AlignHCenter
-                Layout.fillWidth: false
-
-                text: qsTr("Discovered agents:")
-                font.pixelSize: 12
-            }
-
-            ListView {
-                id: zeroConfList
-                objectName: "activeAgents"
-
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-
-                delegate: AgentDelegate {}
-            }
+            label: qsTr("Discovered agents:")
         }
 
-        ColumnLayout {
-            id: hardcodedContainer
+        AgentsView {
 
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            Text {
-                id: hardcodedLabel
-
-                Layout.alignment: Qt.AlignHCenter
-
-                text: qsTr("Hardcoded agents:")
-                font.pixelSize: 12
-            }
-
-            ListView {
-                id: hardcodedList
-                objectName: "hardcodedActiveAgents"
-
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-
-                delegate: AgentDelegate {}
-            }
+            label: qsTr("Hardcoded agents:")
         }
     }
 }
