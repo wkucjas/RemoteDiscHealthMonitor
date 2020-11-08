@@ -19,8 +19,6 @@ Item {
             delegate: AgentDelegate {}
         }
     }
-
-
 }
 
 /*##^##
