@@ -2,6 +2,7 @@
 <RCC>
     <qresource prefix="/ui">
         <file>AgentDelegate.qml</file>
+        <file>AgentsView.qml</file>
         <file>MainWindow.qml</file>
     </qresource>
 </RCC>
