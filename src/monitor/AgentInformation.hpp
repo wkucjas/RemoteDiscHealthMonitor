@@ -14,6 +14,11 @@ public:
 
     bool operator==(const AgentInformation &) const;
 
+    enum class DetectionSource {
+        ZeroConf,
+        Hardcoded,
+    };
+
 private:
     friend uint qHash(const AgentInformation &, uint);
 
