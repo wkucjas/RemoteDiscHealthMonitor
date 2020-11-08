@@ -60,7 +60,6 @@ Item {
                 delegate: AgentDelegate {}
             }
         }
-
     }
 }
 
