@@ -88,15 +88,14 @@ Item {
             }
         }
     }
+
     states: [
         State {
             name: "NormalState"
 
             PropertyChanges {
                 target: grid
-                height: 0
                 visible: false
-                Layout.fillHeight: false
             }
         },
         State {
