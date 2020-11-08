@@ -8,6 +8,8 @@ Item {
     width: 250
     height: 420
 
+    state: "NormalState"
+
     ColumnLayout {
         id: column
         anchors.fill: parent
@@ -34,6 +36,8 @@ Item {
         Button {
             id: button
             text: qsTr("Add agent...")
+
+            onClicked: mainView.state = mainView.state === "NormalState"? "AddingAgentState": "NormalState"
         }
 
         GridLayout {
@@ -90,7 +94,9 @@ Item {
 
             PropertyChanges {
                 target: grid
+                height: 0
                 visible: false
+                Layout.fillHeight: false
             }
         },
         State {
@@ -103,3 +109,5 @@ Item {
         }
     ]
 }
+
+
