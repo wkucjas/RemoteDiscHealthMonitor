@@ -9,7 +9,7 @@ ADD_EXECUTABLE( agent
 				SmartReader.h
                 Server.h
                 Server.cpp
-                 "windows/CMDCommunication.h" "windows/CMDCommunication.cpp")
+                )
 
 target_include_directories(agent
     PRIVATE
@@ -36,6 +36,8 @@ if(WIN32)
             windows/WindowsSmartReader.cpp
             windows/WMICommunication.h
             windows/WMICommunication.cpp
+            windows/CMDCommunication.h
+            windows/CMDCommunication.cpp
     )
 
     target_link_libraries(agent
