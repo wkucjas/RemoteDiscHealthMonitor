@@ -1,6 +1,7 @@
 #include "CMDCommunication.h"
 #include <fstream>
 #include <iostream>
+#include <QProcess>
 
 GeneralHealth CMDCommunication::CollectDiskStatus()
 {
@@ -26,18 +27,12 @@ GeneralHealth CMDCommunication::CollectDiskStatus()
 
 std::string CMDCommunication::ExecuteDiscStatusCommand() const
 {
-    std::string command = "wmic diskdrive get status";
-    std::string fileName = "dh.txt";
-    system((command + " > " + fileName).c_str());
+    QProcess proc;
+    proc.start("wmic diskdrive get status");
+    proc.waitForFinished();
+    QString output = proc.readAllStandardOutput();
 
-    std::ifstream ifs(fileName);
-    std::string ret((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
-
-    ifs.close();
-    if (std::remove(fileName.c_str()) != 0) {
-        std::cout << "Error deleting temporary file" << std::endl;
-    }
-
+    std::string ret = output.toStdString();
     std::string::iterator retEnd = ret.end();
     for (auto i = ret.begin(); i < retEnd; ++i)
     {
