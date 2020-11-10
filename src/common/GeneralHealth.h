@@ -1,12 +1,16 @@
 #pragma once
+
 #include <QObject>
 
-class GeneralHealth: public QObject
+
+
+class GeneralHealth : public QObject
 {
     Q_OBJECT
 
 public:
-    enum Health : quint8
+
+    enum  Health : quint8
     {
         UNKNOWN = 0,
         GOOD,
@@ -14,18 +18,20 @@ public:
         CHECK_STATUS
     };
 
+    GeneralHealth();
+    GeneralHealth(GeneralHealth& _health);
+    GeneralHealth operator=(GeneralHealth& _health);
+    
+
+
     Q_ENUMS(Health)
 
-    uint8_t GetStatus()
-    {
-        return m_status;
-    }
+    Health GetStatus() const;
 
-    void SetStatus(Health _health)
-    {
-        m_status = _health;
-    }
+    void SetStatus(Health _health);
+
+
 
 private:
-    uint8_t m_status;
+    Health m_status;
 };

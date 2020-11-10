@@ -6,6 +6,7 @@
 #include "common/SmartData.h"
 
 
+
 class WMICommunication
 {
 
@@ -18,11 +19,11 @@ public:
 	const SmartData& GetSMARTData() const;
 
 private:
-
 	IWbemLocator* m_initialLocatorToWMI;
 	IWbemServices* m_services;
 	IEnumWbemClassObject* m_pEnumerator;
 	SmartData m_smartData;
-	void FeedSmartDataStructure(const std::vector<BYTE>& data, const LONG& dataSize);
-		
+
+	void FeedSmartDataStructure(const std::vector<BYTE>& _data, const LONG& _dataSize);
+	
 };

@@ -207,20 +207,20 @@ const SmartData& WMICommunication::GetSMARTData() const
     return m_smartData;
 }
 
-void WMICommunication::FeedSmartDataStructure(const std::vector<BYTE>& data, const LONG& dataSize)
+void WMICommunication::FeedSmartDataStructure(const std::vector<BYTE>& _data, const LONG& _dataSize)
 {
 
-    for (int i = 0; data.size() > i; i += 12)
+    for (int i = 0; _data.size() > i; i += 12)
     {
-        if (data.size() >= (i + 12))
+        if (_data.size() >= (i + 12))
         {
             SmartData::AttrData attrData;
-            attrData.status = data.at(i + 3);
-            attrData.value = data.at(i + 5);
-            attrData.worst = data.at(i + 6);
-            attrData.rawVal = data.at(i + 7);
-            attrData.rawVal2 = data.at(i + 8);
-            m_smartData.smartData.insert(std::pair<unsigned char, SmartData::AttrData>(data.at(i + 2), attrData));
+            attrData.status = _data.at(i + 3);
+            attrData.value = _data.at(i + 5);
+            attrData.worst = _data.at(i + 6);
+            attrData.rawVal = _data.at(i + 7);
+            attrData.rawVal2 = _data.at(i + 8);
+            m_smartData.smartData.insert(std::pair<unsigned char, SmartData::AttrData>(_data.at(i + 2), attrData));
         }
         
     }

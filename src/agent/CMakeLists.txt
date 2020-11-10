@@ -3,8 +3,8 @@ find_package(Qt5 5.15 REQUIRED COMPONENTS Core Network)
 
 ADD_EXECUTABLE( agent
 				main.cpp
-				HealthChecker.h
-				HealthChecker.cpp
+				
+				
 				ISmartReader.h
 				SmartReader.h
                 Server.h
@@ -36,6 +36,8 @@ if(WIN32)
             windows/WindowsSmartReader.cpp
             windows/WMICommunication.h
             windows/WMICommunication.cpp
+            windows/CMDCommunication.h
+            windows/CMDCommunication.cpp
     )
 
     target_link_libraries(agent
