@@ -9,15 +9,15 @@ GeneralHealth CMDCommunication::CollectDiskStatus()
 
     m_generalHealth.SetStatus(GeneralHealth::Health::UNKNOWN);
 
-    if (commandResult == "OK")
+    if (commandResult == "StatusOK")
     {
         m_generalHealth.SetStatus(GeneralHealth::Health::GOOD);
     }
-    else if (commandResult == "Degraded")
+    else if (commandResult == "StatusDegraded")
     {
         m_generalHealth.SetStatus(GeneralHealth::Health::CHECK_STATUS);
     }
-    else if (commandResult == "Pred Fail")
+    else if (commandResult == "StatusPredFail")
     {
         m_generalHealth.SetStatus(GeneralHealth::Health::BAD);
     }
@@ -33,22 +33,11 @@ std::string CMDCommunication::ExecuteDiscStatusCommand() const
     QString output = proc.readAllStandardOutput();
 
     std::string ret = output.toStdString();
-    std::string::iterator retEnd = ret.end();
-    for (auto i = ret.begin(); i < retEnd; ++i)
-    {
-        if (*i == '\0' || *i == '\n' || *i == '\r' || *i == ' ')
-        {
-            ret.erase(i);
+    
+    ret.erase(std::remove_if(ret.begin(), 
+        ret.end(),
+        [](unsigned char x){ return std::isspace(x);}),
+        ret.end());
 
-            if (i > ret.begin())
-            {
-                --i;
-            }
-            --retEnd;
-        }
-    }
-
-    std::string response = (ret.substr(ret.find("Status") + 6));
-
-    return response;
+    return ret;
 }
