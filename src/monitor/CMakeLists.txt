@@ -18,6 +18,8 @@ add_executable(monitor
     AgentStatusFetcher.hpp
     IAgentsStatusProvider.hpp
     main.cpp
+    ManualAgentsValidator.cpp
+    ManualAgentsValidator.hpp
     ${QML_RESOURCES}
 )
 
