@@ -1,8 +1,10 @@
 
-#ifndef MANUALAGENTSVALIDATOR_H
-#define MANUALAGENTSVALIDATOR_H
+#ifndef MANUALAGENTSVALIDATOR_HPP
+#define MANUALAGENTSVALIDATOR_HPP
 
-#include <qobject.h>
+#include <QObject>
+
+#include "AgentInformation.hpp"
 
 
 class ManualAgentsValidator : public QObject
@@ -13,6 +15,9 @@ class ManualAgentsValidator : public QObject
 
     public slots:
         void addNewAgent(const QString& name, const QString& ip, const QString& port);
+
+    signals:
+        void agentDiscovered(const AgentInformation &);
 };
 
-#endif // MANUALAGENTSVALIDATOR_H
+#endif

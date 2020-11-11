@@ -1,6 +1,5 @@
 
 #include "ManualAgentsValidator.hpp"
-#include "AgentInformation.hpp"
 
 
 void ManualAgentsValidator::addNewAgent(const QString& name, const QString& ip, const QString& port)
@@ -15,7 +14,8 @@ void ManualAgentsValidator::addNewAgent(const QString& name, const QString& ip, 
 
     if (ipValid && portNum >= 0 && portNum <= 65535)
     {
-        AgentInformation info(name, ip, portNum, AgentInformation::DetectionSource::Hardcoded);
+        const AgentInformation info(name, ip, portNum, AgentInformation::DetectionSource::Hardcoded);
 
+        emit agentDiscovered(info);
     }
 }
