@@ -18,22 +18,13 @@ Item {
         anchors.fill: parent
 
         AgentsView {
-            id: discoveredAgentsView
+            id: agentsView
             objectName: "activeAgents"
 
             Layout.fillWidth: true
             Layout.fillHeight: true
 
-            label: qsTr("Discovered agents:")
-        }
-
-        AgentsView {
-            id: hardcodedAgentsView
-
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-
-            label: qsTr("Hardcoded agents:")
+            label: qsTr("Agents:")
         }
 
         Button {
