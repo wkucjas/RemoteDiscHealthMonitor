@@ -5,8 +5,11 @@ import QtQuick.Controls 2.15
 
 Item {
     id: mainView
+
     width: 250
     height: 420
+
+    signal newAgentRequested(string name, string ip, string port)
 
     state: "NormalState"
 
@@ -96,6 +99,8 @@ Item {
                 id: addNew
                 text: qsTr("Add")
                 Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+
+                onClicked: mainView.newAgentRequested(nameInput.text, ipInput.text, portInput.text)
             }
         }
     }
