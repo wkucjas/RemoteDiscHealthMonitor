@@ -86,6 +86,17 @@ Item {
                 font.pixelSize: 12
                 selectByMouse: true
             }
+
+            Item {
+                width: 10
+                height: 10
+            }
+
+            Button {
+                id: addNew
+                text: qsTr("Add")
+                Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+            }
         }
     }
 
