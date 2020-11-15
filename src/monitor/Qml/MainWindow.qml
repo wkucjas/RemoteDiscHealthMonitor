@@ -1,52 +1,117 @@
 
 import QtQuick 2.15
-import RDHM 1.0
+import QtQuick.Layouts 1.15
+import QtQuick.Controls 2.15
 
 Item {
-    ListView {
-        id: listView
-        objectName: "activeAgents"
+    id: mainView
 
+    width: 250
+    height: 420
+
+    signal newAgentRequested(string name, string ip, string port)
+
+    state: "NormalState"
+
+    ColumnLayout {
+        id: column
         anchors.fill: parent
 
-        delegate: Item {
-            width: ListView.view.width
-            height: childrenRect.height
+        AgentsView {
+            id: agentsView
+            objectName: "activeAgents"
 
-            Rectangle {
-                id: statusIndicator
-                width: 20
-                height: 20
+            Layout.fillWidth: true
+            Layout.fillHeight: true
 
-                anchors.top: parent.top
-                anchors.left: parent.left
-                anchors.margins: 5
+            label: qsTr("Agents:")
+        }
 
-                radius: 10
-                color: {
-                    switch(agentHealth) {
-                        case HealthEnum.UNKNOWN: return "blue";
-                        case HealthEnum.GOOD: return "green";
-                        case HealthEnum.BAD: return "red";
-                        case HealthEnum.CHECK_STATUS: return "orange";
-                        default: return "silver";
-                    }
-                }
+        Button {
+            id: button
+            text: qsTr("Add agent...")
+
+            onClicked: mainView.state = mainView.state === "NormalState"? "AddingAgentState": "NormalState"
+        }
+
+        GridLayout {
+            id: grid
+
+            Layout.fillHeight: true
+            Layout.fillWidth: false
+
+            Layout.margins: 5
+            columns: 2
+
+            Text {
+                text: qsTr("Name:")
+                font.pixelSize: 12
+            }
+
+            TextField {
+                id: nameInput
+
+                font.pixelSize: 12
+                selectByMouse: true
             }
 
             Text {
-                text: agentName
+                text: qsTr("IP:")
+                font.pixelSize: 12
+            }
 
-                anchors.left: statusIndicator.right
-                anchors.verticalCenter: statusIndicator.verticalCenter
-                anchors.margins: 5
+            TextField {
+                id: ipInput
+
+                validator: RegularExpressionValidator { regularExpression: /([0-9]{1,3}\.){3}[0-9]{1,3}/ }
+                font.pixelSize: 12
+                selectByMouse: true
+            }
+
+            Text {
+                text: qsTr("Port:")
+                font.pixelSize: 12
+            }
+
+            TextField {
+                id: portInput
+
+                validator: IntValidator { top: 65535; bottom: 0; }
+                font.pixelSize: 12
+                selectByMouse: true
+            }
+
+            Item {
+                width: 10
+                height: 10
+            }
+
+            Button {
+                id: addNew
+                text: qsTr("Add")
+                Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
+
+                onClicked: mainView.newAgentRequested(nameInput.text, ipInput.text, portInput.text)
             }
         }
     }
-}
 
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:1}
+    states: [
+        State {
+            name: "NormalState"
+
+            PropertyChanges {
+                target: grid
+                visible: false
+            }
+        },
+        State {
+            name: "AddingAgentState"
+
+            PropertyChanges {
+                target: button
+                text: qsTr("Cancel")
+            }
+        }
+    ]
 }
-##^##*/

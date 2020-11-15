@@ -10,10 +10,11 @@ uint qHash(const AgentInformation& info, uint seed)
 }
 
 
-AgentInformation::AgentInformation(const QString& name, const QString& host, quint16 port)
+AgentInformation::AgentInformation(const QString& name, const QString& host, quint16 port, DetectionSource ds)
     : m_name(name)
     , m_host(host)
     , m_port(port)
+    , m_detectionSource(ds)
 {
 
 }
