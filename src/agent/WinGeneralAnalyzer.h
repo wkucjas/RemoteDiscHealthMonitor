@@ -1,7 +1,7 @@
 #pragma once
 #include "IProbe.h"
 
-class GeneralAnalyzer : public IProbe
+class WinGeneralAnalyzer : public IProbe
 {
 public:
     HealthStatus GetStatus();

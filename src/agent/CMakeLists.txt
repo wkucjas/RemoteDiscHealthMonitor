@@ -8,8 +8,8 @@ ADD_EXECUTABLE( agent
 				SmartReader.h
                 Server.h
                 Server.cpp
-                GeneralAnalyzer.h
-                GeneralAnalyzer.cpp
+                WinGeneralAnalyzer.h
+                WinGeneralAnalyzer.cpp
                 )
 
 target_include_directories(agent
