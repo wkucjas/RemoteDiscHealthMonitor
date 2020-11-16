@@ -4,6 +4,14 @@
 class IProbe
 {
 public:
-    virtual bool GetStatus() = 0;
+    enum class HealthStatus
+    {
+        UNKNOWN = 0,
+        GOOD,
+        BAD,
+        CHECK_STATUS
+    };
+
+    virtual HealthStatus GetStatus() = 0;
     virtual std::string GetRawData() = 0;
 };
