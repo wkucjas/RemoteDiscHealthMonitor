@@ -1,9 +1,9 @@
 #pragma once
-#include "IProbe.h"
+#include "../IProbe.h"
 
 class WinGeneralAnalyzer : public IProbe
 {
 public:
     HealthStatus GetStatus();
-    std::string GetRawData();
+    RawDataCollection GetRawData();
 };

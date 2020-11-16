@@ -8,8 +8,6 @@ ADD_EXECUTABLE( agent
 				SmartReader.h
                 Server.h
                 Server.cpp
-                WinGeneralAnalyzer.h
-                WinGeneralAnalyzer.cpp
                 )
 
 target_include_directories(agent
@@ -34,6 +32,10 @@ if(WIN32)
 
     target_sources(agent
         PRIVATE
+            windows/WinGeneralAnalyzer.h
+            windows/WinGeneralAnalyzer.cpp
+            windows/WinSmartAnalyzer.h
+            windows/WinSmartAnalyzer.cpp
             windows/WindowsSmartReader.cpp
             windows/WMICommunication.h
             windows/WMICommunication.cpp

@@ -1,5 +1,5 @@
 #include "WinGeneralAnalyzer.h"
-#include "windows/CMDCommunication.h"
+#include "CMDCommunication.h"
 
 
 WinGeneralAnalyzer::HealthStatus WinGeneralAnalyzer::GetStatus()
@@ -11,7 +11,7 @@ WinGeneralAnalyzer::HealthStatus WinGeneralAnalyzer::GetStatus()
     return static_cast<HealthStatus>(res.GetStatus());
 }
 
-std::string WinGeneralAnalyzer::GetRawData()
+WinGeneralAnalyzer::RawDataCollection WinGeneralAnalyzer::GetRawData()
 {
-    return std::string();
+    return RawDataCollection();
 }
