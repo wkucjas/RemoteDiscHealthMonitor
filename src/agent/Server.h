@@ -16,5 +16,5 @@ private:
 
     GeneralHealth m_health;
 
-   QTcpServer m_tcpServer;
+    QTcpServer m_tcpServer;
 };

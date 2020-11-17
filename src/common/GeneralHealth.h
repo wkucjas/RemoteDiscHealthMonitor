@@ -3,14 +3,12 @@
 #include <QObject>
 
 
-
 class GeneralHealth : public QObject
 {
     Q_OBJECT
 
 public:
-
-    enum  Health : quint8
+    enum Health : quint8
     {
         UNKNOWN = 0,
         GOOD,
@@ -18,20 +16,17 @@ public:
         CHECK_STATUS
     };
 
-    GeneralHealth();
-    GeneralHealth(GeneralHealth& _health);
-    GeneralHealth operator=(GeneralHealth& _health);
-    
-
-
     Q_ENUMS(Health)
+
+    GeneralHealth();
+    GeneralHealth(const Health& _health);
+    GeneralHealth(const GeneralHealth& _health);
+    GeneralHealth& operator=(const GeneralHealth& _health);
 
     Health GetStatus() const;
 
     void SetStatus(Health _health);
 
-
-
 private:
-    Health m_status;
+    Health m_health;
 };
