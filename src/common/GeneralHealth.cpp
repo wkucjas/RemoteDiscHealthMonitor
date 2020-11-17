@@ -1,26 +1,44 @@
 #include "GeneralHealth.h"
 
 GeneralHealth::GeneralHealth()
+    : QObject()
+    , m_health(UNKNOWN)
+{
+
+}
+
+
+GeneralHealth::GeneralHealth(const GeneralHealth::Health& _health)
+    : QObject()
+    , m_health(_health)
 {
 }
 
-GeneralHealth::GeneralHealth(GeneralHealth& _health)
+
+
+GeneralHealth::GeneralHealth(const GeneralHealth& _health)
+    : QObject()
+    , m_health(_health.m_health)
 {
-    m_status = _health.m_status;
+
 }
 
-GeneralHealth GeneralHealth::operator=(GeneralHealth& _health)
+
+GeneralHealth& GeneralHealth::operator=(const GeneralHealth& _health)
 {
-    m_status = _health.m_status;
+    m_health = _health.m_health;
+
     return *this;
 }
 
+
 GeneralHealth::Health GeneralHealth::GetStatus() const
 {
-    return m_status;
+    return m_health;
 }
+
 
 void GeneralHealth::SetStatus(GeneralHealth::Health _health)
 {
-    m_status = _health;
+    m_health = _health;
 }
