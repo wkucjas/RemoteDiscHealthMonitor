@@ -13,6 +13,7 @@ class Configuration final
         ~Configuration();
 
         void storeAgents(const QVector<AgentInformation> &);
+        QVector<AgentInformation> readAgents();
 
     private:
         QSettings m_settings;
