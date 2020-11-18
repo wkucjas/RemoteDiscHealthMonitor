@@ -1,8 +1,8 @@
 #include "SmartAnalyzer.h"
 
-WinSmartAnalyzer::HealthStatus WinSmartAnalyzer::GetStatus()
+Health WinSmartAnalyzer::GetStatus()
 {
-    return HealthStatus();
+    return Health();
 }
 
 std::string WinSmartAnalyzer::GetRawData()

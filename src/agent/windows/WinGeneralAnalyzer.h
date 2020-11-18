@@ -4,6 +4,6 @@
 class WinGeneralAnalyzer : public IProbe
 {
 public:
-    HealthStatus GetStatus();
+    Health GetStatus();
     std::string GetRawData();
 };

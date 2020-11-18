@@ -1,4 +1,5 @@
 #pragma once
+#include <QtGlobal>
 
 enum Health : quint8
 {
