@@ -7,7 +7,8 @@ add_library(common OBJECT
     ProtocolVersion.h
     SmartData.cpp
     SmartData.h
-    GeneralHealth.cpp)
+    GeneralHealth.cpp 
+    Health.h)
 
 target_include_directories(common
     PUBLIC ${PROJECT_SOURCE_DIR}/src

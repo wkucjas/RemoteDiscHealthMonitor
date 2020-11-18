@@ -7,7 +7,7 @@ void AgentsStatusProvider::fetchStatusOf(const AgentInformation& info, const IAg
 {
     AgentStatusFetcher* statusProvider = new AgentStatusFetcher(info);
 
-    QObject::connect(statusProvider, &AgentStatusFetcher::statusAvailable, [info, callback, statusProvider](const GeneralHealth::Health& health) {
+    QObject::connect(statusProvider, &AgentStatusFetcher::statusAvailable, [info, callback, statusProvider](const Health& health) {
         callback(info, health);
         statusProvider->deleteLater();
     });

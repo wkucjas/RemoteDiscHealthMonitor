@@ -73,7 +73,7 @@ QVariant ActiveAgentsList::data(const QModelIndex& index, int role) const
         {
             auto it = m_health.find(m_agents[row]);
 
-            result = it == m_health.end()? GeneralHealth::UNKNOWN: it.value();
+            result = it == m_health.end()? Health::UNKNOWN: it.value();
         }
     }
 
@@ -91,7 +91,7 @@ QHash<int, QByteArray> ActiveAgentsList::roleNames() const
 }
 
 
-void ActiveAgentsList::updateAgentHealth(const AgentInformation& info, const GeneralHealth::Health& health)
+void ActiveAgentsList::updateAgentHealth(const AgentInformation& info, const Health& health)
 {
     auto it = std::find(m_agents.begin(), m_agents.end(), info);
 
