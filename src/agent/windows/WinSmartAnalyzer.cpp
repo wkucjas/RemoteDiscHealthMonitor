@@ -5,7 +5,7 @@ WinSmartAnalyzer::HealthStatus WinSmartAnalyzer::GetStatus()
     return HealthStatus();
 }
 
-WinSmartAnalyzer::RawDataCollection WinSmartAnalyzer::GetRawData()
+std::string WinSmartAnalyzer::GetRawData()
 {
-    return RawDataCollection();
+    return std::string();
 }

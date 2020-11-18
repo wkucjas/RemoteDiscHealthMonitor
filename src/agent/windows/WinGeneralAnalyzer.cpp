@@ -11,7 +11,7 @@ WinGeneralAnalyzer::HealthStatus WinGeneralAnalyzer::GetStatus()
     return static_cast<HealthStatus>(res.GetStatus());
 }
 
-WinGeneralAnalyzer::RawDataCollection WinGeneralAnalyzer::GetRawData()
+std::string WinGeneralAnalyzer::GetRawData()
 {
-    return RawDataCollection();
+    return std::string();
 }
