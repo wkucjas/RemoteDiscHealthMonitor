@@ -38,6 +38,12 @@ quint16 AgentInformation::port() const
 }
 
 
+AgentInformation::DetectionSource AgentInformation::detectionSource() const
+{
+    return m_detectionSource;
+}
+
+
 bool AgentInformation::operator==(const AgentInformation& other) const
 {
     return std::tie(m_port, m_host, m_name) == std::tie(other.m_port, other.m_host, other.m_name);
