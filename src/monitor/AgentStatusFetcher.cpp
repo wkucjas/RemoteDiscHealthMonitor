@@ -31,7 +31,7 @@ void AgentStatusFetcher::readStatus()
 
     m_inputStream.startTransaction();
 
-    GeneralHealth::Health health;
+    Health health;
     m_inputStream >> health;
 
     if (m_inputStream.commitTransaction())

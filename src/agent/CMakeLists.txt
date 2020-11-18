@@ -3,12 +3,13 @@ find_package(Qt5 5.15 REQUIRED COMPONENTS Core Network)
 
 ADD_EXECUTABLE( agent
 				main.cpp
-				
-				
+				IProbe.h
 				ISmartReader.h
 				SmartReader.h
                 Server.h
                 Server.cpp
+                SmartAnalyzer.h
+                SmartAnalyzer.cpp
                 )
 
 target_include_directories(agent
@@ -33,6 +34,8 @@ if(WIN32)
 
     target_sources(agent
         PRIVATE
+            windows/WinGeneralAnalyzer.h
+            windows/WinGeneralAnalyzer.cpp
             windows/WindowsSmartReader.cpp
             windows/WMICommunication.h
             windows/WMICommunication.cpp

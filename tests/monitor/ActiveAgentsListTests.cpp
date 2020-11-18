@@ -232,8 +232,8 @@ TEST(ActiveAgentsListTest, healthUpdatesAfterFetch)
     AgentInformation info1("John Connor", "192.168.1.15", 1998, AgentInformation::DetectionSource::Hardcoded);
     AgentInformation info2("T-1000", "192.168.1.16", 1998, AgentInformation::DetectionSource::Hardcoded);
 
-    EXPECT_CALL(statusProvider, fetchStatusOf(info1, _)).WillOnce(InvokeArgument<1>(info1, GeneralHealth::GOOD));
-    EXPECT_CALL(statusProvider, fetchStatusOf(info2, _)).WillOnce(InvokeArgument<1>(info2, GeneralHealth::BAD));
+    EXPECT_CALL(statusProvider, fetchStatusOf(info1, _)).WillOnce(InvokeArgument<1>(info1, Health::GOOD));
+    EXPECT_CALL(statusProvider, fetchStatusOf(info2, _)).WillOnce(InvokeArgument<1>(info2, Health::BAD));
 
     aal.addAgent(info1);
     aal.addAgent(info2);
@@ -241,6 +241,6 @@ TEST(ActiveAgentsListTest, healthUpdatesAfterFetch)
     const QModelIndex idx1 = aal.index(0, 0);
     const QModelIndex idx2 = aal.index(1, 0);
 
-    EXPECT_EQ(idx1.data(ActiveAgentsList::AgentHealthRole), GeneralHealth::Health::GOOD);
-    EXPECT_EQ(idx2.data(ActiveAgentsList::AgentHealthRole), GeneralHealth::Health::BAD);
+    EXPECT_EQ(idx1.data(ActiveAgentsList::AgentHealthRole), Health::GOOD);
+    EXPECT_EQ(idx2.data(ActiveAgentsList::AgentHealthRole), Health::BAD);
 }
