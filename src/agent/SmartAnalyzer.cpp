@@ -1,4 +1,4 @@
-#include "WinSmartAnalyzer.h"
+#include "SmartAnalyzer.h"
 
 WinSmartAnalyzer::HealthStatus WinSmartAnalyzer::GetStatus()
 {

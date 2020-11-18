@@ -1,5 +1,5 @@
 #pragma once
-#include "../IProbe.h"
+#include "IProbe.h"
 
 class WinSmartAnalyzer : public IProbe
 {

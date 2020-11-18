@@ -7,19 +7,19 @@ GeneralHealth CMDCommunication::CollectDiskStatus()
 {
     const std::string commandResult = ExecuteDiscStatusCommand();
 
-    m_generalHealth.SetStatus(GeneralHealth::Health::UNKNOWN);
+    m_generalHealth.SetStatus(Health::UNKNOWN);
 
     if (commandResult == "StatusOK")
     {
-        m_generalHealth.SetStatus(GeneralHealth::Health::GOOD);
+        m_generalHealth.SetStatus(Health::GOOD);
     }
     else if (commandResult == "StatusDegraded")
     {
-        m_generalHealth.SetStatus(GeneralHealth::Health::CHECK_STATUS);
+        m_generalHealth.SetStatus(Health::CHECK_STATUS);
     }
     else if (commandResult == "StatusPredFail")
     {
-        m_generalHealth.SetStatus(GeneralHealth::Health::BAD);
+        m_generalHealth.SetStatus(Health::BAD);
     }
 
     return m_generalHealth;
