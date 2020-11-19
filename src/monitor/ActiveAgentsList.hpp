@@ -10,10 +10,10 @@
 #include "IAgentsStatusProvider.hpp"
 
 
-class ActiveAgentsList: public QAbstractListModel
+class AgentsList: public QAbstractListModel
 {
 public:
-    ActiveAgentsList(IAgentsStatusProvider &, QObject* parent = nullptr);
+    AgentsList(IAgentsStatusProvider &, QObject* parent = nullptr);
 
     void addAgent(const AgentInformation &);
     void removeAgent(const AgentInformation &);

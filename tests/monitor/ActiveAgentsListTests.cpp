@@ -14,16 +14,16 @@ using testing::NiceMock;
 using testing::UnorderedElementsAre;
 
 
-TEST(ActiveAgentsListTest, isConstructible)
+TEST(AgentsListTest, isConstructible)
 {
-    EXPECT_TRUE( (std::is_constructible_v<ActiveAgentsList, IAgentsStatusProvider&, QObject *>) );
+    EXPECT_TRUE( (std::is_constructible_v<AgentsList, IAgentsStatusProvider&, QObject *>) );
 }
 
 
-TEST(ActiveAgentsListTest, savesNewAgentInfo)
+TEST(AgentsListTest, savesNewAgentInfo)
 {
     NiceMock<IAgentsStatusProviderMock> statusProvider;
-    ActiveAgentsList aal(statusProvider);
+    AgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300, AgentInformation::DetectionSource::Hardcoded);
     AgentInformation info2("Zbysiu", "192.168.1.45", 2301, AgentInformation::DetectionSource::Hardcoded);
@@ -35,10 +35,10 @@ TEST(ActiveAgentsListTest, savesNewAgentInfo)
 }
 
 
-TEST(ActiveAgentsListTest, noDuplicatesAllowed)
+TEST(AgentsListTest, noDuplicatesAllowed)
 {
     NiceMock<IAgentsStatusProviderMock> statusProvider;
-    ActiveAgentsList aal(statusProvider);
+    AgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300, AgentInformation::DetectionSource::Hardcoded);
     AgentInformation info2("Krzysiu", "192.168.1.12", 2300, AgentInformation::DetectionSource::Hardcoded);
@@ -50,10 +50,10 @@ TEST(ActiveAgentsListTest, noDuplicatesAllowed)
 }
 
 
-TEST(ActiveAgentsListTest, doubleAgentRemoveShouldBeSafe)
+TEST(AgentsListTest, doubleAgentRemoveShouldBeSafe)
 {
     NiceMock<IAgentsStatusProviderMock> statusProvider;
-    ActiveAgentsList aal(statusProvider);
+    AgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300, AgentInformation::DetectionSource::Hardcoded);
     AgentInformation info2("Zbysiu", "192.168.1.45", 2301, AgentInformation::DetectionSource::Hardcoded);
@@ -70,10 +70,10 @@ TEST(ActiveAgentsListTest, doubleAgentRemoveShouldBeSafe)
 }
 
 
-TEST(ActiveAgentsListTest, agentRemoval)
+TEST(AgentsListTest, agentRemoval)
 {
     NiceMock<IAgentsStatusProviderMock> statusProvider;
-    ActiveAgentsList aal(statusProvider);
+    AgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300, AgentInformation::DetectionSource::Hardcoded);
     AgentInformation info2("Zbysiu", "192.168.1.45", 2301, AgentInformation::DetectionSource::Hardcoded);
@@ -89,10 +89,10 @@ TEST(ActiveAgentsListTest, agentRemoval)
 }
 
 
-TEST(ActiveAgentsListTest, listofAvailableRoles)
+TEST(AgentsListTest, listofAvailableRoles)
 {
     NiceMock<IAgentsStatusProviderMock> statusProvider;
-    ActiveAgentsList aal(statusProvider);
+    AgentsList aal(statusProvider);
 
     QStringList listOfRoles;
 
@@ -104,10 +104,10 @@ TEST(ActiveAgentsListTest, listofAvailableRoles)
 }
 
 
-TEST(ActiveAgentsListTest, exposesAgentsToView)
+TEST(AgentsListTest, exposesAgentsToView)
 {
     NiceMock<IAgentsStatusProviderMock> statusProvider;
-    ActiveAgentsList aal(statusProvider);
+    AgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300, AgentInformation::DetectionSource::Hardcoded);
     AgentInformation info2("Zbysiu", "192.168.1.45", 2301, AgentInformation::DetectionSource::Hardcoded);
@@ -119,22 +119,22 @@ TEST(ActiveAgentsListTest, exposesAgentsToView)
     const auto idx2 = aal.index(1, 0);
 
     QStringList names;
-    names.append(idx1.data(ActiveAgentsList::AgentNameRole).toString());
-    names.append(idx2.data(ActiveAgentsList::AgentNameRole).toString());
+    names.append(idx1.data(AgentsList::AgentNameRole).toString());
+    names.append(idx2.data(AgentsList::AgentNameRole).toString());
 
     EXPECT_THAT(names, UnorderedElementsAre("Krzysiu", "Zbysiu"));
 }
 
 
-TEST(ActiveAgentsListTest, emitsSignalsWhenAgentsAdded)
+TEST(AgentsListTest, emitsSignalsWhenAgentsAdded)
 {
     NiceMock<IAgentsStatusProviderMock> statusProvider;
-    ActiveAgentsList aal(statusProvider);
+    AgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300, AgentInformation::DetectionSource::Hardcoded);
     AgentInformation info2("Zbysiu", "192.168.1.45", 2301, AgentInformation::DetectionSource::Hardcoded);
 
-    QSignalSpy newRowsSpy(&aal, &ActiveAgentsList::rowsInserted);
+    QSignalSpy newRowsSpy(&aal, &AgentsList::rowsInserted);
 
     aal.addAgent(info1);
     aal.addAgent(info2);
@@ -153,15 +153,15 @@ TEST(ActiveAgentsListTest, emitsSignalsWhenAgentsAdded)
 }
 
 
-TEST(ActiveAgentsListTest, emitsSignalsWhenAgentsRemoved)
+TEST(AgentsListTest, emitsSignalsWhenAgentsRemoved)
 {
     NiceMock<IAgentsStatusProviderMock> statusProvider;
-    ActiveAgentsList aal(statusProvider);
+    AgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300, AgentInformation::DetectionSource::Hardcoded);
     AgentInformation info2("Zbysiu", "192.168.1.45", 2301, AgentInformation::DetectionSource::Hardcoded);
 
-    QSignalSpy removedRowsSpy(&aal, &ActiveAgentsList::rowsRemoved);
+    QSignalSpy removedRowsSpy(&aal, &AgentsList::rowsRemoved);
 
     aal.addAgent(info1);
     aal.addAgent(info2);
@@ -183,10 +183,10 @@ TEST(ActiveAgentsListTest, emitsSignalsWhenAgentsRemoved)
 }
 
 
-TEST(ActiveAgentsListTest, itemsShouldBeChildless)
+TEST(AgentsListTest, itemsShouldBeChildless)
 {
     NiceMock<IAgentsStatusProviderMock> statusProvider;
-    ActiveAgentsList aal(statusProvider);
+    AgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300, AgentInformation::DetectionSource::Hardcoded);
     AgentInformation info2("Zbysiu", "192.168.1.45", 2301, AgentInformation::DetectionSource::Hardcoded);
@@ -202,11 +202,11 @@ TEST(ActiveAgentsListTest, itemsShouldBeChildless)
 }
 
 
-TEST(ActiveAgentsListTest, fetchHealthOfNewAgents)
+TEST(AgentsListTest, fetchHealthOfNewAgents)
 {
     IAgentsStatusProviderMock statusProvider;
 
-    ActiveAgentsList aal(statusProvider);
+    AgentsList aal(statusProvider);
 
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300, AgentInformation::DetectionSource::Hardcoded);
     AgentInformation info2("Zbysiu", "192.168.1.45", 2301, AgentInformation::DetectionSource::Hardcoded);
@@ -223,11 +223,11 @@ TEST(ActiveAgentsListTest, fetchHealthOfNewAgents)
 }
 
 
-TEST(ActiveAgentsListTest, healthUpdatesAfterFetch)
+TEST(AgentsListTest, healthUpdatesAfterFetch)
 {
     IAgentsStatusProviderMock statusProvider;
 
-    ActiveAgentsList aal(statusProvider);
+    AgentsList aal(statusProvider);
 
     AgentInformation info1("John Connor", "192.168.1.15", 1998, AgentInformation::DetectionSource::Hardcoded);
     AgentInformation info2("T-1000", "192.168.1.16", 1998, AgentInformation::DetectionSource::Hardcoded);
@@ -241,6 +241,6 @@ TEST(ActiveAgentsListTest, healthUpdatesAfterFetch)
     const QModelIndex idx1 = aal.index(0, 0);
     const QModelIndex idx2 = aal.index(1, 0);
 
-    EXPECT_EQ(idx1.data(ActiveAgentsList::AgentHealthRole), Health::GOOD);
-    EXPECT_EQ(idx2.data(ActiveAgentsList::AgentHealthRole), Health::BAD);
+    EXPECT_EQ(idx1.data(AgentsList::AgentHealthRole), Health::GOOD);
+    EXPECT_EQ(idx2.data(AgentsList::AgentHealthRole), Health::BAD);
 }

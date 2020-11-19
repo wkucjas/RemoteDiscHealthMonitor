@@ -15,7 +15,7 @@
 
 namespace
 {
-    void storeHardcodedAgents(Configuration& config, const ActiveAgentsList& agentsList)
+    void storeHardcodedAgents(Configuration& config, const AgentsList& agentsList)
     {
         const QVector<AgentInformation>& allAgents = agentsList.agents();
         QVector<AgentInformation> hardcodedAgents;
@@ -27,7 +27,7 @@ namespace
         config.storeAgents(hardcodedAgents);
     }
 
-    void restoreHardcodedAgents(Configuration& config, ActiveAgentsList& agentsList)
+    void restoreHardcodedAgents(Configuration& config, AgentsList& agentsList)
     {
         QVector<AgentInformation> hardcodedAgents = config.readAgents();
 
@@ -46,15 +46,15 @@ int main(int argc, char** argv)
     qmlRegisterType<GeneralHealth>("RDHM", 1, 0, "HealthEnum");
 
     AgentsStatusProvider statusProvider;
-    ActiveAgentsList activeAgents(statusProvider);
+    AgentsList activeAgents(statusProvider);
 
     ManualAgentsValidator manualAgentsValdiator;
     QObject::connect(&manualAgentsValdiator, &ManualAgentsValidator::agentDiscovered,
-                     &activeAgents, &ActiveAgentsList::addAgent);
+                     &activeAgents, &AgentsList::addAgent);
 
     AgentsExplorer agentsEnumerator;
-    QObject::connect(&agentsEnumerator, &AgentsExplorer::agentDiscovered, &activeAgents, &ActiveAgentsList::addAgent);
-    QObject::connect(&agentsEnumerator, &AgentsExplorer::agentLost, &activeAgents, &ActiveAgentsList::removeAgent);
+    QObject::connect(&agentsEnumerator, &AgentsExplorer::agentDiscovered, &activeAgents, &AgentsList::addAgent);
+    QObject::connect(&agentsEnumerator, &AgentsExplorer::agentLost, &activeAgents, &AgentsList::removeAgent);
 
     agentsEnumerator.startListening();
 

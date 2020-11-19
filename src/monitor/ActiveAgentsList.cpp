@@ -7,7 +7,7 @@
 using namespace std::placeholders;
 
 
-ActiveAgentsList::ActiveAgentsList(IAgentsStatusProvider& statusProvider, QObject* p)
+AgentsList::AgentsList(IAgentsStatusProvider& statusProvider, QObject* p)
     : QAbstractListModel(p)
     , m_statusProvider(statusProvider)
 {
@@ -15,7 +15,7 @@ ActiveAgentsList::ActiveAgentsList(IAgentsStatusProvider& statusProvider, QObjec
 }
 
 
-void ActiveAgentsList::addAgent(const AgentInformation& info)
+void AgentsList::addAgent(const AgentInformation& info)
 {
     auto it = std::find(m_agents.begin(), m_agents.end(), info);
 
@@ -26,12 +26,12 @@ void ActiveAgentsList::addAgent(const AgentInformation& info)
         m_agents.append(info);
         endInsertRows();
 
-        m_statusProvider.fetchStatusOf(info, std::bind(&ActiveAgentsList::updateAgentHealth, this, _1, _2));
+        m_statusProvider.fetchStatusOf(info, std::bind(&AgentsList::updateAgentHealth, this, _1, _2));
     }
 }
 
 
-void ActiveAgentsList::removeAgent(const AgentInformation& info)
+void AgentsList::removeAgent(const AgentInformation& info)
 {
     auto it = std::find(m_agents.begin(), m_agents.end(), info);
 
@@ -47,19 +47,19 @@ void ActiveAgentsList::removeAgent(const AgentInformation& info)
 }
 
 
-const QVector<AgentInformation> & ActiveAgentsList::agents() const
+const QVector<AgentInformation> & AgentsList::agents() const
 {
     return m_agents;
 }
 
 
-int ActiveAgentsList::rowCount(const QModelIndex& parent) const
+int AgentsList::rowCount(const QModelIndex& parent) const
 {
     return parent.isValid()? 0: m_agents.size();
 }
 
 
-QVariant ActiveAgentsList::data(const QModelIndex& index, int role) const
+QVariant AgentsList::data(const QModelIndex& index, int role) const
 {
     QVariant result;
 
@@ -81,7 +81,7 @@ QVariant ActiveAgentsList::data(const QModelIndex& index, int role) const
 }
 
 
-QHash<int, QByteArray> ActiveAgentsList::roleNames() const
+QHash<int, QByteArray> AgentsList::roleNames() const
 {
     auto existingRoles = QAbstractListModel::roleNames();
     existingRoles.insert(AgentNameRole, "agentName");
@@ -91,7 +91,7 @@ QHash<int, QByteArray> ActiveAgentsList::roleNames() const
 }
 
 
-void ActiveAgentsList::updateAgentHealth(const AgentInformation& info, const Health& health)
+void AgentsList::updateAgentHealth(const AgentInformation& info, const Health& health)
 {
     auto it = std::find(m_agents.begin(), m_agents.end(), info);
 
