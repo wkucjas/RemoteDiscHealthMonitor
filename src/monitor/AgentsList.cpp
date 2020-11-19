@@ -1,7 +1,7 @@
 
 #include <iterator>
 
-#include "ActiveAgentsList.hpp"
+#include "AgentsList.hpp"
 
 
 using namespace std::placeholders;

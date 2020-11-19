@@ -2,7 +2,7 @@
 #include <gmock/gmock.h>
 #include <QSignalSpy>
 
-#include "ActiveAgentsList.hpp"
+#include "AgentsList.hpp"
 #include "IAgentsStatusProviderMock.hpp"
 
 

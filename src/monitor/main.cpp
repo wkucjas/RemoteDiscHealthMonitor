@@ -4,7 +4,7 @@
 #include <QQuickItem>
 #include <QQuickView>
 
-#include "ActiveAgentsList.hpp"
+#include "AgentsList.hpp"
 #include "AgentsExplorer.hpp"
 #include "AgentsStatusProvider.hpp"
 #include "ManualAgentsValidator.hpp"

@@ -6,8 +6,8 @@ qt5_add_resources(QML_RESOURCES
 )
 
 add_executable(monitor
-    ActiveAgentsList.cpp
-    ActiveAgentsList.hpp
+    AgentsList.cpp
+    AgentsList.hpp
     AgentInformation.cpp
     AgentInformation.hpp
     AgentsExplorer.cpp
