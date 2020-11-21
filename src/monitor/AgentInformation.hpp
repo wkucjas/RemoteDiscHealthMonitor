@@ -16,6 +16,7 @@ public:
     const QString& name() const;
     const QString& host() const;
     quint16 port() const;
+    DetectionSource detectionSource() const;
 
     bool operator==(const AgentInformation &) const;
 

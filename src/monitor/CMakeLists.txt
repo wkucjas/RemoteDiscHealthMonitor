@@ -16,6 +16,8 @@ add_executable(monitor
     AgentsStatusProvider.hpp
     AgentStatusFetcher.cpp
     AgentStatusFetcher.hpp
+    Configuration.cpp
+    Configuration.hpp
     IAgentsStatusProvider.hpp
     main.cpp
     ManualAgentsValidator.cpp

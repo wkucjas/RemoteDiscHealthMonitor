@@ -10,5 +10,5 @@ std::string SmartReader::ReadSMARTData()
 
 GeneralHealth SmartReader::ReadDisksStatus()
 {
-    return GeneralHealth::UNKNOWN;
+    return Health::UNKNOWN;
 }
