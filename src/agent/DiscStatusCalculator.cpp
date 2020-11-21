@@ -1,6 +1,6 @@
 #include "DiscStatusCalculator.h"
 
-DiscStatusCalculator::DiscStatusCalculator(std::vector<IProbe>)
+DiscStatusCalculator::DiscStatusCalculator(std::vector<ProbePtr>& _discProbes) : m_discProbes(_discProbes)
 {
 }
 
