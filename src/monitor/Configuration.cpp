@@ -3,6 +3,7 @@
 
 #include "common/constants.hpp"
 #include "Configuration.hpp"
+#include <optional>
 
 
 namespace
