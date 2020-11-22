@@ -33,8 +33,8 @@ public:
 
 private:
     QVector<AgentInformation> m_agents;
-    QHash<AgentInformation, Health> m_health;
+    QHash<AgentInformation, GeneralHealth::Health> m_health;
     IAgentsStatusProvider& m_statusProvider;
 
-    void updateAgentHealth(const AgentInformation &, const Health &);
+    void updateAgentHealth(const AgentInformation &, const GeneralHealth::Health &);
 };

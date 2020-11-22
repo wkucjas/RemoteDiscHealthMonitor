@@ -73,7 +73,7 @@ QVariant AgentsList::data(const QModelIndex& index, int role) const
         {
             auto it = m_health.find(m_agents[row]);
 
-            result = it == m_health.end()? Health::UNKNOWN: it.value();
+            result = it == m_health.end()? GeneralHealth::UNKNOWN: it.value();
         }
     }
 

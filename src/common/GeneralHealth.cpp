@@ -2,13 +2,13 @@
 
 GeneralHealth::GeneralHealth()
     : QObject()
-    , m_health(Health::UNKNOWN)
+    , m_health(UNKNOWN)
 {
 
 }
 
 
-GeneralHealth::GeneralHealth(const Health& _health)
+GeneralHealth::GeneralHealth(const GeneralHealth::Health& _health)
     : QObject()
     , m_health(_health)
 {
@@ -32,13 +32,13 @@ GeneralHealth& GeneralHealth::operator=(const GeneralHealth& _health)
 }
 
 
-Health GeneralHealth::GetStatus() const
+GeneralHealth::Health GeneralHealth::GetStatus() const
 {
     return m_health;
 }
 
 
-void GeneralHealth::SetStatus(Health _health)
+void GeneralHealth::SetStatus(GeneralHealth::Health _health)
 {
     m_health = _health;
 }
