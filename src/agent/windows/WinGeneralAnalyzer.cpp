@@ -2,13 +2,13 @@
 #include "CMDCommunication.h"
 
 
-Health WinGeneralAnalyzer::GetStatus()
+GeneralHealth::Health WinGeneralAnalyzer::GetStatus()
 {
     CMDCommunication reader;
 
     GeneralHealth res = reader.CollectDiskStatus();
 
-    return static_cast<Health>(res.GetStatus());
+    return static_cast<GeneralHealth::Health>(res.GetStatus());
 }
 
 std::string WinGeneralAnalyzer::GetRawData()
