@@ -1,11 +1,11 @@
 #pragma once
 #include <iostream>
-#include "common/Health.h"
+#include "common/GeneralHealth.h"
 
 class IProbe
 {
 public:
     
-    virtual Health GetStatus() = 0;
+    virtual GeneralHealth::Health GetStatus() = 0;
     virtual std::string GetRawData() = 0;
 };

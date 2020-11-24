@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QObject>
-#include "Health.h"
 
 
 class GeneralHealth : public QObject
@@ -9,6 +8,14 @@ class GeneralHealth : public QObject
     Q_OBJECT
 
 public:
+    enum Health : quint8
+    {
+        UNKNOWN = 0,
+        GOOD,
+        BAD,
+        CHECK_STATUS
+    };
+
     Q_ENUMS(Health)
 
     GeneralHealth();

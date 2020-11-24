@@ -17,7 +17,7 @@ class AgentStatusFetcher: public QObject
         AgentStatusFetcher(const AgentInformation &);
 
     signals:
-        void statusAvailable(const Health &);
+        void statusAvailable(const GeneralHealth::Health &);
 
     private:
         QTcpSocket m_socket;
