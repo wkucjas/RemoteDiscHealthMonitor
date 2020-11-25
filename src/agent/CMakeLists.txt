@@ -30,7 +30,10 @@ target_link_libraries(agent
 set_target_properties(agent PROPERTIES AUTOMOC TRUE)
 
 if(WIN32)
-    find_library(WBEMUUID_LIBRARY wbemuuid REQUIRED)
+    find_library(WBEMUUID_LIBRARY wbemuuid
+        PATHS "C:/Program Files/Windows Kits/10/Lib/*/um/x86"
+        REQUIRED
+    )
 
     target_sources(agent
         PRIVATE
