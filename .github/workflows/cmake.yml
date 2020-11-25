@@ -22,7 +22,7 @@ jobs:
 
     - name: Checkout submodules
       shell: bash
-      run: git submodule sync --recursive
+      run: git submodule update --init --recursive
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v2
