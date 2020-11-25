@@ -26,6 +26,7 @@ jobs:
         version: 5.15.2
 
     - name: Install avahi
+      if: runner.os == 'Linux'
       run: sudo apt-get install libavahi-client-dev
 
     - name: Create Build Environment
