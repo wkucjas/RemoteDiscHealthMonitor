@@ -241,6 +241,6 @@ TEST(AgentsListTest, healthUpdatesAfterFetch)
     const QModelIndex idx1 = aal.index(0, 0);
     const QModelIndex idx2 = aal.index(1, 0);
 
-    EXPECT_EQ(idx1.data(AgentsList::AgentHealthRole), Health::GOOD);
-    EXPECT_EQ(idx2.data(AgentsList::AgentHealthRole), Health::BAD);
+    EXPECT_EQ(idx1.data(AgentsList::AgentHealthRole), GeneralHealth::GOOD);
+    EXPECT_EQ(idx2.data(AgentsList::AgentHealthRole), GeneralHealth::BAD);
 }

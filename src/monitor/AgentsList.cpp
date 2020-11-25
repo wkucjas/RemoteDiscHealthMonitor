@@ -91,7 +91,7 @@ QHash<int, QByteArray> AgentsList::roleNames() const
 }
 
 
-void AgentsList::updateAgentHealth(const AgentInformation& info, const Health& health)
+void AgentsList::updateAgentHealth(const AgentInformation& info, const GeneralHealth::Health& health)
 {
     auto it = std::find(m_agents.begin(), m_agents.end(), info);
 
