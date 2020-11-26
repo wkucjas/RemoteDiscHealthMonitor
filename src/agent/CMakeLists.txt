@@ -55,10 +55,12 @@ elseif(UNIX AND NOT APPLE)
         PRIVATE
             linux/LinuxSmartReader.cpp
     )
-else()
-    message(WARNING "Unsupported system")
+elseif(APPLE)
+    # use SMART reader from linux
     target_sources(agent
         PRIVATE
             linux/LinuxSmartReader.cpp
     )
+else()
+    message(FATAL_ERROR "Unsupported system")
 endif()
