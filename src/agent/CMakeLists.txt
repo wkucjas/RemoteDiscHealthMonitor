@@ -31,7 +31,7 @@ set_target_properties(agent PROPERTIES AUTOMOC TRUE)
 
 if(WIN32)
     find_library(WBEMUUID_LIBRARY wbemuuid
-        PATHS "C:/Program Files (x86)/Windows Kits/10/Lib/*/um/x86"
+        PATHS "C:/Program Files (x86)/Windows Kits/10/Lib/*/um/x64"
         REQUIRED
     )
 
