@@ -30,7 +30,10 @@ target_link_libraries(agent
 set_target_properties(agent PROPERTIES AUTOMOC TRUE)
 
 if(WIN32)
-    find_library(WBEMUUID_LIBRARY wbemuuid REQUIRED)
+    find_library(WBEMUUID_LIBRARY wbemuuid
+        PATHS "C:/Program Files (x86)/Windows Kits/10/Lib/*/um/x64"
+        REQUIRED
+    )
 
     target_sources(agent
         PRIVATE
@@ -48,6 +51,12 @@ if(WIN32)
             ${WBEMUUID_LIBRARY}
     )
 elseif(UNIX AND NOT APPLE)
+    target_sources(agent
+        PRIVATE
+            linux/LinuxSmartReader.cpp
+    )
+elseif(APPLE)
+    # use SMART reader from linux
     target_sources(agent
         PRIVATE
             linux/LinuxSmartReader.cpp
