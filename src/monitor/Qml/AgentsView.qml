@@ -17,6 +17,7 @@ Item {
             anchors.fill: parent
 
             delegate: AgentDelegate {}
+            spacing: 2
         }
     }
 }
