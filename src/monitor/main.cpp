@@ -43,6 +43,7 @@ int main(int argc, char** argv)
     Configuration config;
 
     qmlRegisterType<GeneralHealth>("RDHM", 1, 0, "HealthEnum");
+    qmlRegisterUncreatableType<AgentInformation>("RDHM", 1, 0, "AgentInformation", "Access to enum");
 
     AgentsStatusProvider statusProvider;
     AgentsList activeAgents(statusProvider);
