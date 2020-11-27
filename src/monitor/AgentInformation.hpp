@@ -1,15 +1,20 @@
 
 #pragma once
 
+#include <QObject>
 #include <QString>
 
 class AgentInformation
 {
+    Q_GADGET
+
 public:
     enum class DetectionSource {
         ZeroConf,
         Hardcoded,
     };
+
+    Q_ENUM(DetectionSource)
 
     AgentInformation(const QString& name, const QString& host, quint16 port, DetectionSource);
 
