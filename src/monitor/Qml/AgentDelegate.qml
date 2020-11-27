@@ -10,7 +10,24 @@ Item {
         spacing: 5
 
         Rectangle {
+            id: agentType
+
+            width: 20
+            height: 20
+
+            radius: 10
+            color: {
+                switch(agentDetectionType) {
+                    case AgentInformation.ZeroConf: return "yellow";
+                    case HealthEnum.GOOD: return "brown";
+                    default: return "silver";
+                }
+            }
+        }
+
+        Rectangle {
             id: statusIndicator
+
             width: 20
             height: 20
 
