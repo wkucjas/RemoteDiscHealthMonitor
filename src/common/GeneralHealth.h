@@ -3,9 +3,9 @@
 #include <QObject>
 
 
-class GeneralHealth : public QObject
+class GeneralHealth
 {
-    Q_OBJECT
+    Q_GADGET
 
 public:
     enum Health : quint8
@@ -16,12 +16,12 @@ public:
         CHECK_STATUS
     };
 
-    Q_ENUMS(Health)
+    Q_ENUM(Health)
 
     GeneralHealth();
     GeneralHealth(const Health& _health);
-    GeneralHealth(const GeneralHealth& _health);
-    GeneralHealth& operator=(const GeneralHealth& _health);
+    GeneralHealth(const GeneralHealth& _health) = default;
+    GeneralHealth& operator=(const GeneralHealth& _health) = default;
 
     Health GetStatus() const;
 
