@@ -18,11 +18,11 @@ Item {
         radius: 10
         color: {
             switch(agentHealth) {
-            case HealthEnum.UNKNOWN: return "blue";
-            case HealthEnum.GOOD: return "green";
-            case HealthEnum.BAD: return "red";
-            case HealthEnum.CHECK_STATUS: return "orange";
-            default: return "silver";
+                case HealthEnum.UNKNOWN: return "blue";
+                case HealthEnum.GOOD: return "green";
+                case HealthEnum.BAD: return "red";
+                case HealthEnum.CHECK_STATUS: return "orange";
+                default: return "silver";
             }
         }
     }
