@@ -12,7 +12,6 @@
 #include "Configuration.hpp"
 
 
-
 namespace
 {
     void storeHardcodedAgents(Configuration& config, const AgentsList& agentsList)
