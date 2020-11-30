@@ -6,5 +6,15 @@ DiscStatusCalculator::DiscStatusCalculator(std::vector<ProbePtr>& _discProbes) :
 
 GeneralHealth::Health DiscStatusCalculator::GetStatus()
 {
-    return GeneralHealth::Health::GOOD;
+    GeneralHealth::Health status = GeneralHealth::Health::UNKNOWN;
+
+    for (auto& probe : m_discProbes)
+    {
+        GeneralHealth::Health tmpStatus = probe->GetStatus();
+        if (tmpStatus > status)
+        {
+            status = tmpStatus;
+        }
+    }
+    return status;
 }
