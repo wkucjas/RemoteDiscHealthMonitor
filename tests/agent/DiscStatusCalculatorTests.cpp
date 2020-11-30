@@ -7,12 +7,10 @@
 
 TEST(DiscStatusCalculatorTest, CalculateStatusWithGeneralProbe)
 {
-    //std::shared_ptr<IProbe> probe( new WinGeneralAnalyzer());
-    WinGeneralAnalyzer dupa;
-//    std::vector< DiscStatusCalculator::ProbePtr> probes;
-    //probes.push_back(probe);
-    //DiscStatusCalculator calc(probes);
+    std::vector< DiscStatusCalculator::ProbePtr> probes;
+    probes.emplace_back(std::make_unique<WinGeneralAnalyzer>());
+    
+    DiscStatusCalculator calc(probes);
 
-    //GeneralHealth::Health status = calc.GetStatus();
-    ASSERT_EQ(true, true);
+    ASSERT_EQ(calc.GetStatus(), GeneralHealth::Health::GOOD);
 }
