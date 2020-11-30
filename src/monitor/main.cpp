@@ -12,7 +12,6 @@
 #include "Configuration.hpp"
 
 
-
 namespace
 {
     void storeHardcodedAgents(Configuration& config, const AgentsList& agentsList)
@@ -43,7 +42,8 @@ int main(int argc, char** argv)
 
     Configuration config;
 
-    qmlRegisterType<GeneralHealth>("RDHM", 1, 0, "HealthEnum");
+    qmlRegisterUncreatableType<GeneralHealth>("RDHM", 1, 0, "HealthEnum", "Access to enum");
+    qmlRegisterUncreatableType<AgentInformation>("RDHM", 1, 0, "AgentInformation", "Access to enum");
 
     AgentsStatusProvider statusProvider;
     AgentsList activeAgents(statusProvider);

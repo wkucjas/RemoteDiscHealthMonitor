@@ -6,32 +6,47 @@ Item {
     width: ListView.view.width
     height: childrenRect.height
 
-    Rectangle {
-        id: statusIndicator
-        width: 20
-        height: 20
+    Row {
+        spacing: 5
 
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.margins: 5
+        Rectangle {
+            id: agentType
 
-        radius: 10
-        color: {
-            switch(agentHealth) {
-            case HealthEnum.UNKNOWN: return "blue";
-            case HealthEnum.GOOD: return "green";
-            case HealthEnum.BAD: return "red";
-            case HealthEnum.CHECK_STATUS: return "orange";
-            default: return "silver";
+            width: 20
+            height: 20
+
+            radius: 10
+            color: {
+                switch(agentDetectionType) {
+                    case AgentInformation.ZeroConf: return "yellow";
+                    case HealthEnum.GOOD: return "brown";
+                    default: return "silver";
+                }
             }
         }
-    }
 
-    Text {
-        text: agentName
+        Rectangle {
+            id: statusIndicator
 
-        anchors.left: statusIndicator.right
-        anchors.verticalCenter: statusIndicator.verticalCenter
-        anchors.margins: 5
+            width: 20
+            height: 20
+
+            radius: 10
+            color: {
+                switch(agentHealth) {
+                    case HealthEnum.UNKNOWN: return "blue";
+                    case HealthEnum.GOOD: return "green";
+                    case HealthEnum.BAD: return "red";
+                    case HealthEnum.CHECK_STATUS: return "orange";
+                    default: return "silver";
+                }
+            }
+        }
+
+        Text {
+            text: agentName
+
+            anchors.verticalCenter: statusIndicator.verticalCenter
+        }
     }
 }

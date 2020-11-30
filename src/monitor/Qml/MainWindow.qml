@@ -76,6 +76,8 @@ Item {
             TextField {
                 id: portInput
 
+                text: "1630"
+
                 validator: IntValidator { top: 65535; bottom: 0; }
                 font.pixelSize: 12
                 selectByMouse: true

@@ -100,7 +100,7 @@ TEST(AgentsListTest, listofAvailableRoles)
     for(auto it = roles.begin(); it != roles.end(); ++it)
         listOfRoles.append(it.value());
 
-    EXPECT_THAT(listOfRoles, IsSupersetOf( {"agentName", "agentHealth"} ));
+    EXPECT_THAT(listOfRoles, IsSupersetOf( {"agentName", "agentHealth", "agentDetectionType"} ));
 }
 
 
@@ -243,4 +243,24 @@ TEST(AgentsListTest, healthUpdatesAfterFetch)
 
     EXPECT_EQ(idx1.data(AgentsList::AgentHealthRole), GeneralHealth::GOOD);
     EXPECT_EQ(idx2.data(AgentsList::AgentHealthRole), GeneralHealth::BAD);
+}
+
+
+TEST(AgentsListTest, agentDetectionTypeRoleFetching)
+{
+    IAgentsStatusProviderMock statusProvider;
+
+    AgentsList aal(statusProvider);
+
+    AgentInformation info1("John Connor", "192.168.1.15", 1998, AgentInformation::DetectionSource::Hardcoded);
+    AgentInformation info2("T-1000", "192.168.1.16", 1998, AgentInformation::DetectionSource::ZeroConf);
+
+    aal.addAgent(info1);
+    aal.addAgent(info2);
+
+    const QModelIndex idx1 = aal.index(0, 0);
+    const QModelIndex idx2 = aal.index(1, 0);
+
+    EXPECT_EQ(idx1.data(AgentsList::AgentDetectionType), static_cast<int>(AgentInformation::DetectionSource::Hardcoded));
+    EXPECT_EQ(idx2.data(AgentsList::AgentDetectionType), static_cast<int>(AgentInformation::DetectionSource::ZeroConf));
 }
