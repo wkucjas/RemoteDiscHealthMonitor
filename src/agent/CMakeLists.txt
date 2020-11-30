@@ -12,7 +12,7 @@ ADD_EXECUTABLE( agent
                 SmartAnalyzer.cpp
                 DiscStatusCalculator.h
                 DiscStatusCalculator.cpp
-                )
+                 )
 
 target_include_directories(agent
     PRIVATE

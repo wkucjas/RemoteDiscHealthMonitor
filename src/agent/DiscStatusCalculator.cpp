@@ -4,7 +4,7 @@ DiscStatusCalculator::DiscStatusCalculator(std::vector<ProbePtr>& _discProbes) :
 {
 }
 
-Health DiscStatusCalculator::GetStatus()
+GeneralHealth::Health DiscStatusCalculator::GetStatus()
 {
-    return Health();
+    return GeneralHealth::Health::GOOD;
 }

@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "IProbe.h"
-#include "../common/Health.h"
+#include "../common/GeneralHealth.h"
 
 
 class DiscStatusCalculator
@@ -13,7 +13,7 @@ public:
 
     DiscStatusCalculator(std::vector<ProbePtr>& _discProbes);
 
-    Health GetStatus();
+    GeneralHealth::Health GetStatus();
 
 private:
     std::vector<ProbePtr>& m_discProbes;
