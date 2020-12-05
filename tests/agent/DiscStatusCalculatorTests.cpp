@@ -2,25 +2,22 @@
 
 #include "IProbe.h"
 #include <memory>
-#if(_WIN32)
-#include "windows/WinGeneralAnalyzer.h"
-#else
-#include "linux/LinGeneralAnalyzer.h"
-#endif
+#include "IprobeMock.h"
 #include "DiscStatusCalculator.h"
+
+using testing::_;
+using testing::Return;
 
 TEST(DiscStatusCalculatorTest, CalculateStatusWithGeneralProbe)
 {
+    std::unique_ptr<IProbeMock> mock(new IProbeMock());
+    EXPECT_CALL(*mock, GetStatus())
+        .Times(1)
+        .WillOnce(Return(GeneralHealth::Health::GOOD));
+
     std::vector< DiscStatusCalculator::ProbePtr> probes;
 
-#if(_WIN32)
-    
-    probes.emplace_back(std::make_unique<WinGeneralAnalyzer>());
-    
-#else
-    
-    probes.emplace_back(std::make_unique<LinGeneralAnalyzer>());
-#endif
+    probes.emplace_back(std::move(mock));
     
     DiscStatusCalculator calc(probes);
 
