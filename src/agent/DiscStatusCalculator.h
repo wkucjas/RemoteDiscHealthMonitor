@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-
+#include <memory>
 #include "IProbe.h"
 #include "../common/GeneralHealth.h"
 
