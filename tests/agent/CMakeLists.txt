@@ -3,8 +3,6 @@
 add_executable(agentTests
     DiscStatusCalculatorTests.cpp
     ${PROJECT_SOURCE_DIR}/src/agent/DiscStatusCalculator.cpp
-    ${PROJECT_SOURCE_DIR}/src/agent/windows/WinGeneralAnalyzer.cpp
-    ${PROJECT_SOURCE_DIR}/src/agent/windows/CMDCommunication.cpp
     IProbeMock.h)
 
 target_include_directories(agentTests
