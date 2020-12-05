@@ -2,7 +2,7 @@
 
 #include "IProbe.h"
 #include <memory>
-#include "IprobeMock.h"
+#include "IProbeMock.h"
 #include "DiscStatusCalculator.h"
 
 using testing::_;
