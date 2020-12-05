@@ -56,12 +56,16 @@ elseif(UNIX AND NOT APPLE)
     target_sources(agent
         PRIVATE
             linux/LinuxSmartReader.cpp
+            linux/LinGeneralAnalyzer.h 
+            linux/LinGeneralAnalyzer.cpp
     )
 elseif(APPLE)
     # use SMART reader from linux
     target_sources(agent
         PRIVATE
             linux/LinuxSmartReader.cpp
+            linux/LinGeneralAnalyzer.h 
+            linux/LinGeneralAnalyzer.cpp
     )
 else()
     message(FATAL_ERROR "Unsupported system")
