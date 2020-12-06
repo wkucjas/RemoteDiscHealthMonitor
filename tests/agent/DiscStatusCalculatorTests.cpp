@@ -1,6 +1,5 @@
 #include <gmock/gmock.h>
 
-#include "IProbe.h"
 #include <memory>
 #include "IProbeMock.h"
 #include "DiscStatusCalculator.h"
