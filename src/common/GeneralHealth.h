@@ -12,8 +12,8 @@ public:
     {
         UNKNOWN = 0,
         GOOD,
-        BAD,
-        CHECK_STATUS
+        CHECK_STATUS,
+        BAD
     };
 
     Q_ENUM(Health)
