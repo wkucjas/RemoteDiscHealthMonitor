@@ -11,10 +11,10 @@ class DiscStatusCalculator
 public:
     typedef std::unique_ptr<IProbe> ProbePtr;
 
-    DiscStatusCalculator(std::vector<ProbePtr>& _discProbes);
+    DiscStatusCalculator(const std::vector<ProbePtr>& _discProbes);
 
     GeneralHealth::Health GetStatus();
 
 private:
-    std::vector<ProbePtr>& m_discProbes;
+    const std::vector<ProbePtr>& m_discProbes;
 };
