@@ -12,6 +12,9 @@ ADD_EXECUTABLE( agent
                 SmartAnalyzer.cpp
                 DiscStatusCalculator.h
                 DiscStatusCalculator.cpp
+                IDiscCollector.h
+                Disc.h
+                Disc.cpp
                  )
 
 target_include_directories(agent
