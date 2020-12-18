@@ -15,7 +15,7 @@ ADD_EXECUTABLE( agent
                 IDiscCollector.h
                 Disc.h
                 Disc.cpp
-                 )
+                )
 
 target_include_directories(agent
     PRIVATE
@@ -49,6 +49,8 @@ if(WIN32)
             windows/WMICommunication.cpp
             windows/CMDCommunication.h
             windows/CMDCommunication.cpp
+            windows/WinDiscCollector.h
+            windows/WinDiscCollector.cpp
     )
 
     target_link_libraries(agent
