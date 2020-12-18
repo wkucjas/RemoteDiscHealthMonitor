@@ -2,11 +2,12 @@
 
 #include <vector>
 #include <string>
+#include "Disc.h"
 
 class IDiscCollector
 {
 public:
 
     virtual ~IDiscCollector() = default;
-    virtual std::vector<std::string> GetDiscsList();
+    virtual std::vector<Disc> GetDiscsList() = 0;
 };
