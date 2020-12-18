@@ -11,10 +11,17 @@ class WMICommunication
 {
 
 public:
+
+	enum WmiNamespace
+	{
+		Smart, Discs
+	};
+
 	~WMICommunication();
 
-	bool WMIInit();
+	bool WMIInit(const WmiNamespace _namespace = Smart);
 	bool CollectSMARTDataViaWMI();
+	bool CollectInfoAboutDiscsViaWMI();
 
 	const SmartData& GetSMARTData() const;
 

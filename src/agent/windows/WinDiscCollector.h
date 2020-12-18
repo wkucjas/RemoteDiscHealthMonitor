@@ -3,5 +3,6 @@
 
 class WinDiscCollector : public IDiscCollector
 {
+public:
     std::vector<Disc> GetDiscsList();
 };

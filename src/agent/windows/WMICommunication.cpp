@@ -12,7 +12,7 @@ WMICommunication::~WMICommunication()
     CoUninitialize();
 }
 
-bool WMICommunication::WMIInit()
+bool WMICommunication::WMIInit(const WmiNamespace _namespace)
 {
     try {
         HRESULT hres = CoInitializeEx(0, COINIT_MULTITHREADED);
@@ -50,8 +50,18 @@ bool WMICommunication::WMIInit()
             throw std::exception("Failed to create IWbemLocator object. Err code = 0x");
         }
 
+        _bstr_t wmiNamespace;
+        if (_namespace == Smart)
+        {
+            wmiNamespace = L"ROOT\\WMI";
+        }
+        else if (_namespace == Discs)
+        {
+            wmiNamespace = L"ROOT\\cimv2";
+        }
+
         hres = m_initialLocatorToWMI->ConnectServer(
-            _bstr_t(L"ROOT\\WMI"),   // Object path of WMI namespace
+            wmiNamespace,              // Object path of WMI namespace
             NULL,                    // User name. NULL = current user
             NULL,                    // User password. NULL = current
             0,                       // Locale. NULL indicates current
@@ -177,6 +187,63 @@ bool WMICommunication::CollectSMARTDataViaWMI()
                 }
             }
 
+            VariantClear(&vtProp);
+
+            pclsObj->Release();
+        }
+
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        if (m_services != NULL)
+        {
+            m_services->Release();
+        }
+
+        if (m_initialLocatorToWMI != NULL)
+        {
+            m_initialLocatorToWMI->Release();
+        }
+
+        CoUninitialize();
+
+        return false;
+    }
+}
+
+bool WMICommunication::CollectInfoAboutDiscsViaWMI()
+{
+    try {
+        HRESULT hres = m_services->ExecQuery(
+            bstr_t("WQL"),
+            bstr_t("SELECT * FROM Win32_LogicalDisk"),
+            WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY,
+            NULL,
+            &m_pEnumerator);
+
+        if (FAILED(hres))
+        {
+            throw std::exception("Query for operating system name failed. Error code = 0x");
+        }
+
+        IWbemClassObject* pclsObj = NULL;
+        ULONG uReturn = 0;
+
+        while (m_pEnumerator)
+        {
+            HRESULT hr = m_pEnumerator->Next(WBEM_INFINITE, 1,
+                &pclsObj, &uReturn);
+
+            if (0 == uReturn)
+            {
+                break;
+            }
+
+            VARIANT vtProp;
+            hr = pclsObj->Get(L"Description", 0, &vtProp, 0, 0);
+
+          
             VariantClear(&vtProp);
 
             pclsObj->Release();
