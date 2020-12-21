@@ -13,5 +13,5 @@ private:
     std::string deviceId;
     std::string model;
     int partitions;
-    long long size;
+    std::uint64_t size;
 };
