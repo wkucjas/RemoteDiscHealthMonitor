@@ -1,10 +1,24 @@
 
+#include <QProcess>
+#include <QDebug>
+
 #include "../SmartReader.h"
+#include "SmartCtlOutputParser.h"
 
 
 std::string SmartReader::ReadSMARTData(const Disc &)
 {
-	return std::string("Linux S.M.A.R.T. DATA");
+    QProcess smartctl;
+
+    smartctl.start("smartctl", { "-a", "/dev/sda" }, QProcess::ReadOnly);
+    smartctl.waitForFinished(5000);
+    const QByteArray output = smartctl.readAll();
+
+    qDebug() << output;
+
+    SmartCtlOutputParser::parse(output);
+
+    return {};
 }
 
 

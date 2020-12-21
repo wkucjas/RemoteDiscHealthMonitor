@@ -61,15 +61,17 @@ elseif(UNIX AND NOT APPLE)
     target_sources(agent
         PRIVATE
             linux/LinuxSmartReader.cpp
-            linux/LinGeneralAnalyzer.h 
+            linux/LinGeneralAnalyzer.h
             linux/LinGeneralAnalyzer.cpp
+            linux/SmartCtlOutputParser.cpp
+            linux/SmartCtlOutputParser.h
     )
 elseif(APPLE)
     # use SMART reader from linux
     target_sources(agent
         PRIVATE
             linux/LinuxSmartReader.cpp
-            linux/LinGeneralAnalyzer.h 
+            linux/LinGeneralAnalyzer.h
             linux/LinGeneralAnalyzer.cpp
     )
 else()
