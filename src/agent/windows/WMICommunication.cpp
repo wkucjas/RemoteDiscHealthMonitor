@@ -3,6 +3,7 @@
 #define _WIN32_DCOM
 #include <iostream>
 #include <comdef.h>
+#include "../Disc.h"
 
 WMICommunication::~WMICommunication()
 {
@@ -217,7 +218,7 @@ bool WMICommunication::CollectInfoAboutDiscsViaWMI()
     try {
         HRESULT hres = m_services->ExecQuery(
             bstr_t("WQL"),
-            bstr_t("SELECT * FROM Win32_LogicalDisk"),
+            bstr_t("SELECT * FROM Win32_DiskDrive"),
             WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY,
             NULL,
             &m_pEnumerator);
@@ -240,11 +241,33 @@ bool WMICommunication::CollectInfoAboutDiscsViaWMI()
                 break;
             }
 
-            VARIANT vtProp;
-            hr = pclsObj->Get(L"Description", 0, &vtProp, 0, 0);
+            VARIANT vtPropCaption;
+            hr = pclsObj->Get(L"Caption", 0, &vtPropCaption, 0, 0);
+            VARIANT vtPropDeviceId;
+            hr = pclsObj->Get(L"DeviceID", 0, &vtPropDeviceId, 0, 0);
+            VARIANT vtPropModel;
+            hr = pclsObj->Get(L"Model", 0, &vtPropModel, 0, 0);
+            VARIANT vtPropPartitions;
+            hr = pclsObj->Get(L"Partitions", 0, &vtPropPartitions, 0, 0);
+            VARIANT vtPropSize;
+            hr = pclsObj->Get(L"Size", 0, &vtPropSize, 0, 0);
 
-          
-            VariantClear(&vtProp);
+            std::string sizeString = StringFromVariant(vtPropSize);
+            long long sizeLong = std::stoll(sizeString);
+
+            Disc disc(  StringFromVariant(vtPropCaption),
+                        StringFromVariant(vtPropDeviceId),
+                        StringFromVariant(vtPropModel),
+                        (V_INT(&vtPropPartitions)),
+                        sizeLong);
+
+            m_discsCollection.push_back(disc);
+
+            VariantClear(&vtPropCaption); 
+            VariantClear(&vtPropDeviceId);
+            VariantClear(&vtPropModel);
+            VariantClear(&vtPropPartitions);
+            VariantClear(&vtPropSize);
 
             pclsObj->Release();
         }
@@ -274,6 +297,11 @@ const SmartData& WMICommunication::GetSMARTData() const
     return m_smartData;
 }
 
+const std::vector<Disc> WMICommunication::GetDiscsCollection() const
+{
+    return std::vector<Disc>();
+}
+
 void WMICommunication::FeedSmartDataStructure(const std::vector<BYTE>& _data, const LONG& _dataSize)
 {
 
@@ -292,5 +320,11 @@ void WMICommunication::FeedSmartDataStructure(const std::vector<BYTE>& _data, co
         
     }
     
+}
+
+std::string WMICommunication::StringFromVariant(VARIANT& vt)
+{
+        _bstr_t bs(vt);
+        return std::string(static_cast<const char*>(bs));
 }
 
