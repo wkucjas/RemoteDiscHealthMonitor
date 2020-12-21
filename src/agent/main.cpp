@@ -6,13 +6,9 @@
 #include "SmartReader.h"
 #include "common/constants.hpp"
 #include "Server.h"
-#include "windows/WinDiscCollector.h"
 
 int main(int argc, char** argv)
 {
-    WinDiscCollector col;
-    col.GetDiscsList();
-
     QCoreApplication app(argc, argv);
 
     QZeroConf zeroConf;
