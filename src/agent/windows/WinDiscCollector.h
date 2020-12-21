@@ -4,5 +4,5 @@
 class WinDiscCollector : public IDiscCollector
 {
 public:
-    std::vector<Disc> GetDiscsList();
+    std::vector<Disk> GetDiscsList();
 };

@@ -4,7 +4,7 @@
 #include <memory>
 #include <Wbemidl.h>
 #include "common/SmartData.h"
-#include "../Disc.h"
+#include "../Disk.h"
 
 
 
@@ -25,14 +25,14 @@ public:
 	bool CollectInfoAboutDiscsViaWMI();
 
 	const SmartData& GetSMARTData() const;
-	const std::vector<Disc> GetDiscsCollection() const;
+	const std::vector<Disk> GetDiscsCollection() const;
 
 private:
 	IWbemLocator* m_initialLocatorToWMI;
 	IWbemServices* m_services;
 	IEnumWbemClassObject* m_pEnumerator;
 	SmartData m_smartData;
-	std::vector<Disc> m_discsCollection;
+	std::vector<Disk> m_discsCollection;
 
 	void FeedSmartDataStructure(const std::vector<BYTE>& _data, const LONG& _dataSize);
 	std::string StringFromVariant(VARIANT& vt);

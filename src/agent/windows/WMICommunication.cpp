@@ -3,7 +3,6 @@
 #define _WIN32_DCOM
 #include <iostream>
 #include <comdef.h>
-#include "../Disc.h"
 
 WMICommunication::~WMICommunication()
 {
@@ -255,7 +254,7 @@ bool WMICommunication::CollectInfoAboutDiscsViaWMI()
             std::string sizeString = StringFromVariant(vtPropSize);
             long long sizeLong = std::stoll(sizeString);
 
-            Disc disc(  StringFromVariant(vtPropCaption),
+            Disk disc(  StringFromVariant(vtPropCaption),
                         StringFromVariant(vtPropDeviceId),
                         StringFromVariant(vtPropModel),
                         (V_INT(&vtPropPartitions)),
@@ -297,9 +296,9 @@ const SmartData& WMICommunication::GetSMARTData() const
     return m_smartData;
 }
 
-const std::vector<Disc> WMICommunication::GetDiscsCollection() const
+const std::vector<Disk> WMICommunication::GetDiscsCollection() const
 {
-    return std::vector<Disc>();
+    return std::vector<Disk>();
 }
 
 void WMICommunication::FeedSmartDataStructure(const std::vector<BYTE>& _data, const LONG& _dataSize)

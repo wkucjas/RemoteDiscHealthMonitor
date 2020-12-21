@@ -13,8 +13,8 @@ ADD_EXECUTABLE( agent
                 DiscStatusCalculator.h
                 DiscStatusCalculator.cpp
                 IDiscCollector.h
-                Disc.h
-                Disc.cpp
+                Disk.h
+                Disk.cpp
                 )
 
 target_include_directories(agent
