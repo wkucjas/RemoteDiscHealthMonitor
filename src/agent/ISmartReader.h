@@ -3,13 +3,13 @@
 #include <string>
 
 #include "common/GeneralHealth.h"
-#include "agent/Disc.h"
+#include "agent/Disk.h"
 
 
 class ISmartReader
 {
 public:
 	virtual ~ISmartReader() = default;
-	virtual std::string ReadSMARTData(const Disc &) = 0;
-	virtual GeneralHealth ReadDisksStatus(const Disc &) = 0;
+	virtual std::string ReadSMARTData(const Disk &) = 0;
+	virtual GeneralHealth ReadDisksStatus(const Disk &) = 0;
 };

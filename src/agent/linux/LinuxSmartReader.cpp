@@ -6,7 +6,7 @@
 #include "SmartCtlOutputParser.h"
 
 
-std::string SmartReader::ReadSMARTData(const Disc &)
+std::string SmartReader::ReadSMARTData(const Disk &)
 {
     QProcess smartctl;
 
@@ -22,7 +22,7 @@ std::string SmartReader::ReadSMARTData(const Disc &)
 }
 
 
-GeneralHealth SmartReader::ReadDisksStatus(const Disc &)
+GeneralHealth SmartReader::ReadDisksStatus(const Disk &)
 {
     return GeneralHealth::GOOD;
 }
