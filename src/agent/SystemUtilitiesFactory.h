@@ -9,7 +9,7 @@
 class SystemUtilitiesFactory
 {
 public:
-    SystemUtilitiesFactory();
+    SystemUtilitiesFactory() = default;
 
     std::unique_ptr<IDiscCollector> diskCollector();
 };
