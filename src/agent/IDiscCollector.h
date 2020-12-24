@@ -4,10 +4,10 @@
 #include <string>
 #include "Disk.h"
 
-class IDiscCollector
+class IDiskCollector
 {
 public:
 
-    virtual ~IDiscCollector() = default;
-    virtual std::vector<Disk> GetDiscsList() = 0;
+    virtual ~IDiskCollector() = default;
+    virtual std::vector<Disk> GetDisksList() = 0;
 };

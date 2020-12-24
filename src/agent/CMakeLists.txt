@@ -50,8 +50,8 @@ if(WIN32)
             windows/WMICommunication.cpp
             windows/CMDCommunication.h
             windows/CMDCommunication.cpp
-            windows/WinDiscCollector.h
-            windows/WinDiscCollector.cpp
+            windows/WinDiskCollector.h
+            windows/WinDiskCollector.cpp
             windows/WinSystemUtilitiesFactory.cpp
     )
 

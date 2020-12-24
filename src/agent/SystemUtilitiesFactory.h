@@ -11,5 +11,5 @@ class SystemUtilitiesFactory
 public:
     SystemUtilitiesFactory() = default;
 
-    std::unique_ptr<IDiscCollector> diskCollector();
+    std::unique_ptr<IDiskCollector> diskCollector();
 };

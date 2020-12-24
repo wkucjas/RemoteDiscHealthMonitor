@@ -1,7 +1,7 @@
 #include "WinDiscCollector.h"
 #include "WMICommunication.h"
 
-std::vector<Disk> WinDiscCollector::GetDiscsList()
+std::vector<Disk> WinDiskCollector::GetDisksList()
 {
     WMICommunication wmi;
     wmi.WMIInit(WMICommunication::WmiNamespace::Discs);
