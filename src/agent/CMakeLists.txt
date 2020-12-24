@@ -15,7 +15,8 @@ ADD_EXECUTABLE( agent
                 IDiscCollector.h
                 Disk.h
                 Disk.cpp
-                )
+                SystemUtilitiesFactory.h
+)
 
 target_include_directories(agent
     PRIVATE
@@ -51,6 +52,7 @@ if(WIN32)
             windows/CMDCommunication.cpp
             windows/WinDiscCollector.h
             windows/WinDiscCollector.cpp
+            windows/WinSystemUtilitiesFactory.cpp
     )
 
     target_link_libraries(agent
@@ -65,6 +67,7 @@ elseif(UNIX AND NOT APPLE)
             linux/LinGeneralAnalyzer.cpp
             linux/SmartCtlOutputParser.cpp
             linux/SmartCtlOutputParser.h
+            linux/LinSystemUtilitiesFactory.cpp
     )
 elseif(APPLE)
     # use SMART reader from linux
