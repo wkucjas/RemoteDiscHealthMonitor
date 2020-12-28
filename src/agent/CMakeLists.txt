@@ -76,6 +76,9 @@ elseif(APPLE)
             linux/LinuxSmartReader.cpp
             linux/LinGeneralAnalyzer.h
             linux/LinGeneralAnalyzer.cpp
+            linux/LinSystemUtilitiesFactory.cpp
+            linux/SmartCtlOutputParser.cpp
+            linux/SmartCtlOutputParser.h
     )
 else()
     message(FATAL_ERROR "Unsupported system")
