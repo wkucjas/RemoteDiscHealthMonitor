@@ -1,4 +1,4 @@
-#include "WinDiscCollector.h"
+#include "WinDiskCollector.h"
 #include "WMICommunication.h"
 
 std::vector<Disk> WinDiskCollector::GetDisksList()

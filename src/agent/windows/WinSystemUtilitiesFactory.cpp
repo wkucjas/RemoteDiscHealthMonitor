@@ -1,6 +1,6 @@
 
 #include "../SystemUtilitiesFactory.h"
-#include "WinDiscCollector.h"
+#include "WinDiskCollector.h"
 
 
 std::unique_ptr<IDiskCollector> SystemUtilitiesFactory::diskCollector()
