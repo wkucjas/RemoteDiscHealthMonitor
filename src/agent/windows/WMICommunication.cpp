@@ -12,7 +12,7 @@ WMICommunication::~WMICommunication()
     CoUninitialize();
 }
 
-bool WMICommunication::WMIInit()
+bool WMICommunication::WMIInit(const WmiNamespace _namespace)
 {
     try {
         HRESULT hres = CoInitializeEx(0, COINIT_MULTITHREADED);
@@ -50,8 +50,18 @@ bool WMICommunication::WMIInit()
             throw std::exception("Failed to create IWbemLocator object. Err code = 0x");
         }
 
+        _bstr_t wmiNamespace;
+        if (_namespace == Smart)
+        {
+            wmiNamespace = L"ROOT\\WMI";
+        }
+        else if (_namespace == Discs)
+        {
+            wmiNamespace = L"ROOT\\cimv2";
+        }
+
         hres = m_initialLocatorToWMI->ConnectServer(
-            _bstr_t(L"ROOT\\WMI"),   // Object path of WMI namespace
+            wmiNamespace,              // Object path of WMI namespace
             NULL,                    // User name. NULL = current user
             NULL,                    // User password. NULL = current
             0,                       // Locale. NULL indicates current
@@ -202,9 +212,93 @@ bool WMICommunication::CollectSMARTDataViaWMI()
     }
 }
 
+bool WMICommunication::CollectInfoAboutDiscsViaWMI()
+{
+    try {
+        HRESULT hres = m_services->ExecQuery(
+            bstr_t("WQL"),
+            bstr_t("SELECT * FROM Win32_DiskDrive"),
+            WBEM_FLAG_FORWARD_ONLY | WBEM_FLAG_RETURN_IMMEDIATELY,
+            NULL,
+            &m_pEnumerator);
+
+        if (FAILED(hres))
+        {
+            throw std::exception("Query for operating system name failed. Error code = 0x");
+        }
+
+        IWbemClassObject* pclsObj = NULL;
+        ULONG uReturn = 0;
+
+        while (m_pEnumerator)
+        {
+            HRESULT hr = m_pEnumerator->Next(WBEM_INFINITE, 1,
+                &pclsObj, &uReturn);
+
+            if (0 == uReturn)
+            {
+                break;
+            }
+
+            VARIANT vtPropCaption;
+            hr = pclsObj->Get(L"Caption", 0, &vtPropCaption, 0, 0);
+            VARIANT vtPropDeviceId;
+            hr = pclsObj->Get(L"DeviceID", 0, &vtPropDeviceId, 0, 0);
+            VARIANT vtPropModel;
+            hr = pclsObj->Get(L"Model", 0, &vtPropModel, 0, 0);
+            VARIANT vtPropPartitions;
+            hr = pclsObj->Get(L"Partitions", 0, &vtPropPartitions, 0, 0);
+            VARIANT vtPropSize;
+            hr = pclsObj->Get(L"Size", 0, &vtPropSize, 0, 0);
+
+            std::string sizeString = StringFromVariant(vtPropSize);
+            long long sizeLong = std::stoll(sizeString);
+
+            Disk disc(  StringFromVariant(vtPropCaption),
+                        StringFromVariant(vtPropDeviceId),
+                        StringFromVariant(vtPropModel),
+                        (V_INT(&vtPropPartitions)),
+                        sizeLong);
+
+            m_discsCollection.push_back(disc);
+
+            VariantClear(&vtPropCaption); 
+            VariantClear(&vtPropDeviceId);
+            VariantClear(&vtPropModel);
+            VariantClear(&vtPropPartitions);
+            VariantClear(&vtPropSize);
+
+            pclsObj->Release();
+        }
+
+        return true;
+    }
+    catch (const std::exception& e)
+    {
+        if (m_services != NULL)
+        {
+            m_services->Release();
+        }
+
+        if (m_initialLocatorToWMI != NULL)
+        {
+            m_initialLocatorToWMI->Release();
+        }
+
+        CoUninitialize();
+
+        return false;
+    }
+}
+
 const SmartData& WMICommunication::GetSMARTData() const
 {
     return m_smartData;
+}
+
+const std::vector<Disk> WMICommunication::GetDisksCollection() const
+{
+    return m_discsCollection;
 }
 
 void WMICommunication::FeedSmartDataStructure(const std::vector<BYTE>& _data, const LONG& _dataSize)
@@ -225,5 +319,11 @@ void WMICommunication::FeedSmartDataStructure(const std::vector<BYTE>& _data, co
         
     }
     
+}
+
+std::string WMICommunication::StringFromVariant(VARIANT& vt)
+{
+        _bstr_t bs(vt);
+        return std::string(static_cast<const char*>(bs));
 }
 

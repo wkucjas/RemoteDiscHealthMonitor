@@ -3,13 +3,17 @@
 #include <QCoreApplication>
 
 #include "QtZeroConf/qzeroconf.h"
-#include "SmartReader.h"
 #include "common/constants.hpp"
+#include "SmartReader.h"
 #include "Server.h"
+#include "SystemUtilitiesFactory.h"
 
 int main(int argc, char** argv)
 {
     QCoreApplication app(argc, argv);
+
+    SystemUtilitiesFactory systemUtilsFactory;
+    auto diskCollector = systemUtilsFactory.diskCollector();
 
     QZeroConf zeroConf;
     zeroConf.addServiceTxtRecord("RDHAgent");

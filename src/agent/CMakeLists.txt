@@ -12,7 +12,11 @@ ADD_EXECUTABLE( agent
                 SmartAnalyzer.cpp
                 DiscStatusCalculator.h
                 DiscStatusCalculator.cpp
-                 )
+                IDiscCollector.h
+                Disk.h
+                Disk.cpp
+                SystemUtilitiesFactory.h
+)
 
 target_include_directories(agent
     PRIVATE
@@ -46,6 +50,9 @@ if(WIN32)
             windows/WMICommunication.cpp
             windows/CMDCommunication.h
             windows/CMDCommunication.cpp
+            windows/WinDiskCollector.h
+            windows/WinDiskCollector.cpp
+            windows/WinSystemUtilitiesFactory.cpp
     )
 
     target_link_libraries(agent
@@ -56,16 +63,22 @@ elseif(UNIX AND NOT APPLE)
     target_sources(agent
         PRIVATE
             linux/LinuxSmartReader.cpp
-            linux/LinGeneralAnalyzer.h 
+            linux/LinGeneralAnalyzer.h
             linux/LinGeneralAnalyzer.cpp
+            linux/LinSystemUtilitiesFactory.cpp
+            linux/SmartCtlOutputParser.cpp
+            linux/SmartCtlOutputParser.h
     )
 elseif(APPLE)
     # use SMART reader from linux
     target_sources(agent
         PRIVATE
             linux/LinuxSmartReader.cpp
-            linux/LinGeneralAnalyzer.h 
+            linux/LinGeneralAnalyzer.h
             linux/LinGeneralAnalyzer.cpp
+            linux/LinSystemUtilitiesFactory.cpp
+            linux/SmartCtlOutputParser.cpp
+            linux/SmartCtlOutputParser.h
     )
 else()
     message(FATAL_ERROR "Unsupported system")

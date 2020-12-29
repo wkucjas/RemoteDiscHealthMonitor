@@ -22,10 +22,10 @@ bool Server::Init()
         QString ipAddress;
         QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
 
-        for (int i = 0; i < ipAddressesList.size(); ++i) 
+        for (int i = 0; i < ipAddressesList.size(); ++i)
         {
             if (ipAddressesList.at(i) != QHostAddress::LocalHost &&
-                ipAddressesList.at(i).toIPv4Address()) 
+                ipAddressesList.at(i).toIPv4Address())
             {
                 ipAddress = ipAddressesList.at(i).toString();
                 break;
@@ -64,6 +64,6 @@ void Server::SendData()
 void Server::CollectInfoAboutDiscs()
 {
     SmartReader reader;
-    m_health = reader.ReadDisksStatus();
+    m_health = reader.ReadDisksStatus(Disk());
 }
 
