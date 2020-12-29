@@ -25,7 +25,7 @@ public:
 	bool CollectInfoAboutDiscsViaWMI();
 
 	const SmartData& GetSMARTData() const;
-	const std::vector<Disk> GetDiscsCollection() const;
+	const std::vector<Disk> GetDisksCollection() const;
 
 private:
 	IWbemLocator* m_initialLocatorToWMI;

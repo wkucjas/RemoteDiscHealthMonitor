@@ -296,9 +296,9 @@ const SmartData& WMICommunication::GetSMARTData() const
     return m_smartData;
 }
 
-const std::vector<Disk> WMICommunication::GetDiscsCollection() const
+const std::vector<Disk> WMICommunication::GetDisksCollection() const
 {
-    return std::vector<Disk>();
+    return m_discsCollection;
 }
 
 void WMICommunication::FeedSmartDataStructure(const std::vector<BYTE>& _data, const LONG& _dataSize)
