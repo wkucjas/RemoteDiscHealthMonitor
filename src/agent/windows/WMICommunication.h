@@ -18,6 +18,7 @@ public:
 		Smart, Discs
 	};
 
+	WMICommunication() = default;
 	~WMICommunication();
 
 	bool WMIInit(const WmiNamespace _namespace = Smart);
