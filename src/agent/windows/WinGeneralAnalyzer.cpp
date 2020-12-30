@@ -2,7 +2,7 @@
 #include "CMDCommunication.h"
 
 
-GeneralHealth::Health WinGeneralAnalyzer::GetStatus()
+GeneralHealth::Health WinGeneralAnalyzer::GetStatus(const Disk& _disk)
 {
     CMDCommunication reader;
 
@@ -11,7 +11,7 @@ GeneralHealth::Health WinGeneralAnalyzer::GetStatus()
     return static_cast<GeneralHealth::Health>(res.GetStatus());
 }
 
-std::string WinGeneralAnalyzer::GetRawData()
+std::string WinGeneralAnalyzer::GetRawData(const Disk& _disk)
 {
     return std::string();
 }
