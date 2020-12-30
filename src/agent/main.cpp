@@ -18,7 +18,7 @@ int main(int argc, char** argv)
     auto diskCollector = systemUtilsFactory.diskCollector();
     auto discCollection = diskCollector->GetDisksList();
     std::vector< DiscStatusCalculator::ProbePtr> probes;
-    std::unique_ptr<IProbe> probe(new WinGeneralAnalyzer());
+    auto probe = systemUtilsFactory.generalAnalyzer();
     probes.emplace_back(std::move(probe));
 
     DiscStatusCalculator calc(probes, discCollection);
