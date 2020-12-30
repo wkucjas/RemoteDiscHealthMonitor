@@ -8,7 +8,7 @@ public:
     Disk() = default;
     Disk(const std::string& _caption, const std::string& _deviceId, const std::string& _model,  const int& _partitions, const long long& _size);
 
-private:
+protected:
     std::string caption;
     std::string deviceId;
     std::string model;
