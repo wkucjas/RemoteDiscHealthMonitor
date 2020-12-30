@@ -7,7 +7,7 @@ std::unique_ptr<IDiskCollector> SystemUtilitiesFactory::diskCollector()
     return nullptr;
 }
 
-std::unique_ptr<IDiskCollector> SystemUtilitiesFactory::generalAnalyzer()
+std::unique_ptr<IProbe> SystemUtilitiesFactory::generalAnalyzer()
 {
     return nullptr;
 }
