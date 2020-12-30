@@ -1,6 +1,6 @@
 #include "DiscStatusCalculator.h"
 
-DiscStatusCalculator::DiscStatusCalculator(const std::vector<ProbePtr>& _discProbes) : m_discProbes(_discProbes)
+DiscStatusCalculator::DiscStatusCalculator(const std::vector<ProbePtr>& _discProbes, const std::vector<Disk>& _disks) : m_discProbes(_discProbes), m_disks(_disks)
 {
 }
 
@@ -10,10 +10,14 @@ GeneralHealth::Health DiscStatusCalculator::GetStatus()
 
     for (const auto& probe : m_discProbes)
     {
-        GeneralHealth::Health probeStatus = probe->GetStatus();
-        if (probeStatus > status)
+        for (const auto& disk : m_disks)
         {
-            status = probeStatus;
+
+            GeneralHealth::Health probeStatus = probe->GetStatus(disk);
+            if (probeStatus > status)
+            {
+                status = probeStatus;
+            }
         }
     }
     return status;
