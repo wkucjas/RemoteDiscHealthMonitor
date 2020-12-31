@@ -15,14 +15,27 @@ namespace ParsersUtils
 
             return clean;
         }
+
+        QStringList trimList(QStringList list)
+        {
+            while(list.first().isEmpty())
+                list.removeFirst();
+
+            while(list.last().isEmpty())
+                list.removeLast();
+
+            return list;
+        }
     }
+
 
     QStringList clean(const QByteArray& bytes)
     {
         const QString output(bytes);
         const auto lines = output.split('\n');
         const auto cleanLines = cleanup(lines);
+        const auto trimmed = trimList(cleanLines);
 
-        return cleanLines;
+        return trimmed;
     }
 }
