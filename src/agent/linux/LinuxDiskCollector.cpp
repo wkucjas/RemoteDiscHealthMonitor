@@ -19,7 +19,7 @@ std::vector<Disk> LinuxDiskCollector::GetDisksList()
     const QByteArray output = lsblk.readAll();
     const auto lsblkEntries = LsblkOutputParser::parse(output);
 
-    for (const auto entry: lsblkEntries)
+    for (const auto& entry: lsblkEntries)
     {
         const QString model = entry.type == "disk"? modelFor(entry.name): QString();
 
