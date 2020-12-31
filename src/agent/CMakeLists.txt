@@ -12,7 +12,7 @@ ADD_EXECUTABLE( agent
                 SmartAnalyzer.cpp
                 DiscStatusCalculator.h
                 DiscStatusCalculator.cpp
-                IDiscCollector.h
+                IDiskCollector.h
                 Disk.h
                 Disk.cpp
                 SystemUtilitiesFactory.h

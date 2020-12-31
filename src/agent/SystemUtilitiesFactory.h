@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "IDiscCollector.h"
+#include "IDiskCollector.h"
 #include "agent/IProbe.h"
 
 
