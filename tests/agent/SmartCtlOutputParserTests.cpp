@@ -7,25 +7,122 @@ using testing::UnorderedElementsAre;
 
 TEST(SmartCtlOutputParserTest, fullOutput)
 {
-    const auto result = SmartCtlOutputParser::parse("smartctl 7.1 2019-12-30 r5022 [x86_64-linux-5.4.84-1-lts] (local build)\nCopyright (C) 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org\n\n=== START OF INFORMATION SECTION ===\nModel Family:     Western Digital Caviar Black\nDevice Model:     WDC WD5003AZEX-00MK2A0\nSerial Number:    WD-WCC3FHANPNCL\nLU WWN Device Id: 5 0014ee 2603bb704\nFirmware Version: 01.01A01\nUser Capacity:    500\xE2\x80\xAF""107\xE2\x80\xAF""862\xE2\x80\xAF""016 bytes [500 GB]\nSector Sizes:     512 bytes logical, 4096 bytes physical\nRotation Rate:    7200 rpm\nDevice is:        In smartctl database [for details use: -P show]\nATA Version is:   ACS-2, ACS-3 T13/2161-D revision 3b\nSATA Version is:  SATA 3.1, 6.0 Gb/s (current: 6.0 Gb/s)\nLocal Time is:    Mon Dec 21 21:05:46 2020 CET\nSMART support is: Available - device has SMART capability.\nSMART support is: Enabled\n\n=== START OF READ SMART DATA SECTION ===\nSMART Status not supported: Incomplete response, ATA output registers missing\nSMART overall-health self-assessment test result: PASSED\nWarning: This result is based on an Attribute check.\n\nGeneral SMART Values:\nOffline data collection status:  (0x82)\tOffline data collection activity\n\t\t\t\t\twas completed without error.\n\t\t\t\t\tAuto Offline Data Collection: Enabled.\nSelf-test execution status:      (   0)\tThe previous self-test routine completed\n\t\t\t\t\twithout error or no self-test has ever \n\t\t\t\t\tbeen run.\nTotal time to complete Offline \ndata collection: \t\t( 6000) seconds.\nOffline data collection\ncapabilities: \t\t\t (0x7b) SMART execute Offline immediate.\n\t\t\t\t\tAuto Offline data collection on/off support.\n\t\t\t\t\tSuspend Offline collection upon new\n\t\t\t\t\tcommand.\n\t\t\t\t\tOffline surface scan supported.\n\t\t\t\t\tSelf-test supported.\n\t\t\t\t\tConveyance Self-test supported.\n\t\t\t\t\tSelective Self-test supported.\nSMART capabilities:            (0x0003)\tSaves SMART data before entering\n\t\t\t\t\tpower-saving mode.\n\t\t\t\t\tSupports SMART auto save timer.\nError logging capability:        (0x01)\tError logging supported.\n\t\t\t\t\tGeneral Purpose Logging supported.\nShort self-test routine \nrecommended polling time: \t (   2) minutes.\nExtended self-test routine\nrecommended polling time: \t (  65) minutes.\nConveyance self-test routine\nrecommended polling time: \t (   5) minutes.\nSCT capabilities: \t       (0x3035)\tSCT Status supported.\n\t\t\t\t\tSCT Feature Control supported.\n\t\t\t\t\tSCT Data Table supported.\n\nSMART Attributes Data Structure revision number: 16\nVendor Specific SMART Attributes with Thresholds:\nID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE\n  1 Raw_Read_Error_Rate     0x002f   200   200   051    Pre-fail  Always       -       0\n  3 Spin_Up_Time            0x0027   178   174   021    Pre-fail  Always       -       2066\n  4 Start_Stop_Count        0x0032   100   100   000    Old_age   Always       -       415\n  5 Reallocated_Sector_Ct   0x0033   200   200   140    Pre-fail  Always       -       0\n  7 Seek_Error_Rate         0x002e   200   200   000    Old_age   Always       -       0\n  9 Power_On_Hours          0x0032   071   071   000    Old_age   Always       -       21207\n 10 Spin_Retry_Count        0x0032   100   100   000    Old_age   Always       -       0\n 11 Calibration_Retry_Count 0x0032   100   100   000    Old_age   Always       -       0\n 12 Power_Cycle_Count       0x0032   100   100   000    Old_age   Always       -       401\n192 Power-Off_Retract_Count 0x0032   200   200   000    Old_age   Always       -       60\n193 Load_Cycle_Count        0x0032   200   200   000    Old_age   Always       -       547\n194 Temperature_Celsius     0x0022   112   103   000    Old_age   Always       -       31\n196 Reallocated_Event_Count 0x0032   200   200   000    Old_age   Always       -       0\n197 Current_Pending_Sector  0x0032   200   200   000    Old_age   Always       -       0\n198 Offline_Uncorrectable   0x0030   200   200   000    Old_age   Offline      -       0\n199 UDMA_CRC_Error_Count    0x0032   200   200   000    Old_age   Always       -       0\n200 Multi_Zone_Error_Rate   0x0008   200   200   000    Old_age   Offline      -       0\n\nSMART Error Log Version: 1\nNo Errors Logged\n\nSMART Self-test log structure revision number 1\nNum  Test_Description    Status                  Remaining  LifeTime(hours)  LBA_of_first_error\n# 1  Extended offline    Interrupted (host reset)      20%     17927         -\n\nSMART Selective self-test log data structure revision number 1\n SPAN  MIN_LBA  MAX_LBA  CURRENT_TEST_STATUS\n    1        0        0  Not_testing\n    2        0        0  Not_testing\n    3        0        0  Not_testing\n    4        0        0  Not_testing\n    5        0        0  Not_testing\nSelective self-test flags (0x0):\n  After scanning selected spans, do NOT read-scan remainder of disk.\nIf Selective self-test is pending on power-up, resume after 0 minute delay.\n\n");
+    const auto result = SmartCtlOutputParser::parse(
+        R"(
+            smartctl 7.1 2019-12-30 r5022 [x86_64-linux-5.4.85-1-lts] (local build)
+            Copyright (C) 2002-19, Bruce Allen, Christian Franke, www.smartmontools.org
+
+            === START OF INFORMATION SECTION ===
+            Model Family:     Western Digital Blue
+            Device Model:     WDC WD10EZEX-35WN4A0
+            Serial Number:    WCC6Y5ZE7F40
+            LU WWN Device Id: 5 0014ee 20e424ca2
+            Firmware Version: 01.01A01
+            User Capacity:    1 000 204 886 016 bytes [1,00 TB]
+            Sector Sizes:     512 bytes logical, 4096 bytes physical
+            Rotation Rate:    7200 rpm
+            Form Factor:      3.5 inches
+            Device is:        In smartctl database [for details use: -P show]
+            ATA Version is:   ACS-3 T13/2161-D revision 3b
+            SATA Version is:  SATA 3.1, 6.0 Gb/s (current: 6.0 Gb/s)
+            Local Time is:    Thu Dec 31 16:29:02 2020 CET
+            SMART support is: Available - device has SMART capability.
+            SMART support is: Enabled
+
+            === START OF READ SMART DATA SECTION ===
+            SMART overall-health self-assessment test result: PASSED
+
+            General SMART Values:
+            Offline data collection status:  (0x84) Offline data collection activity
+                                                    was suspended by an interrupting command from host.
+                                                    Auto Offline Data Collection: Enabled.
+            Self-test execution status:      (   0) The previous self-test routine completed
+                                                    without error or no self-test has ever
+                                                    been run.
+            Total time to complete Offline
+            data collection:                (12180) seconds.
+            Offline data collection
+            capabilities:                    (0x7b) SMART execute Offline immediate.
+                                                    Auto Offline data collection on/off support.
+                                                    Suspend Offline collection upon new
+                                                    command.
+                                                    Offline surface scan supported.
+                                                    Self-test supported.
+                                                    Conveyance Self-test supported.
+                                                    Selective Self-test supported.
+            SMART capabilities:            (0x0003) Saves SMART data before entering
+                                                    power-saving mode.
+                                                    Supports SMART auto save timer.
+            Error logging capability:        (0x01) Error logging supported.
+                                                    General Purpose Logging supported.
+            Short self-test routine
+            recommended polling time:        (   2) minutes.
+            Extended self-test routine
+            recommended polling time:        ( 126) minutes.
+            Conveyance self-test routine
+            recommended polling time:        (   5) minutes.
+            SCT capabilities:              (0x3035) SCT Status supported.
+                                                    SCT Feature Control supported.
+                                                    SCT Data Table supported.
+
+            SMART Attributes Data Structure revision number: 16
+            Vendor Specific SMART Attributes with Thresholds:
+            ID# ATTRIBUTE_NAME          FLAG     VALUE WORST THRESH TYPE      UPDATED  WHEN_FAILED RAW_VALUE
+            1 Raw_Read_Error_Rate     0x002f   200   200   051    Pre-fail  Always       -       0
+            3 Spin_Up_Time            0x0027   171   170   021    Pre-fail  Always       -       2408
+            4 Start_Stop_Count        0x0032   099   099   000    Old_age   Always       -       1140
+            5 Reallocated_Sector_Ct   0x0033   200   200   140    Pre-fail  Always       -       0
+            7 Seek_Error_Rate         0x002e   200   200   000    Old_age   Always       -       0
+            9 Power_On_Hours          0x0032   084   084   000    Old_age   Always       -       12128
+            10 Spin_Retry_Count        0x0032   100   100   000    Old_age   Always       -       0
+            11 Calibration_Retry_Count 0x0032   100   100   000    Old_age   Always       -       0
+            12 Power_Cycle_Count       0x0032   099   099   000    Old_age   Always       -       1138
+            192 Power-Off_Retract_Count 0x0032   200   200   000    Old_age   Always       -       30
+            193 Load_Cycle_Count        0x0032   200   200   000    Old_age   Always       -       1295
+            194 Temperature_Celsius     0x0022   111   098   000    Old_age   Always       -       32
+            196 Reallocated_Event_Count 0x0032   200   200   000    Old_age   Always       -       0
+            197 Current_Pending_Sector  0x0032   200   200   000    Old_age   Always       -       0
+            198 Offline_Uncorrectable   0x0030   200   200   000    Old_age   Offline      -       0
+            199 UDMA_CRC_Error_Count    0x0032   200   200   000    Old_age   Always       -       0
+            200 Multi_Zone_Error_Rate   0x0008   200   200   000    Old_age   Offline      -       0
+
+            SMART Error Log Version: 1
+            No Errors Logged
+
+            SMART Self-test log structure revision number 1
+            Num  Test_Description    Status                  Remaining  LifeTime(hours)  LBA_of_first_error
+            # 1  Extended offline    Completed without error       00%      2161         -
+
+            SMART Selective self-test log data structure revision number 1
+            SPAN  MIN_LBA  MAX_LBA  CURRENT_TEST_STATUS
+                1        0        0  Not_testing
+                2        0        0  Not_testing
+                3        0        0  Not_testing
+                4        0        0  Not_testing
+                5        0        0  Not_testing
+            Selective self-test flags (0x0):
+            After scanning selected spans, do NOT read-scan remainder of disk.
+            If Selective self-test is pending on power-up, resume after 0 minute delay.
+        )"
+    );
 
     EXPECT_THAT(result, UnorderedElementsAre(
-        std::pair<std::string, std::string>{"Calibration_Retry_Count", "0" },
-        std::pair<std::string, std::string>{"Current_Pending_Sector", "0"  },
-        std::pair<std::string, std::string>{"Load_Cycle_Count", "547"      },
-        std::pair<std::string, std::string>{"Multi_Zone_Error_Rate", "0"   },
-        std::pair<std::string, std::string>{"Offline_Uncorrectable", "0"   },
-        std::pair<std::string, std::string>{"Power-Off_Retract_Count", "60"},
-        std::pair<std::string, std::string>{"Power_Cycle_Count", "401"     },
-        std::pair<std::string, std::string>{"Power_On_Hours", "21207"      },
-        std::pair<std::string, std::string>{"Raw_Read_Error_Rate", "0"     },
-        std::pair<std::string, std::string>{"Reallocated_Event_Count", "0" },
-        std::pair<std::string, std::string>{"Reallocated_Sector_Ct", "0"   },
-        std::pair<std::string, std::string>{"Seek_Error_Rate", "0"         },
-        std::pair<std::string, std::string>{"Spin_Retry_Count", "0"        },
-        std::pair<std::string, std::string>{"Spin_Up_Time", "2066"         },
-        std::pair<std::string, std::string>{"Start_Stop_Count", "415"      },
-        std::pair<std::string, std::string>{"Temperature_Celsius", "31"    },
-        std::pair<std::string, std::string>{"UDMA_CRC_Error_Count", "0"    }
+        std::pair<std::string, std::string>{"Calibration_Retry_Count", "0"  },
+        std::pair<std::string, std::string>{"Current_Pending_Sector", "0"   },
+        std::pair<std::string, std::string>{"Load_Cycle_Count", "1295"      },
+        std::pair<std::string, std::string>{"Multi_Zone_Error_Rate", "0"    },
+        std::pair<std::string, std::string>{"Offline_Uncorrectable", "0"    },
+        std::pair<std::string, std::string>{"Power-Off_Retract_Count", "30" },
+        std::pair<std::string, std::string>{"Power_Cycle_Count", "1138"     },
+        std::pair<std::string, std::string>{"Power_On_Hours", "12128"       },
+        std::pair<std::string, std::string>{"Raw_Read_Error_Rate", "0"      },
+        std::pair<std::string, std::string>{"Reallocated_Event_Count", "0"  },
+        std::pair<std::string, std::string>{"Reallocated_Sector_Ct", "0"    },
+        std::pair<std::string, std::string>{"Seek_Error_Rate", "0"          },
+        std::pair<std::string, std::string>{"Spin_Retry_Count", "0"         },
+        std::pair<std::string, std::string>{"Spin_Up_Time", "2408"          },
+        std::pair<std::string, std::string>{"Start_Stop_Count", "1140"      },
+        std::pair<std::string, std::string>{"Temperature_Celsius", "32"     },
+        std::pair<std::string, std::string>{"UDMA_CRC_Error_Count", "0"     }
     ));
 }
