@@ -15,10 +15,8 @@ std::vector<Disk> LinuxDiskCollector::GetDisksList()
 
     lsblk.start("lsblk", { "-rMb" }, QProcess::ReadOnly);    // raw, merged arrays, size in bytes
     lsblk.waitForFinished(5000);
+
     const QByteArray output = lsblk.readAll();
-
-    qDebug() << output;
-
     const auto lsblkEntries = LsblkOutputParser::parse(output);
 
     for (const auto entry: lsblkEntries)
