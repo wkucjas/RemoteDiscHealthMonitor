@@ -18,10 +18,10 @@ namespace ParsersUtils
 
         QStringList trimList(QStringList list)
         {
-            while(list.first().isEmpty())
+            while(list.isEmpty() == false && list.first().isEmpty())
                 list.removeFirst();
 
-            while(list.last().isEmpty())
+            while(list.isEmpty() == false && list.last().isEmpty())
                 list.removeLast();
 
             return list;
