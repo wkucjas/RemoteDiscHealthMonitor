@@ -68,6 +68,8 @@ elseif(UNIX AND NOT APPLE)
             linux/LinSystemUtilitiesFactory.cpp
             linux/LinuxDiskCollector.cpp
             linux/LinuxDiskCollector.h
+            linux/LsblkOutputParser.cpp
+            linux/LsblkOutputParser.h
             linux/SmartCtlOutputParser.cpp
             linux/SmartCtlOutputParser.h
     )
