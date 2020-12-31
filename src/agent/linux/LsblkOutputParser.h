@@ -9,13 +9,13 @@ public:
     struct LsblkEntry
     {
         QString name;
+        QString type;
+        std::uint64_t size;
+        int partitions;
         int major;
         int minor;
-        int rm;
-        QString size;
-        bool ro;
-        QString type;
-        QString mountpoint;
+
+        friend auto operator<=>(const LsblkEntry &, const LsblkEntry &) = default;
     };
 
     static std::vector<LsblkEntry> parse(const QByteArray& output);
