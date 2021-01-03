@@ -8,10 +8,10 @@ class DiskMock : public Disk
 public:
     DiskMock()
     {
-        caption = "mock_caption";
-        deviceId = "mock_deviceId";
-        model = "mock_model";
-        partitions = 2;
-        size = 500000000;
+        m_caption = "mock_caption";
+        m_deviceId = "mock_deviceId";
+        m_model = "mock_model";
+        m_partitions = 2;
+        m_size = 500000000;
     }
 };

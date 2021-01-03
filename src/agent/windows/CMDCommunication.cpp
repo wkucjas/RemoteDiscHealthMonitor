@@ -3,21 +3,21 @@
 #include <iostream>
 #include <QProcess>
 
-GeneralHealth CMDCommunication::CollectDiskStatus()
+GeneralHealth CMDCommunication::CollectDiskStatus(const Disk& _disk)
 {
-    const std::string commandResult = ExecuteDiscStatusCommand();
+    const std::string commandResult = ExecuteDiscStatusCommand(_disk);
 
     m_generalHealth.SetStatus(GeneralHealth::UNKNOWN);
 
-    if (commandResult == "StatusOK")
+    if (commandResult == "OK")
     {
         m_generalHealth.SetStatus(GeneralHealth::GOOD);
     }
-    else if (commandResult == "StatusDegraded")
+    else if (commandResult == "Degraded")
     {
         m_generalHealth.SetStatus(GeneralHealth::CHECK_STATUS);
     }
-    else if (commandResult == "StatusPredFail")
+    else if (commandResult == "PredFail")
     {
         m_generalHealth.SetStatus(GeneralHealth::BAD);
     }
@@ -25,19 +25,18 @@ GeneralHealth CMDCommunication::CollectDiskStatus()
     return m_generalHealth;
 }
 
-std::string CMDCommunication::ExecuteDiscStatusCommand() const
+std::string CMDCommunication::ExecuteDiscStatusCommand(const Disk& _disk) const
 {
     QProcess proc;
-    proc.start("wmic diskdrive get status");
+    proc.start("wmic diskdrive get deviceid,status");
     proc.waitForFinished();
     QString output = proc.readAllStandardOutput();
 
     std::string ret = output.toStdString();
     
-    ret.erase(std::remove_if(ret.begin(), 
-        ret.end(),
-        [](unsigned char x){ return std::isspace(x);}),
-        ret.end());
-
+    auto diskPos = ret.find(_disk.deviceId());
+    auto statusPosStart = ret.find_first_not_of(' ', diskPos + (_disk.deviceId()).size());
+    auto statusPosStop = ret.find_first_of(' ', statusPosStart);
+    ret = ret.substr(statusPosStart, statusPosStop - statusPosStart);
     return ret;
 }

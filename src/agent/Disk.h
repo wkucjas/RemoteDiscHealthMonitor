@@ -12,7 +12,7 @@ public:
     const std::string& deviceId() const;
     const std::string& model() const;
 
-private:
+protected:
     std::string m_caption;
     std::string m_deviceId;
     std::string m_model;
