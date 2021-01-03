@@ -6,24 +6,11 @@
 #include "common/constants.hpp"
 #include "SmartReader.h"
 #include "Server.h"
-#include "SystemUtilitiesFactory.h"
 #include "windows/WinGeneralAnalyzer.h"
-#include "DiscStatusCalculator.h"
 
 int main(int argc, char** argv)
 {
     QCoreApplication app(argc, argv);
-
-    SystemUtilitiesFactory systemUtilsFactory;
-    auto diskCollector = systemUtilsFactory.diskCollector();
-    auto discCollection = diskCollector->GetDisksList();
-    std::vector< DiscStatusCalculator::ProbePtr> probes;
-    auto probe = systemUtilsFactory.generalAnalyzer();
-    probes.emplace_back(std::move(probe));
-
-    DiscStatusCalculator calc(probes, discCollection);
-    auto stat = calc.GetStatus();
-    
 
     QZeroConf zeroConf;
     zeroConf.addServiceTxtRecord("RDHAgent");
