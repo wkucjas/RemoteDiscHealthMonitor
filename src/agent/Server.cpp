@@ -6,6 +6,8 @@
 #include "common/constants.hpp"
 #include "common/ProtocolVersion.h"
 #include "SmartReader.h"
+#include "SystemUtilitiesFactory.h"
+#include "DiscStatusCalculator.h"
 
 
 Server::Server(QObject * parent)
@@ -63,7 +65,14 @@ void Server::SendData()
 
 void Server::CollectInfoAboutDiscs()
 {
-    SmartReader reader;
-    m_health = reader.ReadDisksStatus(Disk());
+    SystemUtilitiesFactory systemUtilsFactory;
+    auto diskCollector = systemUtilsFactory.diskCollector();
+    auto discCollection = diskCollector->GetDisksList();
+    std::vector< DiscStatusCalculator::ProbePtr> probes;
+    auto probe = systemUtilsFactory.generalAnalyzer();
+    probes.emplace_back(std::move(probe));
+
+    DiscStatusCalculator calc(probes, discCollection);
+    m_health = calc.GetStatus();
 }
 

@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-std::string SmartReader::ReadSMARTData(const Disk&)
+std::string SmartReader::ReadSMARTData(const Disk& _disk)
 {
 	WMICommunication wmi;
 	wmi.CollectSMARTDataViaWMI();
@@ -17,8 +17,8 @@ std::string SmartReader::ReadSMARTData(const Disk&)
 	return std::string("Windows S.M.A.R.T. DATA");
 }
 
-GeneralHealth SmartReader::ReadDisksStatus(const Disk&)
+GeneralHealth SmartReader::ReadDisksStatus(const Disk& _disk)
 {
 	CMDCommunication reader;
-	return reader.CollectDiskStatus();
+	return reader.CollectDiskStatus(_disk);
 }

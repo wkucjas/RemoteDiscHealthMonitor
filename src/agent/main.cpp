@@ -6,14 +6,11 @@
 #include "common/constants.hpp"
 #include "SmartReader.h"
 #include "Server.h"
-#include "SystemUtilitiesFactory.h"
+#include "windows/WinGeneralAnalyzer.h"
 
 int main(int argc, char** argv)
 {
     QCoreApplication app(argc, argv);
-
-    SystemUtilitiesFactory systemUtilsFactory;
-    auto diskCollector = systemUtilsFactory.diskCollector();
 
     QZeroConf zeroConf;
     zeroConf.addServiceTxtRecord("RDHAgent");
