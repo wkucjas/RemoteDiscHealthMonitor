@@ -12,7 +12,7 @@ ADD_EXECUTABLE( agent
                 SmartAnalyzer.cpp
                 DiscStatusCalculator.h
                 DiscStatusCalculator.cpp
-                IDiscCollector.h
+                IDiskCollector.h
                 Disk.h
                 Disk.cpp
                 SystemUtilitiesFactory.h
@@ -66,6 +66,10 @@ elseif(UNIX AND NOT APPLE)
             linux/LinGeneralAnalyzer.h
             linux/LinGeneralAnalyzer.cpp
             linux/LinSystemUtilitiesFactory.cpp
+            linux/LinuxDiskCollector.cpp
+            linux/LinuxDiskCollector.h
+            linux/LsblkOutputParser.cpp
+            linux/LsblkOutputParser.h
             linux/SmartCtlOutputParser.cpp
             linux/SmartCtlOutputParser.h
     )
@@ -77,6 +81,10 @@ elseif(APPLE)
             linux/LinGeneralAnalyzer.h
             linux/LinGeneralAnalyzer.cpp
             linux/LinSystemUtilitiesFactory.cpp
+            linux/LinuxDiskCollector.cpp
+            linux/LinuxDiskCollector.h
+            linux/LsblkOutputParser.cpp
+            linux/LsblkOutputParser.h
             linux/SmartCtlOutputParser.cpp
             linux/SmartCtlOutputParser.h
     )

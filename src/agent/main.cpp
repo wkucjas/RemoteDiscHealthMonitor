@@ -6,11 +6,21 @@
 #include "common/constants.hpp"
 #include "SmartReader.h"
 #include "Server.h"
-#include "windows/WinGeneralAnalyzer.h"
+#include "SystemUtilitiesFactory.h"
 
 int main(int argc, char** argv)
 {
     QCoreApplication app(argc, argv);
+
+    SystemUtilitiesFactory systemUtilsFactory;
+    auto diskCollector = systemUtilsFactory.diskCollector();
+
+    const auto disks = diskCollector->GetDisksList();
+
+    std::cout << "Found disks:\n";
+
+    for(const auto& disk: disks)
+        std::cout << disk.caption() << " - " << disk.model() << '\n';
 
     QZeroConf zeroConf;
     zeroConf.addServiceTxtRecord("RDHAgent");

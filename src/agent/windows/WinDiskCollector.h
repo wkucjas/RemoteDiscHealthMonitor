@@ -1,5 +1,5 @@
 #pragma once
-#include "../IDiscCollector.h"
+#include "../IDiskCollector.h"
 
 class WinDiskCollector : public IDiskCollector
 {

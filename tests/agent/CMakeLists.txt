@@ -2,8 +2,10 @@
 
 add_executable(agentTests
     DiscStatusCalculatorTests.cpp
+    LsblkOutputParserTests.cpp
     SmartCtlOutputParserTests.cpp
     ${PROJECT_SOURCE_DIR}/src/agent/DiscStatusCalculator.cpp
+    ${PROJECT_SOURCE_DIR}/src/agent/linux/LsblkOutputParser.cpp
     ${PROJECT_SOURCE_DIR}/src/agent/linux/SmartCtlOutputParser.cpp
     IProbeMock.h
     DiskMock.h)

@@ -1,6 +1,7 @@
 
 #include <QStringList>
 
+#include "common/OutputParsersUtils.h"
 #include "SmartCtlOutputParser.h"
 
 
@@ -9,16 +10,6 @@ namespace SmartCtlOutputParser
 
     namespace
     {
-        QStringList cleanup(const QStringList& list)
-        {
-            QStringList clean;
-
-            for(const QString& entry: list)
-                clean.append(entry.trimmed());
-
-            return clean;
-        }
-
         QStringList smartAttributes(const QStringList& output)
         {
             QStringList attributes;
@@ -67,9 +58,7 @@ namespace SmartCtlOutputParser
 
     std::map<std::string, std::string> parse(const QByteArray& smartCtlOutput)
     {
-        const QString output(smartCtlOutput);
-        const auto lines = output.split('\n');
-        const auto cleanLines = cleanup(lines);
+        const auto cleanLines = ParsersUtils::clean(smartCtlOutput);
         const auto attributeLines = smartAttributes(cleanLines);
         const std::map<std::string, std::string> table = parseRawTable(attributeLines);
 

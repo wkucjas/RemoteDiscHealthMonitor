@@ -5,6 +5,8 @@ add_library(common OBJECT
     constants.hpp
     GeneralHealth.h
     ProtocolVersion.h
+    OutputParsersUtils.cpp
+    OutputParsersUtils.h
     SmartData.cpp
     SmartData.h
     GeneralHealth.cpp)

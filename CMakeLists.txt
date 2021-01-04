@@ -3,9 +3,9 @@ cmake_policy(SET CMP0048 NEW)
 project(RemoteDiscHealthMonitor)
 cmake_minimum_required(VERSION 3.17)
 
-set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_EXTENSIONS ON)
+set(CMAKE_CXX_STANDARD_REQUIRED OFF)
+set(CMAKE_CXX_STANDARD 20)
 
 if(MSVC)
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)      # when msvc, build gtest with shared crt library
