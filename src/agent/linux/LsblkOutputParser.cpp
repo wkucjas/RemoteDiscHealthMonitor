@@ -19,10 +19,10 @@ namespace
     RawLsblkEntry parseLine(const QString& line)
     {
         const QStringList cols = line.split(' ');
-        assert(cols.size() >= 6);
+        assert(cols.size() >= 6);               // we expect at least 6 columns here
 
         const QStringList major_minor = cols[1].split(':');
-        assert(major_minor.size() == 2);
+        assert(major_minor.size() == 2);        // we expect two numbers - major and minor after separation
 
         const RawLsblkEntry rawEntry{
             .name = cols[0],

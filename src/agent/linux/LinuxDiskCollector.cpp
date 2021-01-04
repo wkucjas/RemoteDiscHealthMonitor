@@ -41,7 +41,7 @@ QString LinuxDiskCollector::modelFor(const QString& device) const
     const QString modelNumber = "Model Number:";
 
     QProcess hdparm;
-    hdparm.start("hdparm", { "-I", QString("/dev/%1").arg(device) }, QProcess::ReadOnly);
+    hdparm.start("hdparm", { "-I", QString("/dev/%1").arg(device) }, QProcess::ReadOnly); // -I stands for identification info
     hdparm.waitForFinished(5000);
 
     const QByteArray output = hdparm.readAll();
