@@ -81,6 +81,10 @@ elseif(APPLE)
             linux/LinGeneralAnalyzer.h
             linux/LinGeneralAnalyzer.cpp
             linux/LinSystemUtilitiesFactory.cpp
+            linux/LinuxDiskCollector.cpp
+            linux/LinuxDiskCollector.h
+            linux/LsblkOutputParser.cpp
+            linux/LsblkOutputParser.h
             linux/SmartCtlOutputParser.cpp
             linux/SmartCtlOutputParser.h
     )
