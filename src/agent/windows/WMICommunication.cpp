@@ -240,33 +240,14 @@ bool WMICommunication::CollectInfoAboutDiscsViaWMI()
                 break;
             }
 
-            VARIANT vtPropCaption;
-            hr = pclsObj->Get(L"Caption", 0, &vtPropCaption, 0, 0);
             VARIANT vtPropDeviceId;
             hr = pclsObj->Get(L"DeviceID", 0, &vtPropDeviceId, 0, 0);
-            VARIANT vtPropModel;
-            hr = pclsObj->Get(L"Model", 0, &vtPropModel, 0, 0);
-            VARIANT vtPropPartitions;
-            hr = pclsObj->Get(L"Partitions", 0, &vtPropPartitions, 0, 0);
-            VARIANT vtPropSize;
-            hr = pclsObj->Get(L"Size", 0, &vtPropSize, 0, 0);
 
-            std::string sizeString = StringFromVariant(vtPropSize);
-            long long sizeLong = std::stoll(sizeString);
-
-            Disk disc(  StringFromVariant(vtPropCaption),
-                        StringFromVariant(vtPropDeviceId),
-                        StringFromVariant(vtPropModel),
-                        (V_INT(&vtPropPartitions)),
-                        sizeLong);
+            Disk disc( StringFromVariant(vtPropDeviceId) );
 
             m_discsCollection.push_back(disc);
 
-            VariantClear(&vtPropCaption); 
             VariantClear(&vtPropDeviceId);
-            VariantClear(&vtPropModel);
-            VariantClear(&vtPropPartitions);
-            VariantClear(&vtPropSize);
 
             pclsObj->Release();
         }

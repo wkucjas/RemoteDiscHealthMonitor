@@ -20,7 +20,7 @@ int main(int argc, char** argv)
     std::cout << "Found disks:\n";
 
     for(const auto& disk: disks)
-        std::cout << disk.caption() << " - " << disk.model() << '\n';
+        std::cout << disk.deviceId() << '\n';
 
     QZeroConf zeroConf;
     zeroConf.addServiceTxtRecord("RDHAgent");
