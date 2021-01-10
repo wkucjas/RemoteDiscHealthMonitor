@@ -1,6 +1,7 @@
 
 #include "../SystemUtilitiesFactory.h"
 #include "LinuxDiskCollector.h"
+#include "LinGeneralAnalyzer.h"
 
 
 std::unique_ptr<IDiskCollector> SystemUtilitiesFactory::diskCollector()
@@ -10,5 +11,5 @@ std::unique_ptr<IDiskCollector> SystemUtilitiesFactory::diskCollector()
 
 std::unique_ptr<IProbe> SystemUtilitiesFactory::generalAnalyzer()
 {
-    return nullptr;
+    return std::make_unique<LinGeneralAnalyzer>();
 }
