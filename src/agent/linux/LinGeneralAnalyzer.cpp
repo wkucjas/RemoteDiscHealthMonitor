@@ -32,6 +32,7 @@ GeneralHealth::Health LinGeneralAnalyzer::GetStatus(const Disk& disk)
     return GeneralHealth::Health::GOOD;
 }
 
+
 std::string LinGeneralAnalyzer::GetRawData(const Disk& disk)
 {
     const QString diskId = QString::fromStdString(disk.deviceId());
