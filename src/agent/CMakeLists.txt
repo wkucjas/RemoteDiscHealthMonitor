@@ -62,6 +62,8 @@ if(WIN32)
 elseif(UNIX AND NOT APPLE)
     target_sources(agent
         PRIVATE
+            linux/DmesgParser.cpp
+            linux/DmesgParser.h
             linux/IPartitionsManager.h
             linux/LinuxSmartReader.cpp
             linux/LinGeneralAnalyzer.h
@@ -78,6 +80,8 @@ elseif(APPLE)
     # use SMART reader from linux
     target_sources(agent
         PRIVATE
+            linux/DmesgParser.cpp
+            linux/DmesgParser.h
             linux/IPartitionsManager.h
             linux/LinuxSmartReader.cpp
             linux/LinGeneralAnalyzer.h
