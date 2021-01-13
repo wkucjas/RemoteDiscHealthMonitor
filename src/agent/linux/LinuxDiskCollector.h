@@ -15,8 +15,8 @@ public:
 
     std::vector<Disk> GetDisksList() override;
 
-    bool isPartition(const QString & deviceName) override;
-    QString diskForPartition(const QString & deviceName) override;
+    bool isPartition(const QString & deviceName) const override;
+    QString diskForPartition(const QString & deviceName) const override;
 
 private:
     std::vector<LsblkOutputParser::LsblkEntry> m_lsblkEntries;

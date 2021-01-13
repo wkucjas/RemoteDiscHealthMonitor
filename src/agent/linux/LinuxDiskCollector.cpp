@@ -34,7 +34,7 @@ std::vector<Disk> LinuxDiskCollector::GetDisksList()
 }
 
 
-bool LinuxDiskCollector::isPartition(const QString& deviceName)
+bool LinuxDiskCollector::isPartition(const QString& deviceName) const
 {
     for(const auto& entry: m_lsblkEntries)
         for(const QString& partitionDevice: entry.partitions)
@@ -45,7 +45,7 @@ bool LinuxDiskCollector::isPartition(const QString& deviceName)
 }
 
 
-QString LinuxDiskCollector::diskForPartition(const QString& deviceName)
+QString LinuxDiskCollector::diskForPartition(const QString& deviceName) const
 {
     for(const auto& entry: m_lsblkEntries)
         for(const QString& partitionDevice: entry.partitions)
