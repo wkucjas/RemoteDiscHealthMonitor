@@ -2,17 +2,8 @@
 #include <QProcess>
 
 #include "common/GeneralHealth.h"
-#include "common/OutputParsersUtils.h"
 #include "LinGeneralAnalyzer.h"
-
-
-namespace
-{
-    const QStringList ErrorPatterns = {
-        "Buffer I/O error on device"
-    };
-}
-
+#include "DmesgParser.h"
 
 
 LinGeneralAnalyzer::LinGeneralAnalyzer()
@@ -23,25 +14,28 @@ LinGeneralAnalyzer::LinGeneralAnalyzer()
 
 GeneralHealth::Health LinGeneralAnalyzer::GetStatus(const Disk& disk)
 {
-    const QString diskId = QString::fromStdString(disk.deviceId());
-
-    for(const QString& error: m_errorLines)
-        if (error.contains(diskId))
-            return GeneralHealth::Health::BAD;
-
-    return GeneralHealth::Health::GOOD;
+    return m_errors.find(disk) == m_errors.end()?
+        GeneralHealth::Health::GOOD :
+        GeneralHealth::Health::BAD;
 }
 
 
 std::string LinGeneralAnalyzer::GetRawData(const Disk& disk)
 {
-    const QString diskId = QString::fromStdString(disk.deviceId());
+    std::string result;
 
-    for(const QString& error: m_errorLines)
-        if (error.contains(diskId))
-            return error.toStdString();
+    auto it = m_errors.find(disk);
 
-    return {};
+    if (it != m_errors.end())
+    {
+        QStringList errors;
+        std::copy(it->second.begin(), it->second.end(), std::back_inserter(errors));
+
+        const QString errorline = errors.join('\n');
+        result = errorline.toStdString();
+    }
+
+    return result;
 }
 
 
@@ -53,12 +47,7 @@ void LinGeneralAnalyzer::refreshState()
     dmesg.waitForFinished(5000);
     const QByteArray output = dmesg.readAll();
 
-    const auto lines = ParsersUtils::clean(output);
+    DmesgParser dmesgParser(m_diskCollector);
 
-    m_errorLines.clear();
-
-    for(const QString& line: lines)
-        for(const QString& errorPattern: ErrorPatterns)
-            if (line.contains(errorPattern))
-                m_errorLines.push_back(line);
+    dmesgParser.parse(output);
 }

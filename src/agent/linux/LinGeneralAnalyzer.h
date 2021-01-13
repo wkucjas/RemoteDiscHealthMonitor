@@ -4,6 +4,10 @@
 #include <QStringList>
 
 #include "../IProbe.h"
+#include "LinuxDiskCollector.h"
+
+
+class IPartitionsManager;
 
 class LinGeneralAnalyzer : public IProbe
 {
@@ -14,7 +18,8 @@ public:
     std::string GetRawData(const Disk& disk) override;
 
 private:
-    QStringList m_errorLines;
+    std::map<Disk, std::set<QString>> m_errors;
+    LinuxDiskCollector m_diskCollector;
 
     void refreshState();
 };
