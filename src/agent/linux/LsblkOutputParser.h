@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <set>
 #include <QString>
 
 class LsblkOutputParser
@@ -11,7 +12,7 @@ public:
         QString name;
         QString type;
         std::uint64_t size;
-        int partitions;
+        std::set<QString> partitions;
         int major;
         int minor;
 
