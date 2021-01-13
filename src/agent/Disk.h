@@ -10,6 +10,11 @@ public:
 
     const std::string& deviceId() const;
 
+    friend bool operator<(const Disk& lhs, const Disk& rhs)
+    {
+        return lhs.m_deviceId < rhs.m_deviceId;
+    }
+
 protected:
     std::string m_deviceId;
 };
