@@ -1,4 +1,6 @@
 
+#pragma once
+
 class IPartitionsManager
 {
     virtual bool isPartition(const QString& deviceName) = 0;
