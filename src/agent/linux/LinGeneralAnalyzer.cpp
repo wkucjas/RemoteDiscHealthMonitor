@@ -49,5 +49,5 @@ void LinGeneralAnalyzer::refreshState()
 
     DmesgParser dmesgParser(m_diskCollector);
 
-    dmesgParser.parse(output);
+    m_errors = dmesgParser.parse(output);
 }
