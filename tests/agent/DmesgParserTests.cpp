@@ -11,7 +11,7 @@ using testing::Return;
 
 TEST(DmesgParserTest, NoErrors)
 {
-    IPartitionsManagerMock pm;
+    auto pm = std::make_shared<IPartitionsManagerMock>();
 
     DmesgParser dp(pm);
 
@@ -36,9 +36,9 @@ TEST(DmesgParserTest, NoErrors)
 
 TEST(DmesgParserTest, BufferIOError)
 {
-    NiceMock<IPartitionsManagerMock> pm;
-    ON_CALL(pm, isPartition(QString("sdb1"))).WillByDefault(Return(true));
-    ON_CALL(pm, diskForPartition(QString("sdb1"))).WillByDefault(Return("sdb"));
+    auto pm = std::make_shared<NiceMock<IPartitionsManagerMock>>();
+    ON_CALL(*pm, isPartition(QString("sdb1"))).WillByDefault(Return(true));
+    ON_CALL(*pm, diskForPartition(QString("sdb1"))).WillByDefault(Return("sdb"));
 
     DmesgParser dp(pm);
 

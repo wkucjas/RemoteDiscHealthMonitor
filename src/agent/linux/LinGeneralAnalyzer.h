@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <memory>
 #include <set>
 #include <QStringList>
 
@@ -12,14 +13,14 @@ class IPartitionsManager;
 class LinGeneralAnalyzer : public IProbe
 {
 public:
-    LinGeneralAnalyzer(const IPartitionsManager &);
+    LinGeneralAnalyzer(std::shared_ptr<IPartitionsManager>);
 
     GeneralHealth::Health GetStatus(const Disk& disk) override;
     std::string GetRawData(const Disk& disk) override;
 
 private:
     std::map<Disk, std::set<QString>> m_errors;
-    const IPartitionsManager& m_partitionsManager;
+    std::shared_ptr<IPartitionsManager> m_partitionsManager;
 
     void refreshState();
 };

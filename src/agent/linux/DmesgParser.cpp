@@ -14,7 +14,7 @@ namespace
 }
 
 
-DmesgParser::DmesgParser(const IPartitionsManager& manager)
+DmesgParser::DmesgParser(std::shared_ptr<IPartitionsManager> manager)
     : m_paritionsManager(manager)
 {
 }
@@ -35,8 +35,8 @@ std::map<Disk, std::set<QString>> DmesgParser::parse(const QByteArray& output) c
             {
                 const QRegularExpressionMatch errorMatch = errorRegex.match(line);
                 const QString dev = errorMatch.captured(1);
-                const QString physicalDev = m_paritionsManager.isPartition(dev)?
-                                            m_paritionsManager.diskForPartition(dev):
+                const QString physicalDev = m_paritionsManager->isPartition(dev)?
+                                            m_paritionsManager->diskForPartition(dev):
                                             dev;
 
                 const Disk disk(physicalDev.toStdString());

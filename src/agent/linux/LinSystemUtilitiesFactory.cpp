@@ -12,7 +12,7 @@ namespace
     class LinuxDiskCollectorWrapper: public IDiskCollector
     {
         public:
-            LinuxDiskCollectorWrapper(IDiskCollector& collector)
+            LinuxDiskCollectorWrapper(std::shared_ptr<IDiskCollector> collector)
                 : m_collector(collector)
             {
 
@@ -20,11 +20,11 @@ namespace
 
             std::vector<Disk> GetDisksList() override
             {
-                return m_collector.GetDisksList();
+                return m_collector->GetDisksList();
             }
 
         private:
-            IDiskCollector& m_collector;
+            std::shared_ptr<IDiskCollector> m_collector;
     };
 }
 
@@ -44,7 +44,7 @@ struct SystemUtilitiesFactory::State
         m_diskCollector = std::make_unique<LinuxDiskCollector>(diskData);
     }
 
-    std::unique_ptr<LinuxDiskCollector> m_diskCollector;
+    std::shared_ptr<LinuxDiskCollector> m_diskCollector;
 };
 
 
@@ -63,11 +63,11 @@ SystemUtilitiesFactory::~SystemUtilitiesFactory()
 
 std::unique_ptr<IDiskCollector> SystemUtilitiesFactory::diskCollector()
 {
-    return std::make_unique<LinuxDiskCollectorWrapper>(*m_state->m_diskCollector.get());
+    return std::make_unique<LinuxDiskCollectorWrapper>(m_state->m_diskCollector);
 }
 
 
 std::unique_ptr<IProbe> SystemUtilitiesFactory::generalAnalyzer()
 {
-    return std::make_unique<LinGeneralAnalyzer>(*m_state->m_diskCollector.get());
+    return std::make_unique<LinGeneralAnalyzer>(m_state->m_diskCollector);
 }

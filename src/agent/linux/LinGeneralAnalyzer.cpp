@@ -7,7 +7,7 @@
 #include "IPartitionsManager.h"
 
 
-LinGeneralAnalyzer::LinGeneralAnalyzer(const IPartitionsManager& manager)
+LinGeneralAnalyzer::LinGeneralAnalyzer(std::shared_ptr<IPartitionsManager> manager)
     : m_partitionsManager(manager)
 {
     refreshState();
