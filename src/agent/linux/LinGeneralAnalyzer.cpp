@@ -4,10 +4,11 @@
 #include "common/GeneralHealth.h"
 #include "LinGeneralAnalyzer.h"
 #include "DmesgParser.h"
+#include "IPartitionsManager.h"
 
 
-LinGeneralAnalyzer::LinGeneralAnalyzer(const std::vector<LsblkOutputParser::LsblkEntry>& lsblkEntries)
-    : m_diskCollector(lsblkEntries)
+LinGeneralAnalyzer::LinGeneralAnalyzer(const IPartitionsManager& manager)
+    : m_partitionsManager(manager)
 {
     refreshState();
 }
@@ -48,7 +49,7 @@ void LinGeneralAnalyzer::refreshState()
     dmesg.waitForFinished(5000);
     const QByteArray output = dmesg.readAll();
 
-    DmesgParser dmesgParser(m_diskCollector);
+    DmesgParser dmesgParser(m_partitionsManager);
 
     m_errors = dmesgParser.parse(output);
 }

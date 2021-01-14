@@ -7,6 +7,28 @@
 #include "LsblkOutputParser.h"
 
 
+namespace
+{
+    class LinuxDiskCollectorWrapper: public IDiskCollector
+    {
+        public:
+            LinuxDiskCollectorWrapper(IDiskCollector& collector)
+                : m_collector(collector)
+            {
+
+            }
+
+            std::vector<Disk> GetDisksList() override
+            {
+                return m_collector.GetDisksList();
+            }
+
+        private:
+            IDiskCollector& m_collector;
+    };
+}
+
+
 struct SystemUtilitiesFactory::State
 {
     State()
@@ -17,10 +39,12 @@ struct SystemUtilitiesFactory::State
         lsblk.waitForFinished(5000);
 
         const QByteArray output = lsblk.readAll();
-        m_lsblkEntries = LsblkOutputParser::parse(output);
+        const auto diskData = LsblkOutputParser::parse(output);
+
+        m_diskCollector = std::make_unique<LinuxDiskCollector>(diskData);
     }
 
-    std::vector<LsblkOutputParser::LsblkEntry> m_lsblkEntries;
+    std::unique_ptr<LinuxDiskCollector> m_diskCollector;
 };
 
 
@@ -39,11 +63,11 @@ SystemUtilitiesFactory::~SystemUtilitiesFactory()
 
 std::unique_ptr<IDiskCollector> SystemUtilitiesFactory::diskCollector()
 {
-    return std::make_unique<LinuxDiskCollector>(m_state->m_lsblkEntries);
+    return std::make_unique<LinuxDiskCollectorWrapper>(*m_state->m_diskCollector.get());
 }
 
 
 std::unique_ptr<IProbe> SystemUtilitiesFactory::generalAnalyzer()
 {
-    return std::make_unique<LinGeneralAnalyzer>(m_state->m_lsblkEntries);
+    return std::make_unique<LinGeneralAnalyzer>(*m_state->m_diskCollector.get());
 }
