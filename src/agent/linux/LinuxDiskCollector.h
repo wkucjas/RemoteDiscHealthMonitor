@@ -11,7 +11,7 @@
 class LinuxDiskCollector: public IDiskCollector, public IPartitionsManager
 {
 public:
-    LinuxDiskCollector();
+    LinuxDiskCollector(const std::vector<LsblkOutputParser::LsblkEntry>& lsblkEntries);
 
     std::vector<Disk> GetDisksList() override;
 

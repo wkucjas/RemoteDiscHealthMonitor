@@ -12,7 +12,7 @@ class IPartitionsManager;
 class LinGeneralAnalyzer : public IProbe
 {
 public:
-    LinGeneralAnalyzer();
+    LinGeneralAnalyzer(const std::vector<LsblkOutputParser::LsblkEntry>& lsblkEntries);
 
     GeneralHealth::Health GetStatus(const Disk& disk) override;
     std::string GetRawData(const Disk& disk) override;

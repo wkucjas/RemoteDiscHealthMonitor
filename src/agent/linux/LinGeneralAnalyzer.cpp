@@ -6,7 +6,8 @@
 #include "DmesgParser.h"
 
 
-LinGeneralAnalyzer::LinGeneralAnalyzer()
+LinGeneralAnalyzer::LinGeneralAnalyzer(const std::vector<LsblkOutputParser::LsblkEntry>& lsblkEntries)
+    : m_diskCollector(lsblkEntries)
 {
     refreshState();
 }

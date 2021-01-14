@@ -7,15 +7,10 @@
 #include "LsblkOutputParser.h"
 
 
-LinuxDiskCollector::LinuxDiskCollector()
+LinuxDiskCollector::LinuxDiskCollector(const std::vector<LsblkOutputParser::LsblkEntry>& lsblkEntries)
+    : m_lsblkEntries(lsblkEntries)
 {
-    QProcess lsblk;
 
-    lsblk.start("lsblk", { "-rMb" }, QProcess::ReadOnly);    // raw, merged arrays, size in bytes
-    lsblk.waitForFinished(5000);
-
-    const QByteArray output = lsblk.readAll();
-    m_lsblkEntries = LsblkOutputParser::parse(output);
 }
 
 

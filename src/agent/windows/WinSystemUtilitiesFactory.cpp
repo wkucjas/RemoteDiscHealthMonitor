@@ -5,6 +5,18 @@
 #include "WinGeneralAnalyzer.h"
 
 
+SystemUtilitiesFactory::SystemUtilitiesFactory()
+    : m_state(nullptr)
+{
+
+}
+
+SystemUtilitiesFactory::~SystemUtilitiesFactory()
+{
+
+}
+
+
 std::unique_ptr<IDiskCollector> SystemUtilitiesFactory::diskCollector()
 {
     return std::make_unique<WinDiskCollector>();
