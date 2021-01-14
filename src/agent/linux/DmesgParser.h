@@ -16,12 +16,12 @@ class IPartitionsManager;
 class DmesgParser
 {
 public:
-    DmesgParser(IPartitionsManager &);
+    DmesgParser(const IPartitionsManager &);
 
     std::map<Disk, std::set<QString>> parse(const QByteArray &) const;    // parse dmesg output and return found problems for disks
 
 private:
-    IPartitionsManager& m_paritionsManager;
+    const IPartitionsManager& m_paritionsManager;
 };
 
 #endif // DMESGPARSER_H

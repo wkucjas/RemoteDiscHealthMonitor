@@ -14,7 +14,7 @@ namespace
 }
 
 
-DmesgParser::DmesgParser(IPartitionsManager& manager)
+DmesgParser::DmesgParser(const IPartitionsManager& manager)
     : m_paritionsManager(manager)
 {
 }
