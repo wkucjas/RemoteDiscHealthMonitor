@@ -5,6 +5,8 @@
 #include "WinGeneralAnalyzer.h"
 
 
+struct SystemUtilitiesFactory::State {};
+
 SystemUtilitiesFactory::SystemUtilitiesFactory()
     : m_state(nullptr)
 {
