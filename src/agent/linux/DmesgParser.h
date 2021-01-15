@@ -14,15 +14,9 @@
 class IPartitionsManager;
 
 
-class DmesgParser
+namespace DmesgParser
 {
-public:
-    DmesgParser(std::shared_ptr<IPartitionsManager>);
-
-    std::map<Disk, std::set<QString>> parse(const QByteArray &) const;    // parse dmesg output and return found problems for disks
-
-private:
-    std::shared_ptr<IPartitionsManager> m_paritionsManager;
-};
+    std::map<Disk, std::set<QString>> parse(const QByteArray &, const IPartitionsManager &);    // parse dmesg output and return found problems for disks
+}
 
 #endif // DMESGPARSER_H

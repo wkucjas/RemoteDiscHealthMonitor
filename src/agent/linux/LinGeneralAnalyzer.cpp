@@ -49,7 +49,5 @@ void LinGeneralAnalyzer::refreshState()
     dmesg.waitForFinished(5000);
     const QByteArray output = dmesg.readAll();
 
-    DmesgParser dmesgParser(m_partitionsManager);
-
-    m_errors = dmesgParser.parse(output);
+    m_errors = DmesgParser::parse(output, *m_partitionsManager);
 }

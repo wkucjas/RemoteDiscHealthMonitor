@@ -11,11 +11,9 @@ using testing::Return;
 
 TEST(DmesgParserTest, NoErrors)
 {
-    auto pm = std::make_shared<IPartitionsManagerMock>();
+    IPartitionsManagerMock pm;
 
-    DmesgParser dp(pm);
-
-    const auto errors = dp.parse(
+    const auto errors = DmesgParser::parse(
     R"(
         [ 1444.081302] usb 2-1: new high-speed USB device number 8 using xhci_hcd
         [ 1444.266866] usb 2-1: New USB device found, idVendor=2717, idProduct=ff40, bcdDevice= 3.18
@@ -27,7 +25,8 @@ TEST(DmesgParserTest, NoErrors)
         [ 1446.066268] ata2: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
         [ 1446.158564] ata4.00: configured for UDMA/133
         [ 1446.161245] ata2.00: configured for UDMA/133
-    )"
+    )",
+    pm
     );
 
     EXPECT_TRUE(errors.empty());
@@ -36,13 +35,11 @@ TEST(DmesgParserTest, NoErrors)
 
 TEST(DmesgParserTest, BufferIOError)
 {
-    auto pm = std::make_shared<NiceMock<IPartitionsManagerMock>>();
-    ON_CALL(*pm, isPartition(QString("sdb1"))).WillByDefault(Return(true));
-    ON_CALL(*pm, diskForPartition(QString("sdb1"))).WillByDefault(Return("sdb"));
+    IPartitionsManagerMock pm;
+    ON_CALL(pm, isPartition(QString("sdb1"))).WillByDefault(Return(true));
+    ON_CALL(pm, diskForPartition(QString("sdb1"))).WillByDefault(Return("sdb"));
 
-    DmesgParser dp(pm);
-
-    const auto errors = dp.parse(
+    const auto errors = DmesgParser::parse(
     R"(
         [19737.431050] Buffer I/O error on device sdb1, logical block 6160400
         [19737.431060] Buffer I/O error on device sdb1, logical block 6160401
@@ -54,7 +51,8 @@ TEST(DmesgParserTest, BufferIOError)
         [19737.431102] Buffer I/O error on device sdb1, logical block 6160407
         [19737.431114] Buffer I/O error on device sdb1, logical block 6160408
         [19737.431121] Buffer I/O error on device sdb1, logical block 6160409
-    )"
+    )",
+    pm
     );
 
     const Disk failedDisk("sdb");
