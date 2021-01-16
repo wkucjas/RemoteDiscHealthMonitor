@@ -7,19 +7,18 @@
 #include "LsblkOutputParser.h"
 
 
+LinuxDiskCollector::LinuxDiskCollector(const std::vector<LsblkOutputParser::LsblkEntry>& lsblkEntries)
+    : m_lsblkEntries(lsblkEntries)
+{
+
+}
+
+
 std::vector<Disk> LinuxDiskCollector::GetDisksList()
 {
     std::vector<Disk> disks;
 
-    QProcess lsblk;
-
-    lsblk.start("lsblk", { "-rMb" }, QProcess::ReadOnly);    // raw, merged arrays, size in bytes
-    lsblk.waitForFinished(5000);
-
-    const QByteArray output = lsblk.readAll();
-    const auto lsblkEntries = LsblkOutputParser::parse(output);
-
-    for (const auto& entry: lsblkEntries)
+    for (const auto& entry: m_lsblkEntries)
     {
         const Disk disk(entry.name.toStdString());
 
@@ -28,3 +27,26 @@ std::vector<Disk> LinuxDiskCollector::GetDisksList()
 
     return disks;
 }
+
+
+bool LinuxDiskCollector::isPartition(const QString& deviceName) const
+{
+    for(const auto& entry: m_lsblkEntries)
+        for(const QString& partitionDevice: entry.partitions)
+            if (partitionDevice == deviceName)
+                return true;
+
+    return false;
+}
+
+
+QString LinuxDiskCollector::diskForPartition(const QString& deviceName) const
+{
+    for(const auto& entry: m_lsblkEntries)
+        for(const QString& partitionDevice: entry.partitions)
+            if (partitionDevice == deviceName)
+                return entry.name;
+
+    return {};
+}
+

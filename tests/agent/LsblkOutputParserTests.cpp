@@ -29,12 +29,12 @@ TEST(LsblkOutputParserTest, fullOutput)
     );
 
     EXPECT_THAT(result, UnorderedElementsAre(
-        LsblkOutputParser::LsblkEntry{ .name = "sda", .type = "disk",  .size = 120034123776,  .partitions = 2, .major = 8, .minor = 0 },
-        LsblkOutputParser::LsblkEntry{ .name = "sdb", .type = "disk",  .size = 1000204886016, .partitions = 1, .major = 8, .minor = 16},
-        LsblkOutputParser::LsblkEntry{ .name = "sdc", .type = "disk",  .size = 2000398934016, .partitions = 1, .major = 8, .minor = 32},
-        LsblkOutputParser::LsblkEntry{ .name = "sdd", .type = "disk",  .size = 1000204886016, .partitions = 1, .major = 8, .minor = 48},
-        LsblkOutputParser::LsblkEntry{ .name = "sde", .type = "disk",  .size = 120034123776,  .partitions = 2, .major = 8, .minor = 64},
-        LsblkOutputParser::LsblkEntry{ .name = "md0", .type = "raid5", .size = 2000137748480, .partitions = 2, .major = 9, .minor = 0 }
+        LsblkOutputParser::LsblkEntry{ .name = "sda", .type = "disk",  .size = 120034123776,  .partitions = {"sda1", "sda2"  }, .major = 8, .minor = 0 },
+        LsblkOutputParser::LsblkEntry{ .name = "sdb", .type = "disk",  .size = 1000204886016, .partitions = {"sdb1"          }, .major = 8, .minor = 16},
+        LsblkOutputParser::LsblkEntry{ .name = "sdc", .type = "disk",  .size = 2000398934016, .partitions = {"sdc1",         }, .major = 8, .minor = 32},
+        LsblkOutputParser::LsblkEntry{ .name = "sdd", .type = "disk",  .size = 1000204886016, .partitions = {"sdd1",         }, .major = 8, .minor = 48},
+        LsblkOutputParser::LsblkEntry{ .name = "sde", .type = "disk",  .size = 120034123776,  .partitions = {"sde1", "sde2"  }, .major = 8, .minor = 64},
+        LsblkOutputParser::LsblkEntry{ .name = "md0", .type = "raid5", .size = 2000137748480, .partitions = {"md0p1", "md0p2"}, .major = 9, .minor = 0 }
     ));
 }
 

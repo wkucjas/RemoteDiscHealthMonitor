@@ -41,7 +41,7 @@ namespace
             .name = raw.name,
             .type = raw.type,
             .size = raw.size,
-            .partitions = 0,
+            .partitions = {},
             .major = raw.major,
             .minor = raw.minor
         };
@@ -75,7 +75,7 @@ std::vector<LsblkOutputParser::LsblkEntry> LsblkOutputParser::parse(const QByteA
             if (entryIt == entries.end())
                 qWarning() << QString("Partition %1 does not match any disk").arg(entry.name);
             else
-                entryIt->partitions++;
+                entryIt->partitions.insert(entry.name);
         }
         else if (entry.type.left(4) == "raid")
             entries.push_back(fromRaw(entry));
