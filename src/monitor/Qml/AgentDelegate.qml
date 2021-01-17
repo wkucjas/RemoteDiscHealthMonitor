@@ -9,20 +9,23 @@ Item {
     Row {
         spacing: 5
 
-        Rectangle {
+        Image {
             id: agentType
 
             width: 20
             height: 20
+            smooth: true
+            sourceSize.width: 20
+            sourceSize.height: 20
 
-            radius: 10
-            color: {
+            source: {
                 switch(agentDetectionType) {
-                    case AgentInformation.ZeroConf: return "yellow";
-                    case HealthEnum.GOOD: return "brown";
-                    default: return "silver";
+                    case AgentInformation.ZeroConf: return "hard-disk.svg";
+                    case HealthEnum.GOOD: return "hard-disk2.svg";
+                    default: return "hard-disc2.svg";
                 }
             }
+            
         }
 
         Image {
