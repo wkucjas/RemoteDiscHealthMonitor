@@ -20,7 +20,7 @@ void AgentsExplorer::startListening()
 
 void AgentsExplorer::newAgent(const QZeroConfService& info)
 {
-    qDebug() << "New agent discovered on: " << info->host() << ":" << info->port();
+    qDebug() << "New agent discovered:" << info;
 
     AgentInformation agentInfo(info->name(), info->host(), info->port(), AgentInformation::DetectionSource::ZeroConf);
     emit agentDiscovered(agentInfo);
@@ -29,7 +29,7 @@ void AgentsExplorer::newAgent(const QZeroConfService& info)
 
 void AgentsExplorer::lostAgent(const QZeroConfService& info)
 {
-    qDebug() << "Agent lost: " << info->host() << ":" << info->port();
+    qDebug() << "Agent lost:" << info;
 
     AgentInformation agentInfo(info->name(), info->host(), info->port(), AgentInformation::DetectionSource::ZeroConf);
     emit agentLost(agentInfo);

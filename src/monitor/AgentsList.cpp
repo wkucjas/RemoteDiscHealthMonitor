@@ -1,17 +1,22 @@
 
+#include <chrono>
 #include <iterator>
+#include <QDebug>
 
 #include "AgentsList.hpp"
 
 
 using namespace std::placeholders;
+using namespace std::chrono_literals;
 
 
 AgentsList::AgentsList(IAgentsStatusProvider& statusProvider, QObject* p)
     : QAbstractListModel(p)
     , m_statusProvider(statusProvider)
 {
-
+    connect(&m_refreshTimer, &QTimer::timeout, this, &AgentsList::refreshAllAgents);
+    m_refreshTimer.setInterval(30min);
+    m_refreshTimer.start();
 }
 
 
@@ -26,7 +31,7 @@ void AgentsList::addAgent(const AgentInformation& info)
         m_agents.append(info);
         endInsertRows();
 
-        m_statusProvider.fetchStatusOf(info, std::bind(&AgentsList::updateAgentHealth, this, _1, _2));
+        refreshAgent(info);
     }
 }
 
@@ -47,7 +52,7 @@ void AgentsList::removeAgent(const AgentInformation& info)
 }
 
 
-const QVector<AgentInformation> & AgentsList::agents() const
+const QVector<AgentInformation>& AgentsList::agents() const
 {
     return m_agents;
 }
@@ -107,4 +112,20 @@ void AgentsList::updateAgentHealth(const AgentInformation& info, const GeneralHe
 
         emit dataChanged(idx, idx, {AgentHealthRole});
     }
+}
+
+
+void AgentsList::refreshAgent(const AgentInformation& info)
+{
+    qDebug() << "Refreshing status of agent" << info;
+    m_statusProvider.fetchStatusOf(info, std::bind(&AgentsList::updateAgentHealth, this, _1, _2));
+}
+
+
+void AgentsList::refreshAllAgents()
+{
+    qDebug() << "Starting refresh of all agents";
+
+    for (const auto& agent: m_agents)
+        refreshAgent(agent);
 }
