@@ -7,7 +7,7 @@ AgentStatusFetcher::AgentStatusFetcher(const AgentInformation& info)
     : QObject()
 {
     connect(&m_socket, &QTcpSocket::connected, [info]{
-        qDebug() << "successfully connected to client " << info.host() << ":" << info.port();
+        qDebug() << "successfully connected to client" << info;
     });
 
     connect(&m_socket, &QTcpSocket::readyRead, this, &AgentStatusFetcher::readStatus);
