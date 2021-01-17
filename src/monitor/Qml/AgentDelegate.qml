@@ -23,18 +23,19 @@ Item {
                     case AgentInformation.ZeroConf: return "hard-disk.svg";
                     case HealthEnum.GOOD: return "hard-disk2.svg";
                     default: return "hard-disc2.svg";
-                }
+                    }
             }
-            
         }
 
         Image {
             id: statusIndicator
+
             width: 20
             height: 20
             smooth: true
             sourceSize.width: 20
             sourceSize.height: 20
+
             source: {
                 switch(agentHealth) {
                     case HealthEnum.UNKNOWN: return "question-mark.svg";
@@ -42,7 +43,7 @@ Item {
                     case HealthEnum.BAD: return "close.svg";
                     case HealthEnum.CHECK_STATUS: return "warning.svg";
                     default: return "question-mark.svg";
-                }
+                    }
              }
         }
 
