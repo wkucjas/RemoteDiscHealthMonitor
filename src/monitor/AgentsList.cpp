@@ -47,7 +47,7 @@ void AgentsList::removeAgent(const AgentInformation& info)
 }
 
 
-const QVector<AgentInformation> & AgentsList::agents() const
+const QVector<AgentInformation>& AgentsList::agents() const
 {
     return m_agents;
 }
