@@ -52,8 +52,8 @@ bool AgentInformation::operator==(const AgentInformation& other) const
 
 QDebug operator<<(QDebug debug, const AgentInformation& info)
 {
-    debug.nospace() << info.name();
-    debug.nospace() << " (" << info.host() << ":" << info.port() << ")";
+    debug.nospace().noquote() << info.name();
+    debug.nospace().noquote() << " (" << info.host() << ":" << info.port() << ")";
 
     return debug.maybeSpace();
 }
