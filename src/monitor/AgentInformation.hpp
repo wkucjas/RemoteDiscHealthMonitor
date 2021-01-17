@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <QDebug>
 #include <QObject>
 #include <QString>
 
@@ -36,3 +37,4 @@ private:
 
 
 uint qHash(const AgentInformation &, uint seed);
+QDebug operator<<(QDebug debug, const AgentInformation &);
