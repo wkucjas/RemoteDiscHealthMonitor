@@ -9,38 +9,42 @@ Item {
     Row {
         spacing: 5
 
-        Rectangle {
+        Image {
             id: agentType
 
             width: 20
             height: 20
+            smooth: true
+            sourceSize.width: 20
+            sourceSize.height: 20
 
-            radius: 10
-            color: {
+            source: {
                 switch(agentDetectionType) {
-                    case AgentInformation.ZeroConf: return "yellow";
-                    case HealthEnum.GOOD: return "brown";
-                    default: return "silver";
-                }
+                    case AgentInformation.ZeroConf: return "hard-disk.svg";
+                    case HealthEnum.GOOD: return "hard-disk2.svg";
+                    default: return "hard-disc2.svg";
+                    }
             }
         }
 
-        Rectangle {
+        Image {
             id: statusIndicator
 
             width: 20
             height: 20
+            smooth: true
+            sourceSize.width: 20
+            sourceSize.height: 20
 
-            radius: 10
-            color: {
+            source: {
                 switch(agentHealth) {
-                    case HealthEnum.UNKNOWN: return "blue";
-                    case HealthEnum.GOOD: return "green";
-                    case HealthEnum.BAD: return "red";
-                    case HealthEnum.CHECK_STATUS: return "orange";
-                    default: return "silver";
-                }
-            }
+                    case HealthEnum.UNKNOWN: return "question-mark.svg";
+                    case HealthEnum.GOOD: return "check.svg";
+                    case HealthEnum.BAD: return "close.svg";
+                    case HealthEnum.CHECK_STATUS: return "warning.svg";
+                    default: return "question-mark.svg";
+                    }
+             }
         }
 
         Text {
