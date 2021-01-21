@@ -16,6 +16,9 @@ Item {
         ListView {
             id: agentsList
             anchors.fill: parent
+            
+            spacing: 2
+            clip: true
 
             delegate: AgentDelegate {
                 MouseArea{
