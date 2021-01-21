@@ -8,6 +8,8 @@ Item {
 
     clip: true
 
+    SystemPalette { id: currentPalette; colorGroup: SystemPalette.Active }
+
     GroupBox {
         id: label
         anchors.fill: parent
@@ -16,40 +18,51 @@ Item {
         ListView {
             id: agentsList
             anchors.fill: parent
-            
+
             spacing: 2
             clip: true
 
             delegate: AgentDelegate {
-                MouseArea{
+                MouseArea {
                     anchors.fill: parent
+
                     onDoubleClicked:{
                         switchAgentsListViewAndAgentDetailsView()
                     }
+
+                    onClicked: {
+                        agentsList.currentIndex = index
+                    }
                 }
             }
-        }
 
-    ColumnLayout {
-
-        Button {
-            id: agentDetailsBackBtn
-            visible: false
-            text: "<<"
-            onClicked: {
-                switchAgentsListViewAndAgentDetailsView()
+            highlight: Rectangle {
+                opacity: 0.5
+                color: currentPalette.highlight
+                radius: 5
+                z: -1
             }
         }
 
-        ComboBox {
-            id: agentDetailsDisksComboBox
-            width: label.width - 25
-            visible: false
-            model: ["Disk1", "Disk2", "Disk3"]
+        ColumnLayout {
+
+            Button {
+                id: agentDetailsBackBtn
+                visible: false
+                text: "<<"
+                onClicked: {
+                    switchAgentsListViewAndAgentDetailsView()
+                }
+            }
+
+            ComboBox {
+                id: agentDetailsDisksComboBox
+                width: label.width - 25
+                visible: false
+                model: ["Disk1", "Disk2", "Disk3"]
+            }
         }
     }
-    }
-    
 
     function switchAgentsListViewAndAgentDetailsView() {
         agentsList.visible = !agentsList.visible
