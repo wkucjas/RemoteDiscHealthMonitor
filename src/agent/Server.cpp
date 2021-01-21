@@ -21,7 +21,6 @@ bool Server::Init()
             return false;
         }
 
-        QString ipAddress;
         QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
 
         for (int i = 0; i < ipAddressesList.size(); ++i)
@@ -29,20 +28,32 @@ bool Server::Init()
             if (ipAddressesList.at(i) != QHostAddress::LocalHost &&
                 ipAddressesList.at(i).toIPv4Address())
             {
-                ipAddress = ipAddressesList.at(i).toString();
+                m_ip = ipAddressesList.at(i).toString();
                 break;
             }
         }
 
-        if (ipAddress.isEmpty())
+        if (m_ip.isEmpty())
         {
-            ipAddress = QHostAddress(QHostAddress::LocalHost).toString();
+            m_ip = QHostAddress(QHostAddress::LocalHost).toString();
         }
 
-        std::cout << "The server is running on IP: " << ipAddress.toStdString() << " port: "<< m_tcpServer.serverPort() << std::endl;
+        std::cout << "The server is running on IP: " << m_ip.toStdString() << " port: "<< m_tcpServer.serverPort() << std::endl;
 
         return true;
 }
+
+const QString& Server::ip() const
+{
+    return m_ip;
+}
+
+
+quint16 Server::port() const
+{
+    return m_tcpServer.serverPort();
+}
+
 
 void Server::SendData()
 {

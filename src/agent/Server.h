@@ -10,6 +10,10 @@ class Server : public QObject
 public:
     Server(QObject* parent = nullptr);
     bool Init();
+
+    const QString& ip() const;
+    quint16 port() const;
+
 private:
     void SendData();
     void CollectInfoAboutDiscs();
@@ -17,4 +21,5 @@ private:
     GeneralHealth m_health;
 
     QTcpServer m_tcpServer;
+    QString m_ip;
 };
