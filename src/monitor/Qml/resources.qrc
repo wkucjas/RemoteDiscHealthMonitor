@@ -3,11 +3,5 @@
         <file>AgentDelegate.qml</file>
         <file>AgentsView.qml</file>
         <file>MainWindow.qml</file>
-        <file>close.svg</file>
-        <file>check.svg</file>
-        <file>warning.svg</file>
-        <file>hard-disk.svg</file>
-        <file>hard-disk2.svg</file>
-        <file>question-mark.svg</file>
     </qresource>
 </RCC>

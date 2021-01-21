@@ -3,6 +3,7 @@ find_package(Qt5 REQUIRED COMPONENTS Quick Network Gui)
 
 qt5_add_resources(QML_RESOURCES
     Qml/resources.qrc
+    images/images.qrc
 )
 
 add_executable(monitor
