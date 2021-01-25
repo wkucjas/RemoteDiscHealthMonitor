@@ -11,13 +11,20 @@ Item {
     GroupBox {
         id: label
         anchors.fill: parent
+        spacing: 2
 
         ListView {
             id: agentsList
             anchors.fill: parent
 
-            delegate: AgentDelegate {}
-            spacing: 2
+            delegate: AgentDelegate {
+                MouseArea{
+                anchors.fill: parent
+                onDoubleClicked:{
+                    agentsList.visible = false
+                }
+                }
+            }
         }
     }
 }
