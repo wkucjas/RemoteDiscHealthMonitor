@@ -19,10 +19,10 @@ Item {
 
             delegate: AgentDelegate {
                 MouseArea{
-                anchors.fill: parent
-                onDoubleClicked:{
-                    switchAgentsListViewAndAgentDetailsView()
-                }
+                    anchors.fill: parent
+                    onDoubleClicked:{
+                        switchAgentsListViewAndAgentDetailsView()
+                    }
                 }
             }
         }
