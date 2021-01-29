@@ -23,6 +23,8 @@ Item {
             clip: true
 
             delegate: Item {
+                id: delegateItem
+
                 width: ListView.view.width
                 height: agentDelegate.height
 
@@ -41,10 +43,18 @@ Item {
                     width: 10
                     height: 10
                     color: "red"
+
+                    opacity: mouseArea.containsMouse? 1.0: 0.0
+
+                    Behavior on opacity { PropertyAnimation{} }
                 }
 
                 MouseArea {
+                    id: mouseArea
+
                     anchors.fill: parent
+
+                    hoverEnabled: true
 
                     onDoubleClicked:{
                         switchAgentsListViewAndAgentDetailsView()
