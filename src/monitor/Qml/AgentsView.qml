@@ -22,7 +22,27 @@ Item {
             spacing: 2
             clip: true
 
-            delegate: AgentDelegate {
+            delegate: Item {
+                width: ListView.view.width
+                height: agentDelegate.height
+
+                AgentDelegate {
+                    id: agentDelegate
+
+                    anchors.left: parent.left
+
+                    width: childrenRect.width
+                    height: childrenRect.height
+                }
+
+                Rectangle {
+                    anchors.right: parent.right
+
+                    width: 10
+                    height: 10
+                    color: "red"
+                }
+
                 MouseArea {
                     anchors.fill: parent
 

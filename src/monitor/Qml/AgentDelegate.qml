@@ -3,8 +3,6 @@ import QtQuick 2.15
 import RDHM 1.0
 
 Item {
-    width: ListView.view.width
-    height: childrenRect.height
 
     Row {
         spacing: 5
