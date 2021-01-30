@@ -5,6 +5,7 @@
         <file>warning.svg</file>
         <file>hard-disk.svg</file>
         <file>hard-disk2.svg</file>
+        <file>trash.svg</file>
         <file>question-mark.svg</file>
     </qresource>
 </RCC>
