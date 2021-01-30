@@ -37,14 +37,16 @@ Item {
                     height: childrenRect.height
                 }
 
-                Rectangle {
+                Image {
                     anchors.right: parent.right
+                    anchors.rightMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
 
-                    width: 10
-                    height: 10
-                    color: "red"
-
+                    width: 25
+                    height: 25
                     opacity: mouseArea.containsMouse? 1.0: 0.0
+
+                    source: "trash.svg"
 
                     Behavior on opacity { PropertyAnimation{} }
                 }
