@@ -37,23 +37,8 @@ Item {
                     height: childrenRect.height
                 }
 
-                Image {
-                    anchors.right: parent.right
-                    anchors.rightMargin: 10
-                    anchors.verticalCenter: parent.verticalCenter
-
-                    width: 25
-                    height: 25
-                    opacity: mouseArea.containsMouse? 1.0: 0.0
-
-                    source: "trash.svg"
-
-                    Behavior on opacity { PropertyAnimation{} }
-                }
-
                 MouseArea {
-                    id: mouseArea
-
+                    id: delegateMouseArea
                     anchors.fill: parent
 
                     hoverEnabled: true
@@ -64,6 +49,31 @@ Item {
 
                     onClicked: {
                         agentsList.currentIndex = index
+                    }
+                }
+
+                Image {
+                    id: trash
+
+                    anchors.right: parent.right
+                    anchors.rightMargin: 10
+                    anchors.verticalCenter: parent.verticalCenter
+
+                    width: 25
+                    height: 25
+                    opacity: delegateMouseArea.containsMouse || trashMouseArea.containsMouse? 1.0: 0.0
+
+                    source: "trash.svg"
+                    scale: trashMouseArea.containsMouse? 1.5: 1.0
+
+                    Behavior on opacity { PropertyAnimation{} }
+                    Behavior on scale   { PropertyAnimation{ duration: 100 } }
+
+                    MouseArea {
+                        id: trashMouseArea
+                        anchors.fill: parent
+
+                        hoverEnabled: true
                     }
                 }
             }
@@ -105,8 +115,4 @@ Item {
 }
 
 
-/*##^##
-Designer {
-    D{i:0;height:237;width:640}
-}
-##^##*/
+
