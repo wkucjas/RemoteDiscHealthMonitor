@@ -3,6 +3,7 @@
         <file>AgentDelegate.qml</file>
         <file>AgentsView.qml</file>
         <file>Confirmation.qml</file>
+        <file>DeletionItem.qml</file>
         <file>MainWindow.qml</file>
     </qresource>
 </RCC>

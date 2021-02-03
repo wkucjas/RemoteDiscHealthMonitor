@@ -52,29 +52,10 @@ Item {
                     }
                 }
 
-                Image {
-                    id: trash
-
+                DeletionItem {
                     anchors.right: parent.right
                     anchors.rightMargin: 10
                     anchors.verticalCenter: parent.verticalCenter
-
-                    width: 25
-                    height: 25
-                    opacity: delegateMouseArea.containsMouse || trashMouseArea.containsMouse? 1.0: 0.0
-
-                    source: "trash.svg"
-                    scale: trashMouseArea.containsMouse? 1.5: 1.0
-
-                    Behavior on opacity { PropertyAnimation{} }
-                    Behavior on scale   { PropertyAnimation{ duration: 100 } }
-
-                    MouseArea {
-                        id: trashMouseArea
-                        anchors.fill: parent
-
-                        hoverEnabled: true
-                    }
                 }
             }
 
