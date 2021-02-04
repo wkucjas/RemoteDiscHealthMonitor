@@ -44,10 +44,12 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: -deletionItem.height
 
-        imageSize: 25
-        imagesSpacing: 25
-    }
+        scale: 0.75
 
+        imageSize: 25
+        imagesSpacing: 15
+
+    }
 
     Connections {
         target: delegateMouseArea
@@ -79,5 +81,4 @@ Item {
             properties: "anchors.bottomMargin"
         }
     }
-
 }
