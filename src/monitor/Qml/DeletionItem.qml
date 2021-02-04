@@ -12,7 +12,7 @@ Item {
         id: trash
 
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.verticalCenter: parent.verticalCenter
 
         width: 25
         height: 25
@@ -41,14 +41,11 @@ Item {
         id: confirmation
 
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: -deletionItem.height
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenterOffset: -deletionItem.height
 
-        scale: 0.75
-
-        imageSize: 25
+        imageSize: 20
         imagesSpacing: 15
-
     }
 
     Connections {
@@ -67,12 +64,12 @@ Item {
 
             PropertyChanges {
                 target: trash
-                anchors.bottomMargin: deletionItem.height
+                anchors.verticalCenterOffset: deletionItem.height
             }
 
             PropertyChanges {
                 target: confirmation
-                anchors.bottomMargin: 0
+                anchors.verticalCenterOffset: 0
             }
         }
     ]
@@ -80,7 +77,7 @@ Item {
     transitions: Transition {
         PropertyAnimation {
             targets: [trash, confirmation]
-            properties: "anchors.bottomMargin"
+            properties: "anchors.verticalCenterOffset"
         }
     }
 }
