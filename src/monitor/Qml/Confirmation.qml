@@ -21,6 +21,7 @@ Row {
         source: "ok.svg"
 
         MouseArea {
+            anchors.fill: parent
             onClicked: accepted();
         }
     }
@@ -38,6 +39,7 @@ Row {
         source: "cancel.svg"
 
         MouseArea {
+            anchors.fill: parent
             onClicked: canceled();
         }
     }
