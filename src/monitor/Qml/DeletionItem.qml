@@ -48,6 +48,12 @@ Item {
         imagesSpacing: 25
     }
 
+
+    Connections {
+        target: delegateMouseArea
+        onExited: deletionItem.state = "Question";
+    }
+
     states: [
         State {
             name: "Question"
@@ -75,5 +81,3 @@ Item {
     }
 
 }
-
-
