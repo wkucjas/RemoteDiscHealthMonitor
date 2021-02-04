@@ -26,15 +26,13 @@ Item {
                 id: delegateItem
 
                 width: ListView.view.width
-                height: agentDelegate.height
+                height: agentDelegate.height + 5
 
                 AgentDelegate {
                     id: agentDelegate
 
                     anchors.left: parent.left
-
-                    width: childrenRect.width
-                    height: childrenRect.height
+                    anchors.verticalCenter: parent.verticalCenter
                 }
 
                 MouseArea {
@@ -56,6 +54,8 @@ Item {
                     anchors.right: parent.right
                     anchors.rightMargin: 10
                     anchors.verticalCenter: parent.verticalCenter
+
+                    height: parent.height
                 }
             }
 

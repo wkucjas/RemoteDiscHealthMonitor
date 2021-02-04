@@ -5,13 +5,16 @@ import RDHM 1.0
 Row {
     property int imagesSize: 20
 
+    height: imagesSize + 5
     spacing: 5
 
     Image {
         id: agentType
 
+        anchors.verticalCenter: parent.verticalCenter
         width: imagesSize
         height: imagesSize
+
         smooth: true
         sourceSize.width: imagesSize
         sourceSize.height: imagesSize
@@ -28,8 +31,10 @@ Row {
     Image {
         id: statusIndicator
 
+        anchors.verticalCenter: parent.verticalCenter
         width: imagesSize
         height: imagesSize
+
         smooth: true
         sourceSize.width: imagesSize
         sourceSize.height: imagesSize
