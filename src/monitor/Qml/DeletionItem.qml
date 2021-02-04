@@ -53,7 +53,9 @@ Item {
 
     Connections {
         target: delegateMouseArea
-        onExited: deletionItem.state = "Question";
+        function onExited() {
+            deletionItem.state = "Question";
+        }
     }
 
     states: [
