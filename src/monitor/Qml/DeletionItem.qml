@@ -46,6 +46,20 @@ Item {
 
         imageSize: 20
         imagesSpacing: 15
+
+        Connections {
+            target: confirmation
+            function onAccepted() {
+                deletionItem.state = "Question";
+            }
+        }
+
+        Connections {
+            target: confirmation
+            function onCanceled() {
+                deletionItem.state = "Question";
+            }
+        }
     }
 
     Connections {
