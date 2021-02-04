@@ -2,19 +2,19 @@
 import QtQuick 2.15
 import RDHM 1.0
 
-Item {
-
     Row {
+        property int imagesSize: 20
+
         spacing: 5
 
         Image {
             id: agentType
 
-            width: 20
-            height: 20
+            width: imagesSize
+            height: imagesSize
             smooth: true
-            sourceSize.width: 20
-            sourceSize.height: 20
+            sourceSize.width: imagesSize
+            sourceSize.height: imagesSize
 
             source: {
                 switch(agentDetectionType) {
@@ -28,11 +28,11 @@ Item {
         Image {
             id: statusIndicator
 
-            width: 20
-            height: 20
+            width: imagesSize
+            height: imagesSize
             smooth: true
-            sourceSize.width: 20
-            sourceSize.height: 20
+            sourceSize.width: imagesSize
+            sourceSize.height: imagesSize
 
             source: {
                 switch(agentHealth) {
@@ -51,4 +51,3 @@ Item {
             anchors.verticalCenter: statusIndicator.verticalCenter
         }
     }
-}
