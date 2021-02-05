@@ -10,32 +10,17 @@ Item {
 
     signal deleteItem()
 
-    Image {
+    ImageButton {
         id: trash
 
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
 
-        width: 25
-        height: 25
+        buttonSize: 25
+        imageSource: "trash.svg"
 
-        opacity: delegateMouseArea.containsMouse || trashMouseArea.containsMouse? 1.0: 0.0
-
-        source: "trash.svg"
-        scale: trashMouseArea.containsMouse? 1.5: 1.0
-
-        Behavior on opacity { PropertyAnimation{} }
-        Behavior on scale   { PropertyAnimation{ duration: 100 } }
-
-        MouseArea {
-            id: trashMouseArea
-            anchors.fill: parent
-
-            hoverEnabled: true
-
-            onClicked: {
-                deletionItem.state = "Confirmation"
-            }
+        onButtonClicked: {
+            deletionItem.state = "Confirmation";
         }
     }
 
