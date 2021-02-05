@@ -42,7 +42,6 @@ Row {
             onClicked: ignored();
         }
     }
-
 }
 
 

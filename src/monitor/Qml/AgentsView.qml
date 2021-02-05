@@ -56,6 +56,10 @@ Item {
                     anchors.verticalCenter: parent.verticalCenter
 
                     height: parent.height
+
+                    onDeleteItem: {
+                        agentsList.model.removeAgentAt(index);
+                    }
                 }
             }
 

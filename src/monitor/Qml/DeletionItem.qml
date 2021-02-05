@@ -8,6 +8,8 @@ Item {
     height: confirmation.height
     clip: true
 
+    signal deleteItem()
+
     Image {
         id: trash
 
@@ -52,6 +54,7 @@ Item {
 
             function onAccepted() {
                 deletionItem.state = "Question";
+                deleteItem();
             }
 
             function onIgnored() {
