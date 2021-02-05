@@ -49,14 +49,12 @@ Item {
 
         Connections {
             target: confirmation
+
             function onAccepted() {
                 deletionItem.state = "Question";
             }
-        }
 
-        Connections {
-            target: confirmation
-            function onCanceled() {
+            function onIgnored() {
                 deletionItem.state = "Question";
             }
         }

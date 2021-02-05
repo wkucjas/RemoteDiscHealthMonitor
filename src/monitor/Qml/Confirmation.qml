@@ -9,7 +9,7 @@ Row {
     property int imagesSpacing: 48
 
     signal accepted()
-    signal canceled()
+    signal ignored()
 
     height: imageSize
     width: childrenRect.width
@@ -27,7 +27,6 @@ Row {
     }
 
     Item {
-        id: item1
         width: imagesSpacing
         height: imageSize
     }
@@ -40,7 +39,7 @@ Row {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: canceled();
+            onClicked: ignored();
         }
     }
 
