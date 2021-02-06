@@ -52,9 +52,10 @@ Item {
                     DeletionItem {
                         id: deletionItem
 
-                        height: parent.height
+                        height: parent.height - 6
                         anchors.right: parent.right
                         anchors.rightMargin: 10
+                        anchors.verticalCenter: parent.verticalCenter
 
                         onDeleteItem: {
                             agentsList.model.removeAgentAt(index);
