@@ -28,13 +28,6 @@ Item {
                 width: ListView.view.width
                 height: agentDelegate.height + 5
 
-                AgentDelegate {
-                    id: agentDelegate
-
-                    anchors.left: parent.left
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-
                 MouseArea {
                     id: delegateMouseArea
                     anchors.fill: parent
@@ -48,17 +41,24 @@ Item {
                     onClicked: {
                         agentsList.currentIndex = index
                     }
-                }
 
-                DeletionItem {
-                    anchors.right: parent.right
-                    anchors.rightMargin: 10
-                    anchors.verticalCenter: parent.verticalCenter
+                    AgentDelegate {
+                        id: agentDelegate
 
-                    height: parent.height
+                        anchors.left: parent.left
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
 
-                    onDeleteItem: {
-                        agentsList.model.removeAgentAt(index);
+                    DeletionItem {
+                        anchors.right: parent.right
+                        anchors.rightMargin: 10
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        height: parent.height
+
+                        onDeleteItem: {
+                            agentsList.model.removeAgentAt(index);
+                        }
                     }
                 }
             }
