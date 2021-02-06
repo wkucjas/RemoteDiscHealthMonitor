@@ -14,15 +14,12 @@ Row {
     height: imageSize
     width: childrenRect.width
 
-    Image {
-        width: imageSize
-        height: imageSize
+    ImageButton {
+        buttonSize: imageSize
+        imageSource: "ok.svg"
 
-        source: "ok.svg"
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: accepted();
+        onButtonClicked: {
+            accepted();
         }
     }
 
@@ -31,15 +28,12 @@ Row {
         height: imageSize
     }
 
-    Image {
-        width: imageSize
-        height: imageSize
+    ImageButton {
+        buttonSize: imageSize
+        imageSource: "cancel.svg"
 
-        source: "cancel.svg"
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: ignored();
+        onButtonClicked: {
+            ignored();
         }
     }
 }
