@@ -1,30 +1,39 @@
 
 import QtQuick 2.15
 
-Image {
+Item {
     property int buttonSize: 25
     property string imageSource
     property alias containsMouse: mouseArea.containsMouse
 
     signal buttonClicked()
 
-    width: buttonSize
-    height: buttonSize
+    width:  buttonSize * 1.5
+    height: buttonSize * 1.5
 
-    source: imageSource
-    scale: mouseArea.containsMouse? 1.5: 1.0
+    Image {
 
-    Behavior on opacity { PropertyAnimation{} }
-    Behavior on scale   { PropertyAnimation{ duration: 100 } }
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
 
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
+        width:  buttonSize
+        height: buttonSize
 
-        hoverEnabled: true
+        source: imageSource
+        scale: mouseArea.containsMouse? 1.5: 1.0
 
-        onClicked: {
-            buttonClicked();
+        Behavior on opacity { PropertyAnimation{} }
+        Behavior on scale   { PropertyAnimation{ duration: 100 } }
+
+        MouseArea {
+            id: mouseArea
+            anchors.fill: parent
+
+            hoverEnabled: true
+
+            onClicked: {
+                buttonClicked();
+            }
         }
     }
 }
