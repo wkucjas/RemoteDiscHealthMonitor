@@ -2,22 +2,19 @@
 import QtQuick 2.15
 
 
-Row {
+Item {
     id: row
-
-    property int imageSize: 48
-    property int imagesSpacing: 48
 
     signal accepted()
     signal ignored()
 
-    height: childrenRect.height
-    width: childrenRect.width
-
     ImageButton {
         anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
 
-        buttonSize: imageSize
+        width:  parent.height
+        height: parent.height
+
         imageSource: "ok.svg"
 
         onButtonClicked: {
@@ -25,15 +22,13 @@ Row {
         }
     }
 
-    Item {
-        width: imagesSpacing
-        height: imageSize
-    }
-
     ImageButton {
         anchors.verticalCenter: parent.verticalCenter
+        anchors.right: parent.right
 
-        buttonSize: imageSize
+        width:  parent.height
+        height: parent.height
+
         imageSource: "cancel.svg"
 
         onButtonClicked: {
@@ -41,5 +36,3 @@ Row {
         }
     }
 }
-
-

@@ -5,7 +5,6 @@ Item {
     id: deletionItem
 
     width: confirmation.width
-    height: confirmation.height
     clip: true
 
     signal deleteItem()
@@ -13,12 +12,14 @@ Item {
     ImageButton {
         id: trash
 
+        width:  parent.height
+        height: parent.height
+
+        y: 0
         anchors.right: parent.right
-        anchors.verticalCenter: parent.verticalCenter
 
         opacity: delegateMouseArea.containsMouse || trash.containsMouse? 1.0: 0.0
 
-        buttonSize: 25
         imageSource: "trash.svg"
 
         onButtonClicked: {
@@ -29,12 +30,11 @@ Item {
     Confirmation {
         id: confirmation
 
+        y: parent.height
         anchors.right: parent.right
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.verticalCenterOffset: -deletionItem.height
 
-        imageSize: 20
-        imagesSpacing: 15
+        height: parent.height
+        width:  parent.height * 2.5
 
         Connections {
             target: confirmation
@@ -66,12 +66,12 @@ Item {
 
             PropertyChanges {
                 target: trash
-                anchors.verticalCenterOffset: deletionItem.height
+                y: deletionItem.height
             }
 
             PropertyChanges {
                 target: confirmation
-                anchors.verticalCenterOffset: 0
+                y: 0
             }
         }
     ]
@@ -79,7 +79,7 @@ Item {
     transitions: Transition {
         PropertyAnimation {
             targets: [trash, confirmation]
-            properties: "anchors.verticalCenterOffset"
+            properties: "y"
         }
     }
 }

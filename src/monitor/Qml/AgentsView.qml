@@ -26,7 +26,7 @@ Item {
                 id: delegateItem
 
                 width: ListView.view.width
-                height: agentDelegate.height + 5
+                height: 30
 
                 MouseArea {
                     id: delegateMouseArea
@@ -50,11 +50,11 @@ Item {
                     }
 
                     DeletionItem {
-                        anchors.right: parent.right
-                        anchors.rightMargin: 10
-                        anchors.verticalCenter: parent.verticalCenter
+                        id: deletionItem
 
                         height: parent.height
+                        anchors.right: parent.right
+                        anchors.rightMargin: 10
 
                         onDeleteItem: {
                             agentsList.model.removeAgentAt(index);
