@@ -11,10 +11,12 @@ Row {
     signal accepted()
     signal ignored()
 
-    height: imageSize
+    height: childrenRect.height
     width: childrenRect.width
 
     ImageButton {
+        anchors.verticalCenter: parent.verticalCenter
+
         buttonSize: imageSize
         imageSource: "ok.svg"
 
@@ -29,6 +31,8 @@ Row {
     }
 
     ImageButton {
+        anchors.verticalCenter: parent.verticalCenter
+
         buttonSize: imageSize
         imageSource: "cancel.svg"
 
