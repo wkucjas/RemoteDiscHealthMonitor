@@ -4,12 +4,12 @@ import QtQuick 2.15
 Image {
     property int buttonSize: 25
     property string imageSource
+    property alias containsMouse: mouseArea.containsMouse
+
     signal buttonClicked()
 
     width: buttonSize
     height: buttonSize
-
-    opacity: delegateMouseArea.containsMouse || mouseArea.containsMouse? 1.0: 0.0
 
     source: imageSource
     scale: mouseArea.containsMouse? 1.5: 1.0

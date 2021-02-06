@@ -16,6 +16,8 @@ Item {
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
 
+        opacity: delegateMouseArea.containsMouse || trash.containsMouse? 1.0: 0.0
+
         buttonSize: 25
         imageSource: "trash.svg"
 
