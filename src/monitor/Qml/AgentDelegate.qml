@@ -22,7 +22,7 @@ Row {
         source: {
             switch(agentDetectionType) {
                 case AgentInformation.ZeroConf: return "hard-disk.svg";
-                case HealthEnum.GOOD: return "hard-disk2.svg";
+                case AgentInformation.Hardcoded: return "hard-disk2.svg";
                 default: return "hard-disc2.svg";
                 }
         }
