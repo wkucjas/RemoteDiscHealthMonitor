@@ -1,6 +1,7 @@
 import QtQuick.Layouts 1.15
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import RDHM 1.0
 
 Item {
     property alias label: label.title
@@ -52,6 +53,7 @@ Item {
                     DeletionItem {
                         id: deletionItem
 
+                        visible: agentDetectionType == AgentInformation.Hardcoded
                         height: parent.height - 6
                         anchors.right: parent.right
                         anchors.rightMargin: 10
