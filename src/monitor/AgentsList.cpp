@@ -44,11 +44,19 @@ void AgentsList::removeAgent(const AgentInformation& info)
     {
         const int pos = std::distance(m_agents.begin(), it);
 
-        beginRemoveRows({}, pos, pos);
-        m_agents.removeAt(pos);
-        m_health.remove(info);
-        endRemoveRows();
+       removeAgentAt(pos);
     }
+}
+
+
+void AgentsList::removeAgentAt(int position)
+{
+    const AgentInformation info = m_agents[position];
+
+    beginRemoveRows({}, position, position);
+    m_agents.removeAt(position);
+    m_health.remove(info);
+    endRemoveRows();
 }
 
 

@@ -13,11 +13,14 @@
 
 class AgentsList: public QAbstractListModel
 {
+    Q_OBJECT
+
 public:
     AgentsList(IAgentsStatusProvider &, QObject* parent = nullptr);
 
     void addAgent(const AgentInformation &);
     void removeAgent(const AgentInformation &);
+    Q_INVOKABLE void removeAgentAt(int position);
 
     const QVector<AgentInformation>& agents() const;
 

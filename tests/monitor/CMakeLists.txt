@@ -4,6 +4,7 @@ find_package(Qt5 REQUIRED COMPONENTS Core Test)
 add_executable(monitorTests
     AgentsListTests.cpp
     IAgentsStatusProviderMock.hpp
+    ${PROJECT_SOURCE_DIR}/src/monitor/AgentsList.hpp
     ${PROJECT_SOURCE_DIR}/src/monitor/AgentsList.cpp
     ${PROJECT_SOURCE_DIR}/src/monitor/AgentInformation.cpp
 )
@@ -21,6 +22,8 @@ target_link_libraries(monitorTests
     Qt::Core
     Qt::Test
 )
+
+set_target_properties(monitorTests PROPERTIES AUTOMOC TRUE)
 
 add_test(
     NAME monitorTests

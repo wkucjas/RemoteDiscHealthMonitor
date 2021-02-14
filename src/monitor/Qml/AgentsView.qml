@@ -1,12 +1,15 @@
 import QtQuick.Layouts 1.15
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import RDHM 1.0
 
 Item {
     property alias label: label.title
     property alias model: agentsList.model
 
     clip: true
+
+    SystemPalette { id: currentPalette; colorGroup: SystemPalette.Active }
 
     GroupBox {
         id: label
@@ -17,36 +20,79 @@ Item {
             id: agentsList
             anchors.fill: parent
 
-            delegate: AgentDelegate {
-                MouseArea{
+            spacing: 2
+            clip: true
+
+            delegate: Item {
+                id: delegateItem
+
+                width: ListView.view.width
+                height: 30
+
+                MouseArea {
+                    id: delegateMouseArea
                     anchors.fill: parent
+
+                    hoverEnabled: true
+
                     onDoubleClicked:{
                         switchAgentsListViewAndAgentDetailsView()
                     }
+
+                    onClicked: {
+                        agentsList.currentIndex = index
+                    }
+
+                    AgentDelegate {
+                        id: agentDelegate
+
+                        anchors.left: parent.left
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
+                    DeletionItem {
+                        id: deletionItem
+
+                        visible: agentDetectionType == AgentInformation.Hardcoded
+                        height: parent.height - 6
+                        anchors.right: parent.right
+                        anchors.rightMargin: 10
+                        anchors.verticalCenter: parent.verticalCenter
+
+                        onDeleteItem: {
+                            agentsList.model.removeAgentAt(index);
+                        }
+                    }
                 }
             }
-        }
 
-    ColumnLayout {
-
-        Button {
-            id: agentDetailsBackBtn
-            visible: false
-            text: "<<"
-            onClicked: {
-                switchAgentsListViewAndAgentDetailsView()
+            highlight: Rectangle {
+                opacity: 0.5
+                color: currentPalette.highlight
+                radius: 5
+                z: -1
             }
         }
 
-        ComboBox {
-            id: agentDetailsDisksComboBox
-            width: label.width - 25
-            visible: false
-            model: ["Disk1", "Disk2", "Disk3"]
+        ColumnLayout {
+
+            Button {
+                id: agentDetailsBackBtn
+                visible: false
+                text: "<<"
+                onClicked: {
+                    switchAgentsListViewAndAgentDetailsView()
+                }
+            }
+
+            ComboBox {
+                id: agentDetailsDisksComboBox
+                width: label.width - 25
+                visible: false
+                model: ["Disk1", "Disk2", "Disk3"]
+            }
         }
     }
-    }
-    
 
     function switchAgentsListViewAndAgentDetailsView() {
         agentsList.visible = !agentsList.visible
@@ -57,8 +103,4 @@ Item {
 }
 
 
-/*##^##
-Designer {
-    D{i:0;height:237;width:640}
-}
-##^##*/
+
