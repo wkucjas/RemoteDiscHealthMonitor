@@ -11,6 +11,7 @@ add_library(common OBJECT
     SmartData.h
     GeneralHealth.cpp 
     DiskInfo.h
+    DiskInfoSerialize.h
     )
 
 target_include_directories(common
