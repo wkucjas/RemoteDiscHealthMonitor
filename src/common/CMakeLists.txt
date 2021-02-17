@@ -9,7 +9,9 @@ add_library(common OBJECT
     OutputParsersUtils.h
     SmartData.cpp
     SmartData.h
-    GeneralHealth.cpp)
+    GeneralHealth.cpp 
+    DiskInfo.h
+    )
 
 target_include_directories(common
     PUBLIC ${PROJECT_SOURCE_DIR}/src
