@@ -1,7 +1,11 @@
 
-find_package(Qt5 5.15 REQUIRED COMPONENTS Core Network)
+find_package(Qt5 5.15 REQUIRED COMPONENTS Core Network RemoteObjects)
+
+qt5_generate_repc(REPC ${PROJECT_SOURCE_DIR}/src/common/AgentStatus.rep SOURCE)
 
 ADD_EXECUTABLE( agent
+                AgentStatus.cpp
+                AgentStatus.h
 				main.cpp
 				IProbe.h
 				ISmartReader.h
@@ -16,10 +20,12 @@ ADD_EXECUTABLE( agent
                 Disk.h
                 Disk.cpp
                 SystemUtilitiesFactory.h
+                ${REPC}
 )
 
 target_include_directories(agent
     PRIVATE
+        ${CMAKE_CURRENT_BINARY_DIR}
         ${PROJECT_SOURCE_DIR}
         ${PROJECT_SOURCE_DIR}/src
 )
@@ -31,6 +37,7 @@ target_link_libraries(agent
         QtZeroConf
         Qt::Core
         Qt::Network
+        Qt::RemoteObjects
 )
 
 set_target_properties(agent PROPERTIES AUTOMOC TRUE)
