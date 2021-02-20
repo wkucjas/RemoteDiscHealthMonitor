@@ -5,14 +5,23 @@
 #include <iostream>
 #include "common/constants.hpp"
 #include "common/ProtocolVersion.h"
+#include "AgentStatus.h"
 #include "SmartReader.h"
 #include "SystemUtilitiesFactory.h"
 #include "DiscStatusCalculator.h"
 
-
-Server::Server(QObject * parent)
+Server::Server(QObject* parent)
+    : QObject(parent)
+    , m_ROHost(QUrl("local:switch"))
 {
     connect(&m_tcpServer, &QTcpServer::newConnection, this, &Server::SendData);
+
+    auto agentStatus = new AgentStatus(this);
+
+    const bool status = m_ROHost.enableRemoting(agentStatus);
+
+    if (status == false)
+        throw std::runtime_error("Could not enableRemoting");
 }
 
 bool Server::Init()

@@ -1,9 +1,13 @@
+
 #pragma once
+
 #include <QTcpServer>
+#include <QRemoteObjectHost>
+
 #include "common/GeneralHealth.h"
 #include "common/constants.hpp"
 
-class Server : public QObject
+class Server: public QObject
 {
     Q_OBJECT
 
@@ -20,6 +24,7 @@ private:
 
     GeneralHealth m_health;
 
+    QRemoteObjectHost m_ROHost;
     QTcpServer m_tcpServer;
     QString m_ip;
 };
