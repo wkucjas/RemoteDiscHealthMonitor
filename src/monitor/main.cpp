@@ -3,6 +3,8 @@
 #include <QQmlEngine>
 #include <QQuickItem>
 #include <QQuickView>
+#include <QRemoteObjectNode>
+#include <iostream>
 
 #include "AgentsList.hpp"
 #include "AgentsExplorer.hpp"
@@ -10,6 +12,7 @@
 #include "ManualAgentsValidator.hpp"
 #include "common/GeneralHealth.h"
 #include "Configuration.hpp"
+#include "rep_AgentStatus_replica.h"
 
 
 namespace
@@ -61,6 +64,15 @@ int main(int argc, char** argv)
     QQuickView mainWindow(QUrl("qrc:/ui/MainWindow.qml"));
     mainWindow.setResizeMode(QQuickView::SizeRootObjectToView);
     mainWindow.show();
+
+    QRemoteObjectNode repNode; // create remote object node
+    repNode.connectToNode(QUrl("local:switch")); // connect with remote host node
+    QSharedPointer<AgentStatusReplica> ptr;
+    ptr.reset(repNode.acquire<AgentStatusReplica>()); // acquire replica of source from host node
+
+    QObject::connect(ptr.get(), &AgentStatusReplica::counterChanged, [](int v) {
+        std::cout << v << '\n';
+    });
 
     auto rootObject = mainWindow.rootObject();
     auto view = rootObject->findChild<QObject*>("activeAgents");
