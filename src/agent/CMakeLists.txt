@@ -58,6 +58,8 @@ if(WIN32)
             windows/WinDiskCollector.h
             windows/WinDiskCollector.cpp
             windows/WinSystemUtilitiesFactory.cpp
+            windows/WinSmartAnalyzer.h
+            windows/WinSmartAnalyzer.cpp
     )
 
     target_link_libraries(agent
