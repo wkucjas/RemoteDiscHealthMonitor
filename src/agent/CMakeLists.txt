@@ -1,5 +1,5 @@
 
-find_package(Qt5 5.15 REQUIRED COMPONENTS Core Network RemoteObjects)
+find_package(Qt5 5.15 REQUIRED COMPONENTS Core RemoteObjects)
 
 qt5_generate_repc(REPC ${PROJECT_SOURCE_DIR}/src/common/AgentStatus.rep SOURCE)
 

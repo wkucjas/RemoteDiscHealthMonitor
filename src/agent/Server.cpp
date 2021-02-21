@@ -12,44 +12,36 @@
 
 Server::Server(QObject* parent)
     : QObject(parent)
-    , m_ROHost(QUrl("local:switch"))
+    , m_ROHost()
 {
-    connect(&m_tcpServer, &QTcpServer::newConnection, this, &Server::SendData);
 
-    auto agentStatus = new AgentStatus(this);
-
-    const bool status = m_ROHost.enableRemoting(agentStatus);
-
-    if (status == false)
-        throw std::runtime_error("Could not enableRemoting");
 }
 
 bool Server::Init()
 {
-        if (!m_tcpServer.listen(QHostAddress::Any, RDHMPort)) {
-            return false;
-        }
+    QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
 
-        QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
-
-        for (int i = 0; i < ipAddressesList.size(); ++i)
+    for (int i = 0; i < ipAddressesList.size(); ++i)
+    {
+        if (ipAddressesList.at(i) != QHostAddress::LocalHost &&
+            ipAddressesList.at(i).toIPv4Address())
         {
-            if (ipAddressesList.at(i) != QHostAddress::LocalHost &&
-                ipAddressesList.at(i).toIPv4Address())
-            {
-                m_ip = ipAddressesList.at(i).toString();
-                break;
-            }
+            m_ip = ipAddressesList.at(i).toString();
+            break;
         }
+    }
 
-        if (m_ip.isEmpty())
-        {
-            m_ip = QHostAddress(QHostAddress::LocalHost).toString();
-        }
+    if (m_ip.isEmpty())
+    {
+        m_ip = QHostAddress(QHostAddress::LocalHost).toString();
+    }
 
-        std::cout << "The server is running on IP: " << m_ip.toStdString() << " port: "<< m_tcpServer.serverPort() << std::endl;
+    const QUrl url = QStringLiteral("tcp://%1:%2").arg(m_ip).arg(RDHMPort);
+    m_ROHost.setHostUrl(url);
 
-        return true;
+    std::cout << "The server is running on: " << url.toDisplayString().toStdString() << '\n';
+
+    return true;
 }
 
 const QString& Server::ip() const
@@ -60,7 +52,7 @@ const QString& Server::ip() const
 
 quint16 Server::port() const
 {
-    return m_tcpServer.serverPort();
+    return RDHMPort;
 }
 
 
@@ -68,19 +60,7 @@ void Server::SendData()
 {
     CollectInfoAboutDiscs();
 
-    QByteArray block;
-    QDataStream out(&block, QIODevice::WriteOnly);
-    out.setVersion(QDataStream::Qt_5_10);
-
-    out << ProtocolVersion::VER_1;
-    out << static_cast<quint8>(m_health.GetStatus());
-
-    QTcpSocket* clientConnection = m_tcpServer.nextPendingConnection();
-
-    connect(clientConnection, &QAbstractSocket::disconnected,clientConnection, &QObject::deleteLater);
-
-    clientConnection->write(block);
-    clientConnection->disconnectFromHost();
+    // update m_agentStatus
 }
 
 void Server::CollectInfoAboutDiscs()
