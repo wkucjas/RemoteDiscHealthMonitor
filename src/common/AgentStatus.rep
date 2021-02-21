@@ -4,4 +4,6 @@
 class AgentStatus
 {
     PROP(GeneralHealth::Health overallStatus);
+
+    SLOT(refresh());
 };

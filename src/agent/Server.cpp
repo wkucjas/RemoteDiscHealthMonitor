@@ -5,13 +5,13 @@
 #include <iostream>
 #include "common/constants.hpp"
 #include "common/ProtocolVersion.h"
-#include "AgentStatus.h"
 #include "SmartReader.h"
 #include "SystemUtilitiesFactory.h"
 #include "DiscStatusCalculator.h"
 
+
 Server::Server(QObject* parent)
-    : QObject(parent)
+    : AgentStatusSource(parent)
     , m_ROHost()
 {
 
@@ -41,7 +41,7 @@ bool Server::Init()
 
     std::cout << "The server is running on: " << url.toDisplayString().toStdString() << '\n';
 
-    const bool status = m_ROHost.enableRemoting(&m_agentStatus);
+    const bool status = m_ROHost.enableRemoting(this);
 
     if (status)
         std::cout << "RemoteObjects network setup properly.\n";
@@ -63,11 +63,23 @@ quint16 Server::port() const
 }
 
 
-void Server::SendData()
+void Server::setOverallStatus(GeneralHealth::Health overallStatus)
+{
+    m_health = overallStatus;
+
+    emit overallStatusChanged(m_health);
+}
+
+
+GeneralHealth::Health Server::overallStatus() const
+{
+    return m_health;
+}
+
+
+void Server::refresh()
 {
     CollectInfoAboutDiscs();
-
-    m_agentStatus.setOverallStatus(m_health.GetStatus());
 }
 
 void Server::CollectInfoAboutDiscs()
@@ -80,6 +92,6 @@ void Server::CollectInfoAboutDiscs()
     probes.emplace_back(std::move(probe));
 
     DiscStatusCalculator calc(probes, discCollection);
-    m_health = calc.GetStatus();
+    setOverallStatus(calc.GetStatus());
 }
 
