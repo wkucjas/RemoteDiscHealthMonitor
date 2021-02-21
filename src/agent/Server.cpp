@@ -41,6 +41,13 @@ bool Server::Init()
 
     std::cout << "The server is running on: " << url.toDisplayString().toStdString() << '\n';
 
+    const bool status = m_ROHost.enableRemoting(&m_agentStatus);
+
+    if (status)
+        std::cout << "RemoteObjects network setup properly.\n";
+    else
+        std::cerr << "RemoteObjects network setup fatal error.\n";
+
     return true;
 }
 
@@ -60,7 +67,7 @@ void Server::SendData()
 {
     CollectInfoAboutDiscs();
 
-    // update m_agentStatus
+    m_agentStatus.setOverallStatus(m_health.GetStatus());
 }
 
 void Server::CollectInfoAboutDiscs()
