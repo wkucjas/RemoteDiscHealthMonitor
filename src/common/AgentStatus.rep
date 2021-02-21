@@ -1,5 +1,7 @@
 
+#include "common/GeneralHealth.h"
+
 class AgentStatus
 {
-    PROP(int counter);
+    PROP(GeneralHealth::Health overallStatus);
 };

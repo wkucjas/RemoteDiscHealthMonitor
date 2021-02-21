@@ -10,9 +10,9 @@ class AgentStatus: public AgentStatusSource
 public:
     AgentStatus(QObject* parent = nullptr);
 
-    void setCounter(int counter) override;
-    int counter() const override;
+    void setOverallStatus(GeneralHealth::Health overallStatus) override;
+    GeneralHealth::Health overallStatus() const override;
 
 private:
-    int m_counter;
+    GeneralHealth::Health m_overallStatus;
 };

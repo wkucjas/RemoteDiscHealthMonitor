@@ -1,6 +1,4 @@
 
-#include <QTimer>
-
 #include "AgentStatus.h"
 
 using namespace std::chrono_literals;
@@ -8,27 +6,20 @@ using namespace std::chrono_literals;
 
 AgentStatus::AgentStatus(QObject* parent)
     : AgentStatusSource(parent)
-    , m_counter(0)
+    , m_overallStatus(GeneralHealth::UNKNOWN)
 {
-    auto timer = new QTimer(this);
 
-    connect(timer, &QTimer::timeout, this, [this]() {
-        setCounter(++m_counter);
-    });
+}
 
-    timer->start(1s);
+void AgentStatus::setOverallStatus(GeneralHealth::Health overallStatus)
+{
+    m_overallStatus = overallStatus;
+
+    emit overallStatusChanged(m_overallStatus);
 }
 
 
-void AgentStatus::setCounter(int counter)
+GeneralHealth::Health AgentStatus::overallStatus() const
 {
-    m_counter = counter;
-
-    emit counterChanged(m_counter);
-}
-
-
-int AgentStatus::counter() const
-{
-    return m_counter;
+    return m_overallStatus;
 }

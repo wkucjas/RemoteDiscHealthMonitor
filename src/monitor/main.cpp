@@ -70,10 +70,6 @@ int main(int argc, char** argv)
     QSharedPointer<AgentStatusReplica> ptr;
     ptr.reset(repNode.acquire<AgentStatusReplica>()); // acquire replica of source from host node
 
-    QObject::connect(ptr.get(), &AgentStatusReplica::counterChanged, [](int v) {
-        std::cout << v << '\n';
-    });
-
     auto rootObject = mainWindow.rootObject();
     auto view = rootObject->findChild<QObject*>("activeAgents");
     view->setProperty("model", QVariant::fromValue(&activeAgents));
