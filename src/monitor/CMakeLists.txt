@@ -1,5 +1,5 @@
 
-find_package(Qt5 REQUIRED COMPONENTS Quick Network Gui RemoteObjects)
+find_package(Qt5 REQUIRED COMPONENTS Quick Gui RemoteObjects)
 
 qt5_add_resources(QML_RESOURCES
     Qml/resources.qrc
@@ -17,8 +17,6 @@ add_executable(monitor
     AgentsExplorer.hpp
     AgentsStatusProvider.cpp
     AgentsStatusProvider.hpp
-    AgentStatusFetcher.cpp
-    AgentStatusFetcher.hpp
     Configuration.cpp
     Configuration.hpp
     IAgentsStatusProvider.hpp
