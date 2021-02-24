@@ -3,8 +3,6 @@
 #include <QQmlEngine>
 #include <QQuickItem>
 #include <QQuickView>
-#include <QRemoteObjectNode>
-#include <iostream>
 
 #include "AgentsList.hpp"
 #include "AgentsExplorer.hpp"
