@@ -8,5 +8,6 @@ class AgentStatus
     PROP(GeneralHealth::Health overallStatus = GeneralHealth::Health::UNKNOWN);
     PROP(DiskInfo diskInfoCollection)
 
+
     SLOT(refresh());
 };

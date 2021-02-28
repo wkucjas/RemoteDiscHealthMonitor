@@ -7,7 +7,6 @@
 #include "common/constants.hpp"
 #include "rep_AgentStatus_source.h"
 #include "common/DiskInfo.h"
-#include "common/DiskInfoSerialize.h"
 
 
 class Server : public AgentStatusSource

@@ -4,6 +4,7 @@
 #include "GeneralHealth.h"
 #include "SmartData.h"
 
+
 class DiskInfo
 {
 public:
@@ -22,7 +23,7 @@ public:
 		m_name = _name;
 	}
 
-	std::string GetName()
+	std::string GetName() const
 	{
 		return m_name;
 	};
@@ -32,7 +33,7 @@ public:
 		m_health = _health;
 	}
 
-	GeneralHealth::Health GetHealth()
+	GeneralHealth::Health GetHealth() const
 	{
 		return m_health;
 	}
@@ -57,6 +58,11 @@ public:
 		return false;
 	}
 
+	//DiskInfo& operator=(const DiskInfo& _other)
+	//{
+
+	//}
+
 
 
 	//std::ostream& operator<<(std::ostream& _out, const DiskInfo& _di)
@@ -73,3 +79,4 @@ private:
 
 };
 
+Q_DECLARE_METATYPE(DiskInfo)
