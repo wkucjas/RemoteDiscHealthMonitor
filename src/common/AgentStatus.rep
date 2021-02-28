@@ -1,0 +1,9 @@
+
+#include "common/GeneralHealth.h"
+
+class AgentStatus
+{
+    PROP(GeneralHealth::Health overallStatus = GeneralHealth::Health::UNKNOWN);
+
+    SLOT(refresh());
+};
