@@ -1,3 +1,4 @@
+
 #include "Server.h"
 #include <QNetworkInterface>
 #include <QDataStream>
@@ -10,7 +11,7 @@
 #include "DiscStatusCalculator.h"
 
 
-Server::Server(QObject* parent)
+Server::Server(QObject * parent)
     : AgentStatusSource(parent)
     , m_ROHost()
     , m_health(GeneralHealth::UNKNOWN)
@@ -30,6 +31,15 @@ bool Server::Init()
             m_ip = ipAddressesList.at(i).toString();
             break;
         }
+    }
+
+    if (m_ip.isEmpty())
+    {
+        m_ip = QHostAddress(QHostAddress::LocalHost).toString();
+    }
+
+    const QUrl url = QStringLiteral("tcp://%1:%2").arg(m_ip).arg(RDHMPort);
+    m_ROHost.setHostUrl(url);
 
     std::cout << "The server is running on: " << url.toDisplayString().toStdString() << '\n';
 
@@ -78,12 +88,27 @@ void Server::CollectInfoAboutDiscs()
 {
     SystemUtilitiesFactory systemUtilsFactory;
     auto diskCollector = systemUtilsFactory.diskCollector();
-    auto discCollection = diskCollector->GetDisksList();
+    auto diskCollection = diskCollector->GetDisksList();
     std::vector< DiscStatusCalculator::ProbePtr> probes;
     auto probe = systemUtilsFactory.generalAnalyzer();
     probes.emplace_back(std::move(probe));
 
-    DiscStatusCalculator calc(probes, discCollection);
+    DiscStatusCalculator calc(probes, diskCollection);
     setOverallStatus(calc.GetStatus());
+
+    for (auto disk : diskCollection)
+    {
+        DiskInfo diskInfo;
+        auto prob = systemUtilsFactory.generalAnalyzer();
+        diskInfo.SetName(disk.deviceId());
+        diskInfo.SetHealth(prob->GetStatus(disk));
+        addDiskInfo(diskInfo);
+    }
 }
 
+void Server::addDiskInfo(DiskInfo& diskInfo)
+{
+    m_diskInfoCollection.push_back(diskInfo);
+
+    //emit diskInfoCollectionChanged(m_diskInfoCollection);
+}
