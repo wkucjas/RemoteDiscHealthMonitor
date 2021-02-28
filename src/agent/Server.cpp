@@ -30,15 +30,6 @@ bool Server::Init()
             m_ip = ipAddressesList.at(i).toString();
             break;
         }
-    }
-
-    if (m_ip.isEmpty())
-    {
-        m_ip = QHostAddress(QHostAddress::LocalHost).toString();
-    }
-
-    const QUrl url = QStringLiteral("tcp://%1:%2").arg(m_ip).arg(RDHMPort);
-    m_ROHost.setHostUrl(url);
 
     std::cout << "The server is running on: " << url.toDisplayString().toStdString() << '\n';
 
