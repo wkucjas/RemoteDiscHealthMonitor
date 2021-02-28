@@ -37,19 +37,39 @@ public:
 		return m_health;
 	}
 
-	void SetSmart(const SmartData& _smartData)
+	//void SetSmart(const SmartData& _smartData)
+	//{
+	//	m_smart = _smartData;
+	//}
+
+	//SmartData GetSmart()
+	//{
+	//	return m_smart;
+	//}
+
+	bool operator== (const DiskInfo& _other)
 	{
-		m_smart = _smartData;
+		if (this->m_health == _other.m_health
+			&& this->m_name == _other.m_name)
+		{
+			return true;
+		}
+		return false;
 	}
 
-	SmartData GetSmart()
-	{
-		return m_smart;
-	}
+
+
+	//std::ostream& operator<<(std::ostream& _out, const DiskInfo& _di)
+	//{
+	//	_out << _di.m_name.c_str() << _di.m_health;
+	//	return _out;
+	//}
+
 
 private:
 	std::string m_name;
 	GeneralHealth::Health m_health;
-	SmartData m_smart;
+	//SmartData m_smart;
 
 };
+

@@ -18,3 +18,4 @@ QDataStream& operator>>(QDataStream& in, DiskInfo& _diskInfo)
 	_diskInfo = DiskInfo(name, health);
 	return in;
 }
+

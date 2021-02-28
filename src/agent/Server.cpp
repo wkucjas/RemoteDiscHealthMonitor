@@ -72,10 +72,19 @@ void Server::setOverallStatus(GeneralHealth::Health overallStatus)
     emit overallStatusChanged(m_health);
 }
 
+void Server::setDiskInfoCollection(DiskInfo diskInfoCollection)
+{
+}
+
 
 GeneralHealth::Health Server::overallStatus() const
 {
     return m_health;
+}
+
+DiskInfo Server::diskInfoCollection() const
+{
+    return DiskInfo();
 }
 
 
@@ -102,13 +111,16 @@ void Server::CollectInfoAboutDiscs()
         auto prob = systemUtilsFactory.generalAnalyzer();
         diskInfo.SetName(disk.deviceId());
         diskInfo.SetHealth(prob->GetStatus(disk));
+
+        auto smartAnalyzer = systemUtilsFactory.smartAnalyzer();
+//        diskInfo.SetSmart(smartAnalyzer->GetRawData(disk));
         addDiskInfo(diskInfo);
     }
 }
 
 void Server::addDiskInfo(DiskInfo& diskInfo)
 {
-    m_diskInfoCollection.push_back(diskInfo);
+    //m_diskInfoCollection.push_back(diskInfo);
 
     //emit diskInfoCollectionChanged(m_diskInfoCollection);
 }
