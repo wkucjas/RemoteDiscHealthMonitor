@@ -5,7 +5,7 @@
 //    return GeneralHealth::Health();
 //}
 //
-//std::string WinSmartAnalyzer::GetRawData(const Disk& _disk)
+//RawData WinSmartAnalyzer::GetRawData(const Disk& _disk)
 //{
 //    return std::string();
 //}
