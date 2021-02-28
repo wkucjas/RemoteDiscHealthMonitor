@@ -72,7 +72,7 @@ void Server::setOverallStatus(GeneralHealth::Health overallStatus)
     emit overallStatusChanged(m_health);
 }
 
-void Server::setDiskInfoCollection(DiskInfo diskInfoCollection)
+void Server::setDiskInfoCollection(std::vector<DiskInfo> diskInfoCollection)
 {
 }
 
@@ -82,9 +82,10 @@ GeneralHealth::Health Server::overallStatus() const
     return m_health;
 }
 
-DiskInfo Server::diskInfoCollection() const
+std::vector<DiskInfo> Server::diskInfoCollection() const
 {
-    return DiskInfo();
+    std::vector<DiskInfo> vec;
+    return vec;
 }
 
 

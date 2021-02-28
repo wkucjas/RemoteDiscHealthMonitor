@@ -3,7 +3,6 @@
 
 #include "IAgentsStatusProvider.hpp"
 #include "rep_AgentStatus_replica.h"
-#include "common/DiskInfoSerialize.h"
 
 
 class AgentsStatusProvider: public IAgentsStatusProvider

@@ -21,10 +21,10 @@ public:
     quint16 port() const;
 
     void setOverallStatus(GeneralHealth::Health overallStatus) override;
-    void setDiskInfoCollection(DiskInfo diskInfoCollection) override;
+    void setDiskInfoCollection(std::vector<DiskInfo> diskInfoCollection) override;
     void addDiskInfo(DiskInfo& diskInfo) /*override*/;
     GeneralHealth::Health overallStatus() const override;
-    DiskInfo diskInfoCollection() const override;
+    std::vector<DiskInfo> diskInfoCollection() const override;
     void refresh() override;
 
 private:

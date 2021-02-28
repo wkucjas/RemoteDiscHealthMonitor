@@ -6,8 +6,7 @@
 class AgentStatus
 {
     PROP(GeneralHealth::Health overallStatus = GeneralHealth::Health::UNKNOWN);
-    PROP(DiskInfo diskInfoCollection)
-
+    PROP(std::vector<DiskInfo> diskInfoCollection)
 
     SLOT(refresh());
 };

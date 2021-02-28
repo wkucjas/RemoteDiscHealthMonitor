@@ -12,7 +12,7 @@ add_library(common OBJECT
     GeneralHealth.cpp 
     DiskInfo.h
     DiskInfoSerialize.h
-    )
+    DiskInfo.cpp)
 
 target_include_directories(common
     PUBLIC ${PROJECT_SOURCE_DIR}/src

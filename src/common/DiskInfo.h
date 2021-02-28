@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <string>
@@ -9,34 +10,18 @@ class DiskInfo
 {
 public:
 
-	DiskInfo()
-	{
-	}
+	DiskInfo();
 
-	DiskInfo(std::string _name, GeneralHealth::Health _health)
-		: m_name(_name), m_health(_health)
-	{
-	}
+	DiskInfo(std::string _name, GeneralHealth::Health _health);
 
-	void SetName(const std::string& _name)
-	{
-		m_name = _name;
-	}
+	void SetName(const std::string& _name);
 
-	std::string GetName() const
-	{
-		return m_name;
-	};
+	std::string GetName() const;
 
-	void SetHealth(const GeneralHealth::Health& _health)
-	{
-		m_health = _health;
-	}
+	void SetHealth(const GeneralHealth::Health& _health);
 
-	GeneralHealth::Health GetHealth() const
-	{
-		return m_health;
-	}
+	GeneralHealth::Health GetHealth() const;
+
 
 	//void SetSmart(const SmartData& _smartData)
 	//{
@@ -48,15 +33,10 @@ public:
 	//	return m_smart;
 	//}
 
-	bool operator== (const DiskInfo& _other)
-	{
-		if (this->m_health == _other.m_health
-			&& this->m_name == _other.m_name)
-		{
-			return true;
-		}
-		return false;
-	}
+	bool operator== (const DiskInfo& _other) const;
+	
+
+	bool operator<(const DiskInfo&)const;
 
 	//DiskInfo& operator=(const DiskInfo& _other)
 	//{
@@ -79,4 +59,7 @@ private:
 
 };
 
+
 Q_DECLARE_METATYPE(DiskInfo)
+
+
