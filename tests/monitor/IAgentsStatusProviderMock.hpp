@@ -8,5 +8,5 @@
 class IAgentsStatusProviderMock: public IAgentsStatusProvider
 {
 public:
-    MOCK_METHOD(void, fetchStatusOf, (const AgentInformation &, const StatusCallback &), (override));
+    MOCK_METHOD(void, observe, (const AgentInformation &), (override));
 };
