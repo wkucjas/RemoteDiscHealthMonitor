@@ -7,7 +7,7 @@
 
 using namespace std::placeholders;
 
-void AgentsStatusProvider::fetchStatusOf(const AgentInformation& info, const StatusCallback& callback)
+void AgentsStatusProvider::observe(const AgentInformation& info)
 {
     auto it = m_statuses.find(info);
 
@@ -21,7 +21,8 @@ void AgentsStatusProvider::fetchStatusOf(const AgentInformation& info, const Sta
 
         it = m_statuses.insert(info, {replica, repNode});
 
-        QObject::connect(replica, &AgentStatusReplica::overallStatusChanged, std::bind(callback, info, _1));
+        QObject::connect(replica, &AgentStatusReplica::overallStatusChanged,
+                         std::bind(&AgentsStatusProvider::statusChanged, this, info, _1));
         QObject::connect(replica, &AgentStatusReplica::initialized, [replica](){
             replica->refresh();
         });

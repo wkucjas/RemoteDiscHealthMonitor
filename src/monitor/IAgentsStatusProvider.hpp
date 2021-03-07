@@ -1,16 +1,20 @@
 
 #pragma once
 
+#include <QObject>
+
 #include "AgentInformation.hpp"
 #include "common/GeneralHealth.h"
-#include <functional>
 
-class IAgentsStatusProvider
+class IAgentsStatusProvider: public QObject
 {
-    public:
-        typedef std::function<void(const AgentInformation &, const GeneralHealth::Health &)> StatusCallback;
+        Q_OBJECT
 
+    public:
         virtual ~IAgentsStatusProvider() = default;
 
-        virtual void fetchStatusOf(const AgentInformation &, const StatusCallback &) = 0;
+        virtual void observe(const AgentInformation &) = 0;
+
+    signals:
+        void statusChanged(const AgentInformation &, const GeneralHealth::Health &);
 };

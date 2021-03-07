@@ -8,7 +8,7 @@
 class AgentsStatusProvider: public IAgentsStatusProvider
 {
 public:
-    void fetchStatusOf(const AgentInformation &, const StatusCallback &) override;
+    void observe(const AgentInformation &) override;
 
 private:
     QHash<AgentInformation, std::pair<AgentStatusReplica*, QRemoteObjectNode*>> m_statuses;

@@ -211,9 +211,8 @@ TEST(AgentsListTest, fetchHealthOfNewAgents)
     AgentInformation info1("Krzysiu", "192.168.1.12", 2300, AgentInformation::DetectionSource::Hardcoded);
     AgentInformation info2("Zbysiu", "192.168.1.45", 2301, AgentInformation::DetectionSource::Hardcoded);
 
-
-    EXPECT_CALL(statusProvider, fetchStatusOf(info1, _)).Times(1);
-    EXPECT_CALL(statusProvider, fetchStatusOf(info2, _)).Times(1);
+    EXPECT_CALL(statusProvider, observe(info1)).Times(1);
+    EXPECT_CALL(statusProvider, observe(info2)).Times(1);
 
     aal.addAgent(info1);
     aal.addAgent(info2);
@@ -232,11 +231,14 @@ TEST(AgentsListTest, healthUpdatesAfterFetch)
     AgentInformation info1("John Connor", "192.168.1.15", 1998, AgentInformation::DetectionSource::Hardcoded);
     AgentInformation info2("T-1000", "192.168.1.16", 1998, AgentInformation::DetectionSource::Hardcoded);
 
-    EXPECT_CALL(statusProvider, fetchStatusOf(info1, _)).WillOnce(InvokeArgument<1>(info1, GeneralHealth::GOOD));
-    EXPECT_CALL(statusProvider, fetchStatusOf(info2, _)).WillOnce(InvokeArgument<1>(info2, GeneralHealth::BAD));
+    EXPECT_CALL(statusProvider, observe(info1)).Times(1);
+    EXPECT_CALL(statusProvider, observe(info2)).Times(1);
 
     aal.addAgent(info1);
     aal.addAgent(info2);
+
+    emit statusProvider.statusChanged(info1, GeneralHealth::GOOD);
+    emit statusProvider.statusChanged(info2, GeneralHealth::BAD);
 
     const QModelIndex idx1 = aal.index(0, 0);
     const QModelIndex idx2 = aal.index(1, 0);

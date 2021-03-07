@@ -13,6 +13,7 @@
 Server::Server(QObject* parent)
     : AgentStatusSource(parent)
     , m_ROHost()
+    , m_health(GeneralHealth::UNKNOWN)
 {
 
 }

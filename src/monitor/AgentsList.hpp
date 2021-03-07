@@ -3,7 +3,6 @@
 
 #include <QAbstractListModel>
 #include <QHash>
-#include <QTimer>
 #include <QVector>
 
 #include "common/GeneralHealth.h"
@@ -39,10 +38,7 @@ public:
 private:
     QVector<AgentInformation> m_agents;
     QHash<AgentInformation, GeneralHealth::Health> m_health;
-    QTimer m_refreshTimer;
     IAgentsStatusProvider& m_statusProvider;
 
     void updateAgentHealth(const AgentInformation &, const GeneralHealth::Health &);
-    void refreshAgent(const AgentInformation &);
-    void refreshAllAgents();
 };
