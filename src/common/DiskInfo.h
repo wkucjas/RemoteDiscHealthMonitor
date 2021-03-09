@@ -22,16 +22,10 @@ public:
 
 	GeneralHealth::Health GetHealth() const;
 
+	void SetSmart(const SmartData& _smartData);
 
-	//void SetSmart(const SmartData& _smartData)
-	//{
-	//	m_smart = _smartData;
-	//}
+	SmartData GetSmart();
 
-	//SmartData GetSmart()
-	//{
-	//	return m_smart;
-	//}
 
 	bool operator== (const DiskInfo& _other) const;
 	
@@ -55,7 +49,7 @@ public:
 private:
 	std::string m_name;
 	GeneralHealth::Health m_health;
-	//SmartData m_smart;
+	SmartData m_smart;
 
 };
 

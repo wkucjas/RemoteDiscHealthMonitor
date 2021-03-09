@@ -31,15 +31,15 @@
 		return m_health;
 	}
 
-	//void SetSmart(const SmartData& _smartData)
-	//{
-	//	m_smart = _smartData;
-	//}
+	void DiskInfo::SetSmart(const SmartData& _smartData)
+	{
+		m_smart = _smartData;
+	}
 
-	//SmartData GetSmart()
-	//{
-	//	return m_smart;
-	//}
+	SmartData DiskInfo::GetSmart()
+	{
+		return m_smart;
+	}
 
 	bool DiskInfo::operator== (const DiskInfo& _other) const
 	{

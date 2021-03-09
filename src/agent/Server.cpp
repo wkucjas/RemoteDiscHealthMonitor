@@ -74,6 +74,9 @@ void Server::setOverallStatus(GeneralHealth::Health overallStatus)
 
 void Server::setDiskInfoCollection(std::vector<DiskInfo> diskInfoCollection)
 {
+    m_diskInfoCollection = diskInfoCollection;
+
+    emit diskInfoCollectionChanged(m_diskInfoCollection);
 }
 
 
@@ -99,12 +102,14 @@ void Server::CollectInfoAboutDiscs()
     SystemUtilitiesFactory systemUtilsFactory;
     auto diskCollector = systemUtilsFactory.diskCollector();
     auto diskCollection = diskCollector->GetDisksList();
-    std::vector< DiscStatusCalculator::ProbePtr> probes;
+    std::vector< DiscStatusCalculator::ProbePtr > probes;
     auto probe = systemUtilsFactory.generalAnalyzer();
     probes.emplace_back(std::move(probe));
 
     DiscStatusCalculator calc(probes, diskCollection);
     setOverallStatus(calc.GetStatus());
+
+    std::vector<DiskInfo> temporaryDiscInfoCollection;
 
     for (auto disk : diskCollection)
     {
@@ -114,14 +119,12 @@ void Server::CollectInfoAboutDiscs()
         diskInfo.SetHealth(prob->GetStatus(disk));
 
         auto smartAnalyzer = systemUtilsFactory.smartAnalyzer();
-//        diskInfo.SetSmart(smartAnalyzer->GetRawData(disk));
-        addDiskInfo(diskInfo);
+        auto data = smartAnalyzer->GetRawData(disk);
+        diskInfo.SetSmart(std::get<SmartData>(data));
+        
+        temporaryDiscInfoCollection.push_back(diskInfo);
     }
+
+    setDiskInfoCollection(temporaryDiscInfoCollection);
 }
 
-void Server::addDiskInfo(DiskInfo& diskInfo)
-{
-    //m_diskInfoCollection.push_back(diskInfo);
-
-    //emit diskInfoCollectionChanged(m_diskInfoCollection);
-}
