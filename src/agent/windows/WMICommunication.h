@@ -22,7 +22,7 @@ public:
 	~WMICommunication();
 
 	bool WMIInit(const WmiNamespace _namespace = Smart);
-	bool CollectSMARTDataViaWMI();
+	bool CollectSMARTDataViaWMI(const Disk& _disk);
 	bool CollectInfoAboutDiscsViaWMI();
 
 	const SmartData& GetSMARTData() const;

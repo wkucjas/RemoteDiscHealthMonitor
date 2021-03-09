@@ -5,7 +5,7 @@ Disk::Disk(const std::string& _deviceId)
 {
 }
 
-const std::string& Disk::deviceId() const
+const std::string& Disk::GetDeviceId() const
 {
     return m_deviceId;
 }

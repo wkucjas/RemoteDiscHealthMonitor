@@ -115,7 +115,7 @@ void Server::CollectInfoAboutDiscs()
     {
         DiskInfo diskInfo;
         auto prob = systemUtilsFactory.generalAnalyzer();
-        diskInfo.SetName(disk.deviceId());
+        diskInfo.SetName(disk.GetDeviceId());
         diskInfo.SetHealth(prob->GetStatus(disk));
 
         auto smartAnalyzer = systemUtilsFactory.smartAnalyzer();

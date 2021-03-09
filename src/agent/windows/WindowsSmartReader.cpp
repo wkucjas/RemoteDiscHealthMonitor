@@ -8,7 +8,7 @@ SmartData SmartReader::ReadSMARTData(const Disk& _disk)
 {
 	WMICommunication wmi;
 	wmi.WMIInit();
-	wmi.CollectSMARTDataViaWMI();
+	wmi.CollectSMARTDataViaWMI(_disk);
 	SmartData dane = wmi.GetSMARTData();
 
 	for (const auto d : dane.smartData)
