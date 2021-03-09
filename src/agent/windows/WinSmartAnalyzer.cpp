@@ -1,4 +1,5 @@
 #include "WinSmartAnalyzer.h"
+#include "../SmartReader.h"
 
 GeneralHealth::Health WinSmartAnalyzer::GetStatus(const Disk& _disk)
 {
@@ -7,5 +8,7 @@ GeneralHealth::Health WinSmartAnalyzer::GetStatus(const Disk& _disk)
 
 IProbe::RawData WinSmartAnalyzer::GetRawData(const Disk& _disk)
 {
-	return SmartData();
+	SmartReader reader;
+
+	return reader.ReadSMARTData(_disk);
 }
