@@ -2,3 +2,6 @@
 /.vs/
 /CMakeSettings.json
 /src/monitor/out/
+/build/.
+/.vscode
+/build/

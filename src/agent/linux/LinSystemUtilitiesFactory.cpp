@@ -71,3 +71,8 @@ std::unique_ptr<IProbe> SystemUtilitiesFactory::generalAnalyzer()
 {
     return std::make_unique<LinGeneralAnalyzer>(m_state->m_diskCollector);
 }
+
+std::unique_ptr<IProbe> SystemUtilitiesFactory::smartAnalyzer()
+{
+    return std::make_unique<LinGeneralAnalyzer>(m_state->m_diskCollector);
+}
