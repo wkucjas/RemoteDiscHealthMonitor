@@ -23,6 +23,8 @@ void AgentsStatusProvider::observe(const AgentInformation& info)
 
         QObject::connect(replica, &AgentStatusReplica::overallStatusChanged,
                          std::bind(&AgentsStatusProvider::statusChanged, this, info, _1));
+        QObject::connect(replica, &AgentStatusReplica::diskInfoCollectionChanged,
+            std::bind(&AgentsStatusProvider::diskCollectionChanged, this, info, _1));
         QObject::connect(replica, &AgentStatusReplica::initialized, [replica](){
             replica->refresh();
         });

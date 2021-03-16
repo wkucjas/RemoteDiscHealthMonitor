@@ -15,6 +15,7 @@ AgentsList::AgentsList(IAgentsStatusProvider& statusProvider, QObject* p)
     , m_statusProvider(statusProvider)
 {
     connect(&m_statusProvider, &IAgentsStatusProvider::statusChanged, this, &AgentsList::updateAgentHealth);
+    connect(&m_statusProvider, &IAgentsStatusProvider::diskCollectionChanged, this, &AgentsList::updateAgentDiskInfoCollection);
 }
 
 
@@ -87,7 +88,9 @@ QVariant AgentsList::data(const QModelIndex& index, int role) const
             result = it == m_health.end()? GeneralHealth::UNKNOWN: it.value();
         }
         else if (role == AgentDetectionType)
+        {
             result = static_cast<int>(m_agents[row].detectionSource());
+        }
     }
 
     return result;
@@ -100,6 +103,7 @@ QHash<int, QByteArray> AgentsList::roleNames() const
     existingRoles.insert(AgentNameRole, "agentName");
     existingRoles.insert(AgentHealthRole, "agentHealth");
     existingRoles.insert(AgentDetectionType, "agentDetectionType");
+    existingRoles.insert(AgentDiskInfoCollectionRole, "agentDiskInfoCollectionRole");
 
     return existingRoles;
 }
@@ -117,5 +121,20 @@ void AgentsList::updateAgentHealth(const AgentInformation& info, const GeneralHe
         const QModelIndex idx = index(pos, 0);
 
         emit dataChanged(idx, idx, {AgentHealthRole});
+    }
+}
+
+void AgentsList::updateAgentDiskInfoCollection(const AgentInformation& _info, const std::vector<DiskInfo>& _diskInfoCollection)
+{
+    auto it = std::find(m_agents.begin(), m_agents.end(), _info);
+
+    if (it != m_agents.end())
+    {
+        m_diskInfoCollection[_info] = _diskInfoCollection;
+
+        const int pos = std::distance(m_agents.begin(), it);
+        const QModelIndex idx = index(pos, 0);
+
+        emit dataChanged(idx, idx, { AgentDiskInfoCollectionRole });
     }
 }

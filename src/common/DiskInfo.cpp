@@ -6,8 +6,8 @@
 	{
 	}
 
-	DiskInfo::DiskInfo(std::string _name, GeneralHealth::Health _health)
-		: m_name(_name), m_health(_health)
+	DiskInfo::DiskInfo(std::string _name, GeneralHealth::Health _health, SmartData _smartData)
+		: m_name(_name), m_health(_health), m_smart(_smartData)
 	{
 	}
 
@@ -36,7 +36,7 @@
 		m_smart = _smartData;
 	}
 
-	SmartData DiskInfo::GetSmart()
+	SmartData DiskInfo::GetSmart() const
 	{
 		return m_smart;
 	}

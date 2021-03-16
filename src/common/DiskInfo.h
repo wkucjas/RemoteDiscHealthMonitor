@@ -12,7 +12,7 @@ public:
 
 	DiskInfo();
 
-	DiskInfo(std::string _name, GeneralHealth::Health _health);
+	DiskInfo(std::string _name, GeneralHealth::Health _health, SmartData _smartData);
 
 	void SetName(const std::string& _name);
 
@@ -24,7 +24,7 @@ public:
 
 	void SetSmart(const SmartData& _smartData);
 
-	SmartData GetSmart();
+	SmartData GetSmart() const;
 
 
 	bool operator== (const DiskInfo& _other) const;
