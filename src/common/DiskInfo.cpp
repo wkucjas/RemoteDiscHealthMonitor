@@ -6,7 +6,7 @@
 	{
 	}
 
-	DiskInfo::DiskInfo(std::string _name, GeneralHealth::Health _health, SmartData _smartData)
+	DiskInfo::DiskInfo(std::string _name, GeneralHealth::Health& _health, SmartData& _smartData)
 		: m_name(_name), m_health(_health), m_smart(_smartData)
 	{
 	}
@@ -55,16 +55,4 @@
 		return true; // for simplicity
 	}
 
-	//DiskInfo& operator=(const DiskInfo& _other)
-	//{
-
-	//}
-
-
-
-	//std::ostream& operator<<(std::ostream& _out, const DiskInfo& _di)
-	//{
-	//	_out << _di.m_name.c_str() << _di.m_health;
-	//	return _out;
-	//}
 

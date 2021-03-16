@@ -30,8 +30,7 @@ private:
     void CollectInfoAboutDiscs();
 
     GeneralHealth::Health m_health;
-    std::vector<DiskInfo> m_diskInfoCollection;
-    //DiskInfo m_diskInfoCollection;
+    std::vector<DiskInfo> m_diskInfoCollection;    
 
     QRemoteObjectHost m_ROHost;
     QString m_ip;

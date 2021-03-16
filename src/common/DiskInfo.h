@@ -12,7 +12,7 @@ public:
 
 	DiskInfo();
 
-	DiskInfo(std::string _name, GeneralHealth::Health _health, SmartData _smartData);
+	DiskInfo(std::string _name, GeneralHealth::Health& _health, SmartData& _smartData);
 
 	void SetName(const std::string& _name);
 
@@ -29,22 +29,7 @@ public:
 
 	bool operator== (const DiskInfo& _other) const;
 	
-
 	bool operator<(const DiskInfo&)const;
-
-	//DiskInfo& operator=(const DiskInfo& _other)
-	//{
-
-	//}
-
-
-
-	//std::ostream& operator<<(std::ostream& _out, const DiskInfo& _di)
-	//{
-	//	_out << _di.m_name.c_str() << _di.m_health;
-	//	return _out;
-	//}
-
 
 private:
 	std::string m_name;

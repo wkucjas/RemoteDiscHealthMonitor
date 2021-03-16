@@ -10,8 +10,8 @@ ADD_EXECUTABLE( agent
 				SmartReader.h
                 Server.h
                 Server.cpp
-                SmartAnalyzer.h
-                SmartAnalyzer.cpp
+                
+                
                 DiscStatusCalculator.h
                 DiscStatusCalculator.cpp
                 IDiskCollector.h
