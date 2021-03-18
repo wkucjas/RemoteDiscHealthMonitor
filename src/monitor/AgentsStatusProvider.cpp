@@ -14,7 +14,7 @@ void AgentsStatusProvider::observe(const AgentInformation& info)
     if (it == m_statuses.end())
     {
         QRemoteObjectNode* repNode = new QRemoteObjectNode;
-        const QUrl url = QStringLiteral("tcp://%1:%2").arg(info.host()).arg(info.port());
+        const QUrl url = QStringLiteral("tcp://%1:%2").arg(info.host().toString()).arg(info.port());
         repNode->connectToNode(url);
 
         auto replica = repNode->acquire<AgentStatusReplica>();

@@ -2,7 +2,7 @@
 #pragma once
 
 #include <QDebug>
-#include <QObject>
+#include <QHostAddress>
 #include <QString>
 
 class AgentInformation
@@ -17,10 +17,10 @@ public:
 
     Q_ENUM(DetectionSource)
 
-    AgentInformation(const QString& name, const QString& host, quint16 port, DetectionSource);
+    AgentInformation(const QString& name, const QHostAddress& host, quint16 port, DetectionSource);
 
     const QString& name() const;
-    const QString& host() const;
+    const QHostAddress& host() const;
     quint16 port() const;
     DetectionSource detectionSource() const;
 
@@ -30,7 +30,7 @@ private:
     friend uint qHash(const AgentInformation &, uint);
 
     QString m_name;
-    QString m_host;
+    QHostAddress m_host;
     quint16 m_port;
     DetectionSource m_detectionSource;
 };

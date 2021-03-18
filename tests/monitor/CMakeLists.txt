@@ -1,5 +1,5 @@
 
-find_package(Qt5 REQUIRED COMPONENTS Core Test)
+find_package(Qt5 REQUIRED COMPONENTS Core Network Test)
 
 add_executable(monitorTests
     AgentsListTests.cpp
@@ -21,6 +21,7 @@ target_link_libraries(monitorTests
     gmock_main
 
     Qt::Core
+    Qt::Network
     Qt::Test
 )
 

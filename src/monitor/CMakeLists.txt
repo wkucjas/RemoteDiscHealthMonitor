@@ -1,5 +1,5 @@
 
-find_package(Qt5 REQUIRED COMPONENTS Quick Gui RemoteObjects)
+find_package(Qt5 REQUIRED COMPONENTS Quick Gui Network RemoteObjects)
 
 qt5_add_resources(QML_RESOURCES
     Qml/resources.qrc
@@ -34,6 +34,7 @@ target_link_libraries(monitor
         Qt::Network
         Qt::Quick
         Qt::Gui
+        Qt::Network
         Qt::RemoteObjects
         QtZeroConf
 )

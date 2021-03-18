@@ -13,7 +13,7 @@ namespace
         QString result;
         result += agent.name().toUtf8().toBase64();
         result += ",";
-        result += agent.host().toUtf8().toBase64();
+        result += agent.host().toString();
         result += ",";
         result += QString::number(agent.port());
         result += ",";
@@ -41,7 +41,7 @@ namespace
         if (agentSplitted.size() == 4)
         {
             AgentInformation info(QByteArray::fromBase64(agentSplitted[0].toUtf8()),
-                                  QByteArray::fromBase64(agentSplitted[1].toUtf8()),
+                                  QHostAddress(agentSplitted[1]),
                                   agentSplitted[2].toInt(),
                                   static_cast<AgentInformation::DetectionSource>(agentSplitted[3].toInt()));
 
