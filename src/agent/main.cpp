@@ -45,7 +45,7 @@ int main(int argc, char** argv)
 
     QZeroConf zeroConf;
     zeroConf.addServiceTxtRecord("RDHAgent");
-    zeroConf.startServicePublish(name.toStdString().c_str(), ZeroConfServiceName.toStdString().c_str(), "", RDHMPort);
+    zeroConf.startServicePublish(name.toStdString().c_str(), ZeroConfServiceName.toStdString().c_str(), "local", RDHMPort);
 
     app.exec();
 
