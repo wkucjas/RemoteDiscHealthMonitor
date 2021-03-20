@@ -87,8 +87,7 @@ GeneralHealth::Health Server::overallStatus() const
 
 std::vector<DiskInfo> Server::diskInfoCollection() const
 {
-    std::vector<DiskInfo> vec;
-    return vec;
+    return m_diskInfoCollection;
 }
 
 
@@ -109,7 +108,7 @@ void Server::CollectInfoAboutDiscs()
     DiscStatusCalculator calc(probes, diskCollection);
     setOverallStatus(calc.GetStatus());
 
-    std::vector<DiskInfo> temporaryDiscInfoCollection;
+    std::vector<DiskInfo> discInfoCollection;
 
     for (auto disk : diskCollection)
     {
@@ -122,9 +121,9 @@ void Server::CollectInfoAboutDiscs()
         auto data = smartAnalyzer->GetRawData(disk);
         diskInfo.SetSmart(std::get<SmartData>(data));
         
-        temporaryDiscInfoCollection.push_back(diskInfo);
+        discInfoCollection.push_back(diskInfo);
     }
 
-    setDiskInfoCollection(temporaryDiscInfoCollection);
+    setDiskInfoCollection(discInfoCollection);
 }
 
