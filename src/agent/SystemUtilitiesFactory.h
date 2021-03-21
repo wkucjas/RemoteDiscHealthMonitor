@@ -15,6 +15,7 @@ public:
 
     std::unique_ptr<IDiskCollector> diskCollector();
     std::unique_ptr<IProbe> generalAnalyzer();
+    std::unique_ptr<IProbe> smartAnalyzer();
 
 private:
     struct State;

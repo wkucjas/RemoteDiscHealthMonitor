@@ -1,3 +1,4 @@
+
 #include "Server.h"
 #include <QNetworkInterface>
 #include <QDataStream>
@@ -10,7 +11,7 @@
 #include "DiscStatusCalculator.h"
 
 
-Server::Server(QObject* parent)
+Server::Server(QObject * parent)
     : AgentStatusSource(parent)
     , m_ROHost()
     , m_health(GeneralHealth::UNKNOWN)
@@ -71,10 +72,22 @@ void Server::setOverallStatus(GeneralHealth::Health overallStatus)
     emit overallStatusChanged(m_health);
 }
 
+void Server::setDiskInfoCollection(std::vector<DiskInfo> diskInfoCollection)
+{
+    m_diskInfoCollection = diskInfoCollection;
+
+    emit diskInfoCollectionChanged(m_diskInfoCollection);
+}
+
 
 GeneralHealth::Health Server::overallStatus() const
 {
     return m_health;
+}
+
+std::vector<DiskInfo> Server::diskInfoCollection() const
+{
+    return m_diskInfoCollection;
 }
 
 
@@ -87,12 +100,30 @@ void Server::CollectInfoAboutDiscs()
 {
     SystemUtilitiesFactory systemUtilsFactory;
     auto diskCollector = systemUtilsFactory.diskCollector();
-    auto discCollection = diskCollector->GetDisksList();
-    std::vector< DiscStatusCalculator::ProbePtr> probes;
+    auto diskCollection = diskCollector->GetDisksList();
+    std::vector< DiscStatusCalculator::ProbePtr > probes;
     auto probe = systemUtilsFactory.generalAnalyzer();
     probes.emplace_back(std::move(probe));
 
-    DiscStatusCalculator calc(probes, discCollection);
+    DiscStatusCalculator calc(probes, diskCollection);
     setOverallStatus(calc.GetStatus());
+
+    std::vector<DiskInfo> discInfoCollection;
+
+    for (auto disk : diskCollection)
+    {
+        DiskInfo diskInfo;
+        auto prob = systemUtilsFactory.generalAnalyzer();
+        diskInfo.SetName(disk.GetDeviceId());
+        diskInfo.SetHealth(prob->GetStatus(disk));
+
+        auto smartAnalyzer = systemUtilsFactory.smartAnalyzer();
+        auto data = smartAnalyzer->GetRawData(disk);
+        diskInfo.SetSmart(std::get<SmartData>(data));
+        
+        discInfoCollection.push_back(diskInfo);
+    }
+
+    setDiskInfoCollection(discInfoCollection);
 }
 

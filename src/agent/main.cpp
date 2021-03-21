@@ -34,7 +34,7 @@ int main(int argc, char** argv)
     std::cout << "Found disks:\n";
 
     for(const auto& disk: disks)
-        std::cout << disk.deviceId() << '\n';
+        std::cout << disk.GetDeviceId() << '\n';
 
     Server srv;
     srv.Init();

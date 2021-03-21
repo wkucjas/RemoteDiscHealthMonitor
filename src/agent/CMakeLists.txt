@@ -10,8 +10,8 @@ ADD_EXECUTABLE( agent
 				SmartReader.h
                 Server.h
                 Server.cpp
-                SmartAnalyzer.h
-                SmartAnalyzer.cpp
+                
+                
                 DiscStatusCalculator.h
                 DiscStatusCalculator.cpp
                 IDiskCollector.h
@@ -58,6 +58,8 @@ if(WIN32)
             windows/WinDiskCollector.h
             windows/WinDiskCollector.cpp
             windows/WinSystemUtilitiesFactory.cpp
+            windows/WinSmartAnalyzer.h
+            windows/WinSmartAnalyzer.cpp
     )
 
     target_link_libraries(agent

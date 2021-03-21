@@ -6,6 +6,7 @@
 #include <QVector>
 
 #include "common/GeneralHealth.h"
+#include "common/DiskInfo.h"
 #include "AgentInformation.hpp"
 #include "IAgentsStatusProvider.hpp"
 
@@ -33,12 +34,15 @@ public:
         AgentNameRole = Qt::UserRole + 1,
         AgentHealthRole,
         AgentDetectionType,
+        AgentDiskInfoCollectionRole,
     };
 
 private:
     QVector<AgentInformation> m_agents;
     QHash<AgentInformation, GeneralHealth::Health> m_health;
+    QHash<AgentInformation, std::vector<DiskInfo>> m_diskInfoCollection;
     IAgentsStatusProvider& m_statusProvider;
 
     void updateAgentHealth(const AgentInformation &, const GeneralHealth::Health &);
+    void updateAgentDiskInfoCollection(const AgentInformation&, const std::vector<DiskInfo>&);
 };

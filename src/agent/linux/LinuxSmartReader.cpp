@@ -6,7 +6,7 @@
 #include "SmartCtlOutputParser.h"
 
 
-std::string SmartReader::ReadSMARTData(const Disk &)
+SmartData SmartReader::ReadSMARTData(const Disk &)
 {
     QProcess smartctl;
 
@@ -18,7 +18,7 @@ std::string SmartReader::ReadSMARTData(const Disk &)
 
     SmartCtlOutputParser::parse(output);
 
-    return {};
+    return SmartData();
 }
 
 

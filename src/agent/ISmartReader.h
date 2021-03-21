@@ -4,12 +4,13 @@
 
 #include "common/GeneralHealth.h"
 #include "agent/Disk.h"
+#include "common/DiskInfo.h"
 
 
 class ISmartReader
 {
 public:
 	virtual ~ISmartReader() = default;
-	virtual std::string ReadSMARTData(const Disk &) = 0;
-	virtual GeneralHealth ReadDisksStatus(const Disk &) = 0;
+	virtual SmartData ReadSMARTData(const Disk & _disk) = 0;
+	virtual GeneralHealth ReadDisksStatus(const Disk & _disk) = 0;
 };

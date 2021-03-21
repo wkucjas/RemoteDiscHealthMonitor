@@ -4,6 +4,6 @@
 class SmartReader : public ISmartReader
 {
 public:
-	std::string ReadSMARTData(const Disk &) override;
-	GeneralHealth ReadDisksStatus(const Disk &) override;
+	SmartData ReadSMARTData(const Disk & _disk) override;
+	GeneralHealth ReadDisksStatus(const Disk & _disk) override;
 };

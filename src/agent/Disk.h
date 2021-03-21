@@ -8,7 +8,7 @@ public:
     Disk() = default;
     Disk(const std::string& _deviceId);
 
-    const std::string& deviceId() const;
+    const std::string& GetDeviceId() const;
 
     friend bool operator<(const Disk& lhs, const Disk& rhs)
     {

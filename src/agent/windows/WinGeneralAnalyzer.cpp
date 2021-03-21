@@ -11,7 +11,7 @@ GeneralHealth::Health WinGeneralAnalyzer::GetStatus(const Disk& _disk)
     return static_cast<GeneralHealth::Health>(res.GetStatus());
 }
 
-std::string WinGeneralAnalyzer::GetRawData(const Disk& _disk)
+IProbe::RawData WinGeneralAnalyzer::GetRawData(const Disk& _disk)
 {
     return std::string();
 }

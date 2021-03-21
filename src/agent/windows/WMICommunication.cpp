@@ -1,4 +1,5 @@
 #include "WMICommunication.h"
+#include "CMDCommunication.h"
 
 #define _WIN32_DCOM
 #include <iostream>
@@ -111,7 +112,7 @@ bool WMICommunication::WMIInit(const WmiNamespace _namespace)
     }
 }
 
-bool WMICommunication::CollectSMARTDataViaWMI()
+bool WMICommunication::CollectSMARTDataViaWMI(const Disk& _disk)
 {
     try {
         HRESULT hres = m_services->ExecQuery(
@@ -139,56 +140,65 @@ bool WMICommunication::CollectSMARTDataViaWMI()
                 break;
             }
 
-            VARIANT vtProp;
-            hr = pclsObj->Get(L"VendorSpecific", 0, &vtProp, 0, 0);
+            VARIANT vtInstanceName;
+            hr = pclsObj->Get(L"InstanceName", 0, &vtInstanceName, 0, 0);
 
-            if (V_ISARRAY(&vtProp))
+            CMDCommunication communicator;
+            std::wstring instanceName = (vtInstanceName.bstrVal);
+            if ( communicator.CompareDeviceIdWithInstanceName( _disk, std::string( instanceName.begin(), instanceName.end() ) ) )
             {
-                LPSAFEARRAY pSafeArray = V_ARRAY(&vtProp);
+                VARIANT vtProp;
+                hr = pclsObj->Get(L"VendorSpecific", 0, &vtProp, 0, 0);
 
-                VARTYPE itemType;
-                if (SUCCEEDED(SafeArrayGetVartype(pSafeArray, &itemType)))
+                if (V_ISARRAY(&vtProp))
                 {
-                    if (itemType == VT_UI1)
+                    LPSAFEARRAY pSafeArray = V_ARRAY(&vtProp);
+
+                    VARTYPE itemType;
+                    if (SUCCEEDED(SafeArrayGetVartype(pSafeArray, &itemType)))
                     {
-                        if (SafeArrayGetDim(pSafeArray) == 1)
+                        if (itemType == VT_UI1)
                         {
-                            LONG lBound;
-                            LONG uBound;
-
-                            if (SUCCEEDED(SafeArrayGetLBound(pSafeArray, 1, &lBound)) && SUCCEEDED(SafeArrayGetUBound(pSafeArray, 1, &uBound)))
+                            if (SafeArrayGetDim(pSafeArray) == 1)
                             {
-                                const LONG itemCount = uBound - lBound + 1;
+                                LONG lBound;
+                                LONG uBound;
 
-                                std::vector<BYTE> dataFromArray(itemCount);
-
-                                BYTE* safearrayData;
-                                hr = SafeArrayAccessData(pSafeArray, reinterpret_cast<LPVOID*>(&safearrayData));
-                                if (FAILED(hr))
+                                if (SUCCEEDED(SafeArrayGetLBound(pSafeArray, 1, &lBound)) && SUCCEEDED(SafeArrayGetUBound(pSafeArray, 1, &uBound)))
                                 {
-                                    dataFromArray.clear();
-                                }
+                                    const LONG itemCount = uBound - lBound + 1;
 
-                                memcpy(dataFromArray.data(), safearrayData, itemCount);
+                                    std::vector<BYTE> dataFromArray(itemCount);
 
-                                hr = SafeArrayUnaccessData(pSafeArray);
-                                if (FAILED(hr))
-                                {
-                                    dataFromArray.clear();
-                                }
+                                    BYTE* safearrayData;
+                                    hr = SafeArrayAccessData(pSafeArray, reinterpret_cast<LPVOID*>(&safearrayData));
+                                    if (FAILED(hr))
+                                    {
+                                        dataFromArray.clear();
+                                    }
 
-                                if (dataFromArray.empty() != true)
-                                {
-                                    FeedSmartDataStructure(dataFromArray, itemCount);
+                                    memcpy(dataFromArray.data(), safearrayData, itemCount);
+
+                                    hr = SafeArrayUnaccessData(pSafeArray);
+                                    if (FAILED(hr))
+                                    {
+                                        dataFromArray.clear();
+                                    }
+
+                                    if (dataFromArray.empty() != true)
+                                    {
+                                        FeedSmartDataStructure(dataFromArray, itemCount);
+                                    }
                                 }
                             }
                         }
                     }
                 }
+
+
+                VariantClear(&vtProp);
             }
-
-            VariantClear(&vtProp);
-
+            VariantClear(&vtInstanceName);
             pclsObj->Release();
         }
 
