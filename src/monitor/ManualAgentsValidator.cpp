@@ -14,7 +14,7 @@ void ManualAgentsValidator::addNewAgent(const QString& name, const QString& ip, 
 
     if (ipValid && portNum >= 0 && portNum <= 65535)
     {
-        const AgentInformation info(name, ip, portNum, AgentInformation::DetectionSource::Hardcoded);
+        const AgentInformation info(name, QHostAddress(ip), portNum, AgentInformation::DetectionSource::Hardcoded);
 
         emit agentDiscovered(info);
     }
