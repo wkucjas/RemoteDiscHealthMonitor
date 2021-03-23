@@ -95,7 +95,11 @@ QVariant AgentsList::data(const QModelIndex& index, int role) const
         {
             auto res = m_diskInfoCollection.find(m_agents[row]);
             auto diskInfoVec = res.value();
-            QString a = QString::fromStdString(diskInfoVec[0].GetName());
+            QStringList a;
+            for (auto i : diskInfoVec)
+            {
+                a.append(QString::fromStdString(i.GetName()));
+            }
             result = a;
         }
     }

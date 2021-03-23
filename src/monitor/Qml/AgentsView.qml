@@ -41,6 +41,16 @@ Item {
 
                     onClicked: {
                         agentsList.currentIndex = index
+
+                        var newListModel = Qt.createQmlObject('import QtQuick 2.2; \
+                        ListModel {}', parent);
+
+                        for (var i = 0; i < agentDiskInfoCollectionRole.length; i++)
+                        {
+                            newListModel.append({key: agentDiskInfoCollectionRole[i], value:i})
+                            
+                        }
+                        agentDetailsDisksComboBox.model=newListModel
                     }
 
                     AgentDelegate {
@@ -87,9 +97,9 @@ Item {
 
             ComboBox {
                 id: agentDetailsDisksComboBox
+                textRole: "key"
                 width: label.width - 25
                 visible: false
-                model: [agentDiskInfoCollectionRole]
             }
         }
     }
