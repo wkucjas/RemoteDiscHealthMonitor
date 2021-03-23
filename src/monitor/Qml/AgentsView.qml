@@ -89,7 +89,7 @@ Item {
                 id: agentDetailsDisksComboBox
                 width: label.width - 25
                 visible: false
-                model: ["Disk1", "Disk2", "Disk3"]
+                model: [agentDiskInfoCollectionRole]
             }
         }
     }
