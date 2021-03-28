@@ -12,67 +12,67 @@ TEST(DiscStatusCalculatorTest, CalculateStatusWithOneProbeWhichIsGOOD)
 {
     DiscStatusCalculator calc;
 
-    ASSERT_EQ(calc.CalculateOverallStatus({GeneralHealth::Health::GOOD}), GeneralHealth::Health::GOOD);
+    ASSERT_EQ(calc.CalculateCumulativeStatus({GeneralHealth::Health::GOOD}), GeneralHealth::Health::GOOD);
 }
 
 TEST(DiscStatusCalculatorTest, CalculateStatusWithOneProbeWhichIsBAD)
 {
     DiscStatusCalculator calc;
 
-    ASSERT_EQ(calc.CalculateOverallStatus({GeneralHealth::Health::BAD}), GeneralHealth::Health::BAD);
+    ASSERT_EQ(calc.CalculateCumulativeStatus({GeneralHealth::Health::BAD}), GeneralHealth::Health::BAD);
 }
 
 TEST(DiscStatusCalculatorTest, CalculateStatusWithOTwoProbesWhichAreGOOD)
 {
     DiscStatusCalculator calc;
 
-    ASSERT_EQ(calc.CalculateOverallStatus({GeneralHealth::Health::GOOD, GeneralHealth::Health::GOOD}), GeneralHealth::Health::GOOD);
+    ASSERT_EQ(calc.CalculateCumulativeStatus({GeneralHealth::Health::GOOD, GeneralHealth::Health::GOOD}), GeneralHealth::Health::GOOD);
 }
 
 TEST(DiscStatusCalculatorTest, CalculateStatusWithOTwoProbesWhichAreGOODandBAD)
 {
     DiscStatusCalculator calc;
 
-    ASSERT_EQ(calc.CalculateOverallStatus({GeneralHealth::Health::GOOD, GeneralHealth::Health::BAD}), GeneralHealth::Health::BAD);
+    ASSERT_EQ(calc.CalculateCumulativeStatus({GeneralHealth::Health::GOOD, GeneralHealth::Health::BAD}), GeneralHealth::Health::BAD);
 }
 
 TEST(DiscStatusCalculatorTest, CalculateStatusWithOTwoProbesWhichAreCHECK_STATUSandBAD)
 {
     DiscStatusCalculator calc;
 
-    ASSERT_EQ(calc.CalculateOverallStatus({GeneralHealth::Health::CHECK_STATUS, GeneralHealth::Health::BAD}), GeneralHealth::Health::BAD);
+    ASSERT_EQ(calc.CalculateCumulativeStatus({GeneralHealth::Health::CHECK_STATUS, GeneralHealth::Health::BAD}), GeneralHealth::Health::BAD);
 }
 
 TEST(DiscStatusCalculatorTest, CalculateStatusWithOTwoProbesWhichAreCHECK_STATUSandGOOD)
 {
     DiscStatusCalculator calc;
 
-    ASSERT_EQ(calc.CalculateOverallStatus({GeneralHealth::Health::CHECK_STATUS, GeneralHealth::Health::GOOD}), GeneralHealth::Health::CHECK_STATUS);
+    ASSERT_EQ(calc.CalculateCumulativeStatus({GeneralHealth::Health::CHECK_STATUS, GeneralHealth::Health::GOOD}), GeneralHealth::Health::CHECK_STATUS);
 }
 
 TEST(DiscStatusCalculatorTest, CalculateStatusWithOTwoProbesWhichAreBADandGOOD)
 {
     DiscStatusCalculator calc;
 
-    ASSERT_EQ(calc.CalculateOverallStatus({GeneralHealth::Health::BAD, GeneralHealth::Health::GOOD}), GeneralHealth::Health::BAD);
+    ASSERT_EQ(calc.CalculateCumulativeStatus({GeneralHealth::Health::BAD, GeneralHealth::Health::GOOD}), GeneralHealth::Health::BAD);
 }
 
 TEST(DiscStatusCalculatorTest, CalculateStatusWithOThreeProbesWhichAreGOODandBADandGOOD)
 {
     DiscStatusCalculator calc;
 
-    ASSERT_EQ(calc.CalculateOverallStatus({GeneralHealth::Health::GOOD,
-                                           GeneralHealth::Health::BAD,
-                                           GeneralHealth::Health::GOOD}), GeneralHealth::Health::BAD);
+    ASSERT_EQ(calc.CalculateCumulativeStatus({GeneralHealth::Health::GOOD,
+                                              GeneralHealth::Health::BAD,
+                                              GeneralHealth::Health::GOOD}), GeneralHealth::Health::BAD);
 }
 
 TEST(DiscStatusCalculatorTest, CalculateStatusWithOThreeProbesWhichAreCHECK_STATUSandBADandGOOD)
 {
     DiscStatusCalculator calc;
 
-    ASSERT_EQ(calc.CalculateOverallStatus({GeneralHealth::Health::CHECK_STATUS,
-                                           GeneralHealth::Health::BAD,
-                                           GeneralHealth::Health::GOOD}), GeneralHealth::Health::BAD);
+    ASSERT_EQ(calc.CalculateCumulativeStatus({GeneralHealth::Health::CHECK_STATUS,
+                                              GeneralHealth::Health::BAD,
+                                              GeneralHealth::Health::GOOD}), GeneralHealth::Health::BAD);
 }
 
 TEST(DiscStatusCalculatorTest, CalculateStatusForSingleDisk)

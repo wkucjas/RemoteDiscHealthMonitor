@@ -7,7 +7,7 @@ DiscStatusCalculator::DiscStatusCalculator()
 }
 
 
-GeneralHealth::Health DiscStatusCalculator::CalculateOverallStatus(const std::vector<GeneralHealth::Health>& _statuses) const
+GeneralHealth::Health DiscStatusCalculator::CalculateCumulativeStatus(const std::vector<GeneralHealth::Health>& _statuses) const
 {
     GeneralHealth::Health overallStatus = GeneralHealth::Health::UNKNOWN;
 
@@ -31,5 +31,5 @@ GeneralHealth::Health DiscStatusCalculator::CalculateDiskStatus(const Disk& _dis
         return probe->GetStatus(_disk);
     });
 
-    return CalculateOverallStatus(statuses);
+    return CalculateCumulativeStatus(statuses);
 }

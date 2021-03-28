@@ -14,6 +14,6 @@ public:
 
     DiscStatusCalculator();
 
-    GeneralHealth::Health CalculateOverallStatus(const std::vector<GeneralHealth::Health> &) const;
+    GeneralHealth::Health CalculateCumulativeStatus(const std::vector<GeneralHealth::Health> &) const;
     GeneralHealth::Health CalculateDiskStatus(const Disk& _disk, const std::vector<ProbePtr>& _discProbes);
 };
