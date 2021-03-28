@@ -231,3 +231,33 @@ TEST(DiscStatusCalculatorTest, CalculateStatusWithOThreeProbesWhichAreCHECK_STAT
 
     ASSERT_EQ(calc.GetStatus(), GeneralHealth::Health::BAD);
 }
+
+
+TEST(DiscStatusCalculatorTest, CalculateStatusForSingleDisk)
+{
+    std::unique_ptr<IProbeMock> probe1(new IProbeMock());
+    EXPECT_CALL(*probe1, GetStatus(_))
+        .Times(1)
+        .WillOnce(Return(GeneralHealth::Health::CHECK_STATUS));
+
+    std::unique_ptr<IProbeMock> probe2(new IProbeMock());
+    EXPECT_CALL(*probe2, GetStatus(_))
+        .Times(1)
+        .WillOnce(Return(GeneralHealth::Health::BAD));
+
+    std::unique_ptr<IProbeMock> probe3(new IProbeMock());
+    EXPECT_CALL(*probe3, GetStatus(_))
+        .Times(1)
+        .WillOnce(Return(GeneralHealth::Health::GOOD));
+
+    std::vector< DiscStatusCalculator::ProbePtr> probes;
+
+    probes.emplace_back(std::move(probe1));
+    probes.emplace_back(std::move(probe2));
+    probes.emplace_back(std::move(probe3));
+
+    const DiskMock disk;
+    DiscStatusCalculator calc(probes, {disk});
+
+    ASSERT_EQ(calc.CalculateDiskStatus(disk, probes), GeneralHealth::Health::BAD);
+}
