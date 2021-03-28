@@ -25,16 +25,11 @@ GeneralHealth::Health DiscStatusCalculator::CalculateOverallStatus(const std::ve
 
 GeneralHealth::Health DiscStatusCalculator::CalculateDiskStatus(const Disk& _disk, const std::vector<ProbePtr>& _discProbes)
 {
-    GeneralHealth::Health status = GeneralHealth::Health::UNKNOWN;
+    std::vector<GeneralHealth::Health> statuses;
 
-    for (const auto& probe : _discProbes)
-    {
-        GeneralHealth::Health probeStatus = probe->GetStatus(_disk);
-        if (probeStatus > status)
-        {
-            status = probeStatus;
-        }
-    }
+    std::transform(_discProbes.begin(), _discProbes.end(), std::back_inserter(statuses), [&_disk](const auto& probe) {
+        return probe->GetStatus(_disk);
+    });
 
-    return status;
+    return CalculateOverallStatus(statuses);
 }
