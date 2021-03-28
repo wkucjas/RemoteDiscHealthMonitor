@@ -103,8 +103,7 @@ void Server::CollectInfoAboutDiscs()
     auto diskCollection = diskCollector->GetDisksList();
     const std::vector<std::unique_ptr<IProbe>> probes = systemUtilsFactory.getProbes();
 
-    DiscStatusCalculator calc(probes, diskCollection);
-    setOverallStatus(calc.GetStatus());
+    DiscStatusCalculator calc;
 
     std::vector<DiskInfo> discInfoCollection;
 
@@ -112,10 +111,17 @@ void Server::CollectInfoAboutDiscs()
     {
         DiskInfo diskInfo;
         diskInfo.SetName(disk.GetDeviceId());
+        diskInfo.SetHealth(calc.CalculateDiskStatus(disk, probes));
 
         discInfoCollection.push_back(diskInfo);
     }
 
+    std::vector<GeneralHealth::Health> diskStatuses;
+    std::transform(discInfoCollection.begin(), discInfoCollection.end(), std::back_inserter(diskStatuses), [](const auto& diskInfo) {
+        return diskInfo.GetHealth();
+    });
+
+    setOverallStatus(calc.CalculateOverallStatus(diskStatuses));
     setDiskInfoCollection(discInfoCollection);
 }
 
