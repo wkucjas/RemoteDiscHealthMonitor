@@ -93,12 +93,15 @@ QVariant AgentsList::data(const QModelIndex& index, int role) const
         }
         else if (role == AgentDiskInfoNamesRole)
         {
-            auto it = m_diskInfoCollection.find(m_agents[row]);
-            auto diskInfoVec = it.value();
             QStringList names;
-            for (auto item : diskInfoVec)
+            auto it = m_diskInfoCollection.find(m_agents[row]);
+            if (it != m_diskInfoCollection.end())
             {
-                names.append(item.GetName());
+                auto diskInfoVec = it.value();
+                for (auto item : diskInfoVec)
+                {
+                    names.append(item.GetName());
+                }
             }
             result = names;
         }
