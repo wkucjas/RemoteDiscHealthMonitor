@@ -4,15 +4,16 @@ find_package(Qt5 REQUIRED COMPONENTS Core)
 add_library(common OBJECT
     constants.hpp
     GeneralHealth.h
+    ProbeStatus.h
     ProtocolVersion.h
     OutputParsersUtils.cpp
     OutputParsersUtils.h
     SmartData.cpp
     SmartData.h
-    GeneralHealth.cpp 
+    GeneralHealth.cpp
     DiskInfo.h
     DiskInfoSerialize.h
-    DiskInfo.cpp 
+    DiskInfo.cpp
     SmartDataSerialize.h)
 
 target_include_directories(common
