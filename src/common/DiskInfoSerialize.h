@@ -1,8 +1,10 @@
+
 #pragma once
+
+#include <QDataStream>
 
 #include "DiskInfo.h"
 #include "SmartDataSerialize.h"
-#include <QDataStream>
 
 inline QDataStream& operator<<(QDataStream& _out, const DiskInfo& _diskInfo)
 {
