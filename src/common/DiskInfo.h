@@ -21,8 +21,7 @@ public:
 	GeneralHealth::Health GetHealth() const;
     const std::vector<ProbeStatus>& GetProbesStatuses() const;
 
-	bool operator== (const DiskInfo& _other) const;
-	bool operator<(const DiskInfo&)const;
+	auto operator<=>(const DiskInfo& _other) const = default;
 
 private:
 	std::string m_name;
