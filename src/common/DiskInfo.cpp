@@ -16,6 +16,12 @@
 		m_name = _name;
 	}
 
+	void DiskInfo::SetProbesStatuses(const std::vector<ProbeStatus>& statuses)
+    {
+        m_statuses = statuses;
+    }
+
+
 	std::string DiskInfo::GetName() const
 	{
 		return m_name;
@@ -30,6 +36,11 @@
 	{
 		return m_health;
 	}
+
+	const std::vector<ProbeStatus> & DiskInfo::GetProbesStatuses() const
+    {
+        return m_statuses;
+    }
 
 	bool DiskInfo::operator== (const DiskInfo& _other) const
 	{
