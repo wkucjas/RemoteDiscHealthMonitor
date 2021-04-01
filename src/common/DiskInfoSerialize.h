@@ -54,8 +54,6 @@ inline QDataStream& operator<<(QDataStream& _out, const std::vector<DiskInfo>& _
 inline QDataStream& operator>>(QDataStream& _in, std::vector<DiskInfo>& _diskInfoVec)
 {
 	quint32 vecSize;
-	char* name;
-	GeneralHealth::Health health;
 	_diskInfoVec.clear();
 	_in >> vecSize;
 	_diskInfoVec.reserve(vecSize);
