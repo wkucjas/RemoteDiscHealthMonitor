@@ -70,7 +70,7 @@ public:
         ReadErrorRetryRate = 0xFA,
         FreeFallProtection = 0xFE,
     };
-   
+
     struct AttrData
     {
         int status;
@@ -78,8 +78,11 @@ public:
         int worst;
         int rawVal;
         int rawVal2;
+
+        auto operator<=>(const AttrData &) const = default;
     };
 
     std::map<unsigned char, AttrData> smartData;
 
+    auto operator<=>(const SmartData &) const = default;
 };
