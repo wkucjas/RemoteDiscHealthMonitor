@@ -6,8 +6,8 @@ DiskInfo::DiskInfo()
 {
 }
 
-DiskInfo::DiskInfo(std::string _name, GeneralHealth::Health& _health)
-    : m_name(_name), m_health(_health)
+DiskInfo::DiskInfo(std::string _name, GeneralHealth::Health& _health, const std::vector<ProbeStatus>& _statuses)
+    : m_name(_name), m_health(_health), m_statuses(_statuses)
 {
 }
 

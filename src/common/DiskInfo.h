@@ -11,7 +11,7 @@ class DiskInfo
 public:
 	DiskInfo();
 
-	DiskInfo(std::string _name, GeneralHealth::Health& _health);
+	DiskInfo(std::string _name, GeneralHealth::Health& _health, const std::vector<ProbeStatus> &);
 
 	void SetHealth(const GeneralHealth::Health& _health);
 	void SetName(const std::string& _name);
