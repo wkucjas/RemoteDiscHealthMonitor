@@ -6,12 +6,12 @@ DiskInfo::DiskInfo()
 {
 }
 
-DiskInfo::DiskInfo(std::string _name, GeneralHealth::Health& _health, const std::vector<ProbeStatus>& _statuses)
+DiskInfo::DiskInfo(QString _name, GeneralHealth::Health& _health, const std::vector<ProbeStatus>& _statuses)
     : m_name(_name), m_health(_health), m_statuses(_statuses)
 {
 }
 
-void DiskInfo::SetName(const std::string& _name)
+void DiskInfo::SetName(const QString& _name)
 {
     m_name = _name;
 }
@@ -22,7 +22,7 @@ void DiskInfo::SetProbesStatuses(const std::vector<ProbeStatus>& statuses)
 }
 
 
-std::string DiskInfo::GetName() const
+const QString& DiskInfo::GetName() const
 {
     return m_name;
 };

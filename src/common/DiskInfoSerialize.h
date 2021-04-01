@@ -10,7 +10,7 @@
 
 inline QDataStream& operator<<(QDataStream& _out, const DiskInfo& _diskInfo)
 {
-	_out << _diskInfo.GetName().c_str() << static_cast<qint8>(_diskInfo.GetHealth());
+	_out << _diskInfo.GetName() << static_cast<qint8>(_diskInfo.GetHealth());
 
     const auto& statuses = _diskInfo.GetProbesStatuses();
     _out << static_cast<quint32>(statuses.size());
@@ -22,7 +22,7 @@ inline QDataStream& operator<<(QDataStream& _out, const DiskInfo& _diskInfo)
 
 inline QDataStream& operator>>(QDataStream& _in, DiskInfo& _diskInfo)
 {
-	char* name;
+	QString name;
 	GeneralHealth::Health health;
     quint32 statusesCount = 0;
     std::vector<ProbeStatus> statuses;

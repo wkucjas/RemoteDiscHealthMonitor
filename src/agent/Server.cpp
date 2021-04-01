@@ -109,7 +109,7 @@ void Server::CollectInfoAboutDiscs()
     for (auto disk : diskCollection)
     {
         DiskInfo diskInfo;
-        diskInfo.SetName(disk.GetDeviceId());
+        diskInfo.SetName(QString::fromStdString(disk.GetDeviceId()));
         diskInfo.SetHealth(calc.CalculateDiskStatus(disk, probes));
 
         discInfoCollection.push_back(diskInfo);
