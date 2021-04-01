@@ -5,6 +5,7 @@ add_library(common OBJECT
     constants.hpp
     GeneralHealth.h
     ProbeStatus.h
+    ProbeStatusSerialize.h
     ProtocolVersion.h
     OutputParsersUtils.cpp
     OutputParsersUtils.h

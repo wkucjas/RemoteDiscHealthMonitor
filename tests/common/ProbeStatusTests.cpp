@@ -2,6 +2,7 @@
 #include <gmock/gmock.h>
 
 #include "ProbeStatus.h"
+#include "ProbeStatusSerialize.h"
 
 
 TEST(ProbeStatusTest, serializationOfStringRawData)
