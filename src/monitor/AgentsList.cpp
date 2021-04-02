@@ -87,7 +87,7 @@ QVariant AgentsList::data(const QModelIndex& index, int role) const
 
             result = it == m_health.end()? GeneralHealth::UNKNOWN: it.value();
         }
-        else if (role == AgentDetectionType)
+        else if (role == AgentDetectionTypeRole)
         {
             result = static_cast<int>(m_agents[row].detectionSource());
         }
@@ -102,8 +102,8 @@ QHash<int, QByteArray> AgentsList::roleNames() const
     auto existingRoles = QAbstractListModel::roleNames();
     existingRoles.insert(AgentNameRole, "agentName");
     existingRoles.insert(AgentHealthRole, "agentHealth");
-    existingRoles.insert(AgentDetectionType, "agentDetectionType");
-    existingRoles.insert(AgentDiskInfoCollectionRole, "agentDiskInfoCollectionRole");
+    existingRoles.insert(AgentDetectionTypeRole, "agentDetectionType");
+    existingRoles.insert(AgentDiskInfoCollectionRole, "agentDiskInfoCollection");
 
     return existingRoles;
 }

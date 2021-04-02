@@ -33,7 +33,7 @@ public:
     {
         AgentNameRole = Qt::UserRole + 1,
         AgentHealthRole,
-        AgentDetectionType,
+        AgentDetectionTypeRole,
         AgentDiskInfoCollectionRole,
     };
 
