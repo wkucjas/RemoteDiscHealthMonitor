@@ -13,7 +13,6 @@
 
 Server::Server(QObject * parent)
     : AgentStatusSource(parent)
-    , m_ROHost()
     , m_health(GeneralHealth::UNKNOWN)
 {
 
@@ -101,29 +100,40 @@ void Server::CollectInfoAboutDiscs()
     SystemUtilitiesFactory systemUtilsFactory;
     auto diskCollector = systemUtilsFactory.diskCollector();
     auto diskCollection = diskCollector->GetDisksList();
-    std::vector< DiscStatusCalculator::ProbePtr > probes;
-    auto probe = systemUtilsFactory.generalAnalyzer();
-    probes.emplace_back(std::move(probe));
+    const std::vector<std::unique_ptr<IProbe>> probes = systemUtilsFactory.getProbes();
 
-    DiscStatusCalculator calc(probes, diskCollection);
-    setOverallStatus(calc.GetStatus());
+    DiscStatusCalculator calc;
 
     std::vector<DiskInfo> discInfoCollection;
 
     for (auto disk : diskCollection)
     {
-        DiskInfo diskInfo;
-        auto prob = systemUtilsFactory.generalAnalyzer();
-        diskInfo.SetName(disk.GetDeviceId());
-        diskInfo.SetHealth(prob->GetStatus(disk));
+        std::vector<ProbeStatus> probesStatuses;
+        probesStatuses.reserve(probes.size());
 
-        auto smartAnalyzer = systemUtilsFactory.smartAnalyzer();
-        auto data = smartAnalyzer->GetRawData(disk);
-        diskInfo.SetSmart(std::get<SmartData>(data));
-        
+        for(const auto& probe: probes)
+        {
+            ProbeStatus status;
+            status.health = probe->GetStatus(disk);
+            status.rawData = probe->GetRawData(disk);
+
+            probesStatuses.push_back(status);
+        }
+
+        DiskInfo diskInfo;
+        diskInfo.SetName(QString::fromStdString(disk.GetDeviceId()));
+        diskInfo.SetHealth(calc.CalculateDiskStatus(disk, probes));
+        diskInfo.SetProbesStatuses(probesStatuses);
+
         discInfoCollection.push_back(diskInfo);
     }
 
+    std::vector<GeneralHealth::Health> diskStatuses;
+    std::transform(discInfoCollection.begin(), discInfoCollection.end(), std::back_inserter(diskStatuses), [](const auto& diskInfo) {
+        return diskInfo.GetHealth();
+    });
+
+    setOverallStatus(calc.CalculateCumulativeStatus(diskStatuses));
     setDiskInfoCollection(discInfoCollection);
 }
 

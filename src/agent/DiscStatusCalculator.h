@@ -12,11 +12,8 @@ class DiscStatusCalculator
 public:
     typedef std::unique_ptr<IProbe> ProbePtr;
 
-    DiscStatusCalculator(const std::vector<ProbePtr>& _discProbes, const std::vector<Disk>& _disks);
+    DiscStatusCalculator();
 
-    GeneralHealth::Health GetStatus();
-
-private:
-    const std::vector<ProbePtr>& m_discProbes;
-    const std::vector<Disk>& m_disks;
+    GeneralHealth::Health CalculateCumulativeStatus(const std::vector<GeneralHealth::Health> &) const;
+    GeneralHealth::Health CalculateDiskStatus(const Disk& _disk, const std::vector<ProbePtr>& _discProbes);
 };

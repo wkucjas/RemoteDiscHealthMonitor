@@ -67,12 +67,10 @@ std::unique_ptr<IDiskCollector> SystemUtilitiesFactory::diskCollector()
 }
 
 
-std::unique_ptr<IProbe> SystemUtilitiesFactory::generalAnalyzer()
+std::vector<std::unique_ptr<IProbe>> SystemUtilitiesFactory::getProbes()
 {
-    return std::make_unique<LinGeneralAnalyzer>(m_state->m_diskCollector);
-}
+    std::vector<std::unique_ptr<IProbe>> probes;
+    probes.emplace_back(std::make_unique<LinGeneralAnalyzer>(m_state->m_diskCollector));
 
-std::unique_ptr<IProbe> SystemUtilitiesFactory::smartAnalyzer()
-{
-    return std::make_unique<LinGeneralAnalyzer>(m_state->m_diskCollector);
+    return probes;
 }

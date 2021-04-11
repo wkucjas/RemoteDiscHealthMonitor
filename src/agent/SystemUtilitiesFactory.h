@@ -14,8 +14,7 @@ public:
     ~SystemUtilitiesFactory();
 
     std::unique_ptr<IDiskCollector> diskCollector();
-    std::unique_ptr<IProbe> generalAnalyzer();
-    std::unique_ptr<IProbe> smartAnalyzer();
+    std::vector<std::unique_ptr<IProbe>> getProbes();
 
 private:
     struct State;

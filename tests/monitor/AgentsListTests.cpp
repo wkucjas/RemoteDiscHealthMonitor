@@ -263,6 +263,6 @@ TEST(AgentsListTest, agentDetectionTypeRoleFetching)
     const QModelIndex idx1 = aal.index(0, 0);
     const QModelIndex idx2 = aal.index(1, 0);
 
-    EXPECT_EQ(idx1.data(AgentsList::AgentDetectionType), static_cast<int>(AgentInformation::DetectionSource::Hardcoded));
-    EXPECT_EQ(idx2.data(AgentsList::AgentDetectionType), static_cast<int>(AgentInformation::DetectionSource::ZeroConf));
+    EXPECT_EQ(idx1.data(AgentsList::AgentDetectionTypeRole), static_cast<int>(AgentInformation::DetectionSource::Hardcoded));
+    EXPECT_EQ(idx2.data(AgentsList::AgentDetectionTypeRole), static_cast<int>(AgentInformation::DetectionSource::ZeroConf));
 }

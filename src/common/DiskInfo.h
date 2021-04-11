@@ -4,38 +4,29 @@
 #include <string>
 #include "GeneralHealth.h"
 #include "SmartData.h"
-
+#include "ProbeStatus.h"
 
 class DiskInfo
 {
 public:
-
 	DiskInfo();
 
-	DiskInfo(std::string _name, GeneralHealth::Health& _health, SmartData& _smartData);
-
-	void SetName(const std::string& _name);
-
-	std::string GetName() const;
+	DiskInfo(QString _name, GeneralHealth::Health& _health, const std::vector<ProbeStatus> &);
 
 	void SetHealth(const GeneralHealth::Health& _health);
+	void SetName(const QString& _name);
+    void SetProbesStatuses(const std::vector<ProbeStatus> &);
 
+	const QString& GetName() const;
 	GeneralHealth::Health GetHealth() const;
+    const std::vector<ProbeStatus>& GetProbesStatuses() const;
 
-	void SetSmart(const SmartData& _smartData);
-
-	SmartData GetSmart() const;
-
-
-	bool operator== (const DiskInfo& _other) const;
-	
-	bool operator<(const DiskInfo&)const;
+	auto operator<=>(const DiskInfo& _other) const = default;
 
 private:
-	std::string m_name;
+	QString m_name;
 	GeneralHealth::Health m_health;
-	SmartData m_smart;
-
+    std::vector<ProbeStatus> m_statuses;
 };
 
 
