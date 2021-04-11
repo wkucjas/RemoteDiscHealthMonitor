@@ -108,9 +108,22 @@ void Server::CollectInfoAboutDiscs()
 
     for (auto disk : diskCollection)
     {
+        std::vector<ProbeStatus> probesStatuses;
+        probesStatuses.reserve(probes.size());
+
+        for(const auto& probe: probes)
+        {
+            ProbeStatus status;
+            status.health = probe->GetStatus(disk);
+            status.rawData = probe->GetRawData(disk);
+
+            probesStatuses.push_back(status);
+        }
+
         DiskInfo diskInfo;
         diskInfo.SetName(QString::fromStdString(disk.GetDeviceId()));
         diskInfo.SetHealth(calc.CalculateDiskStatus(disk, probes));
+        diskInfo.SetProbesStatuses(probesStatuses);
 
         discInfoCollection.push_back(diskInfo);
     }
