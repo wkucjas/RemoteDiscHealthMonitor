@@ -11,7 +11,7 @@ inline QDataStream& operator<<(QDataStream& _out, const ProbeStatus& _probeStatu
 
     const qint8 rawDataType = _probeStatus.rawData.index();
 
-	_out << static_cast<qint8>(_probeStatus.health);
+    _out << static_cast<qint8>(_probeStatus.health);
     _out << static_cast<qint8>(rawDataType);
 
     switch (rawDataType)
