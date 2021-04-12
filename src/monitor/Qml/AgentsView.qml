@@ -41,6 +41,8 @@ Item {
 
                     onClicked: {
                         agentsList.currentIndex = index
+
+                        agentDetailsDisksComboBox.model = agentDiskInfoNames
                     }
 
                     AgentDelegate {
@@ -87,9 +89,8 @@ Item {
 
             ComboBox {
                 id: agentDetailsDisksComboBox
-                width: label.width - 25
+                width: label.width
                 visible: false
-                model: ["Disk1", "Disk2", "Disk3"]
             }
         }
     }

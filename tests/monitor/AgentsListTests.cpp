@@ -266,3 +266,73 @@ TEST(AgentsListTest, agentDetectionTypeRoleFetching)
     EXPECT_EQ(idx1.data(AgentsList::AgentDetectionTypeRole), static_cast<int>(AgentInformation::DetectionSource::Hardcoded));
     EXPECT_EQ(idx2.data(AgentsList::AgentDetectionTypeRole), static_cast<int>(AgentInformation::DetectionSource::ZeroConf));
 }
+
+TEST(AgentsListTest, GetAgentDiskInfoNamesAfterFetch)
+{
+    IAgentsStatusProviderMock statusProvider;
+
+    AgentsList aal(statusProvider);
+
+    AgentInformation info1("Scorpion", QHostAddress("192.168.1.99"), 1998, AgentInformation::DetectionSource::Hardcoded);
+    AgentInformation info2("Sub-Zero", QHostAddress("192.168.1.101"), 1998, AgentInformation::DetectionSource::Hardcoded);
+
+    EXPECT_CALL(statusProvider, observe(info1)).Times(1);
+    EXPECT_CALL(statusProvider, observe(info2)).Times(1);
+
+    aal.addAgent(info1);
+    aal.addAgent(info2);
+
+    QStringList answer1, answer2;
+
+    const QModelIndex idx1 = aal.index(0, 0);
+    const QModelIndex idx2 = aal.index(1, 0);
+
+    EXPECT_EQ(idx1.data(AgentsList::AgentDiskInfoNamesRole), answer1);
+    EXPECT_EQ(idx2.data(AgentsList::AgentDiskInfoNamesRole), answer2);
+}
+
+TEST(AgentsListTest, DiskInfoCollectionUpdateAfterFetch)
+{
+    IAgentsStatusProviderMock statusProvider;
+
+    AgentsList aal(statusProvider);
+
+    AgentInformation info1("Scorpion", QHostAddress("192.168.1.99"), 1998, AgentInformation::DetectionSource::Hardcoded);
+    AgentInformation info2("Sub-Zero", QHostAddress("192.168.1.101"), 1998, AgentInformation::DetectionSource::Hardcoded);
+
+    EXPECT_CALL(statusProvider, observe(info1)).Times(1);
+    EXPECT_CALL(statusProvider, observe(info2)).Times(1);
+
+    aal.addAgent(info1);
+    aal.addAgent(info2);
+
+    GeneralHealth::Health good = GeneralHealth::GOOD;
+    GeneralHealth::Health checkStatus = GeneralHealth::CHECK_STATUS;
+    GeneralHealth::Health bad = GeneralHealth::BAD;
+
+    DiskInfo di1a("Disk Numero Uno", good, {});
+    DiskInfo di1b("Disk Numero Dos", checkStatus, {});
+    DiskInfo di2a("Disk Cif", bad, {});
+    DiskInfo di2b("Disk Domestos", checkStatus, {});
+
+    std::vector<DiskInfo> v1, v2;
+    v1.push_back(di1a);
+    v1.push_back(di1b);
+    v2.push_back(di2a);
+    v2.push_back(di2b);
+
+    emit statusProvider.diskCollectionChanged(info1, v1);
+    emit statusProvider.diskCollectionChanged(info2, v2);
+
+    const QModelIndex idx1 = aal.index(0, 0);
+    const QModelIndex idx2 = aal.index(1, 0);
+
+    QStringList answer1, answer2;
+    answer1.append("Disk Numero Uno");
+    answer1.append("Disk Numero Dos");
+    answer2.append("Disk Cif");
+    answer2.append("Disk Domestos");
+
+    EXPECT_EQ(idx1.data(AgentsList::AgentDiskInfoNamesRole), answer1);
+    EXPECT_EQ(idx2.data(AgentsList::AgentDiskInfoNamesRole), answer2);
+}

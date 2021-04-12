@@ -91,6 +91,20 @@ QVariant AgentsList::data(const QModelIndex& index, int role) const
         {
             result = static_cast<int>(m_agents[row].detectionSource());
         }
+        else if (role == AgentDiskInfoNamesRole)
+        {
+            QStringList names;
+            auto it = m_diskInfoCollection.find(m_agents[row]);
+            if (it != m_diskInfoCollection.end())
+            {
+                auto diskInfoVec = it.value();
+                for (auto item : diskInfoVec)
+                {
+                    names.append(item.GetName());
+                }
+            }
+            result = names;
+        }
     }
 
     return result;
@@ -103,7 +117,7 @@ QHash<int, QByteArray> AgentsList::roleNames() const
     existingRoles.insert(AgentNameRole, "agentName");
     existingRoles.insert(AgentHealthRole, "agentHealth");
     existingRoles.insert(AgentDetectionTypeRole, "agentDetectionType");
-    existingRoles.insert(AgentDiskInfoCollectionRole, "agentDiskInfoCollection");
+    existingRoles.insert(AgentDiskInfoNamesRole, "agentDiskInfoNames");
 
     return existingRoles;
 }
@@ -135,6 +149,6 @@ void AgentsList::updateAgentDiskInfoCollection(const AgentInformation& _info, co
         const int pos = std::distance(m_agents.begin(), it);
         const QModelIndex idx = index(pos, 0);
 
-        emit dataChanged(idx, idx, { AgentDiskInfoCollectionRole });
+        emit dataChanged(idx, idx, { AgentDiskInfoNamesRole });
     }
 }

@@ -34,7 +34,7 @@ public:
         AgentNameRole = Qt::UserRole + 1,
         AgentHealthRole,
         AgentDetectionTypeRole,
-        AgentDiskInfoCollectionRole,
+        AgentDiskInfoNamesRole,
     };
 
 private:
