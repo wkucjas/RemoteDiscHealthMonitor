@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <QString>
 
 class SmartData
 {
@@ -85,4 +86,9 @@ public:
     std::map<unsigned char, AttrData> smartData;
 
     auto operator<=>(const SmartData &) const = default;
+
+    static QString GetAttrTypeName(unsigned char uChar)
+    {
+        return "Name of element";
+    }
 };

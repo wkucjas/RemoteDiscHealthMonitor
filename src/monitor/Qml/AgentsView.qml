@@ -43,6 +43,8 @@ Item {
                         agentsList.currentIndex = index
 
                         agentDetailsDisksComboBox.model = agentDiskInfoNames
+
+                        agentDetailsDisksComboBox.smartVector = agentDiskInfoData
                     }
 
                     AgentDelegate {
@@ -87,10 +89,17 @@ Item {
                 }
             }
 
+
             ComboBox {
                 id: agentDetailsDisksComboBox
                 width: label.width
                 visible: false
+                property var smartVector: []
+                onCurrentIndexChanged: {
+            
+
+                    console.log( agentDetailsDisksComboBox.currentIndex + " " + smartVector[currentIndex] + " AAA");
+                }
             }
         }
     }
