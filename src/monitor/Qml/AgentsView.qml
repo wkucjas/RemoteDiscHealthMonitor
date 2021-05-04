@@ -95,9 +95,10 @@ Item {
                 width: label.width
                 visible: false
                 property var smartVector: []
+                onVisibleChanged: {
+                    console.log( agentDetailsDisksComboBox.currentIndex + " " + smartVector[currentIndex] + " AAA");
+                }
                 onCurrentIndexChanged: {
-            
-
                     console.log( agentDetailsDisksComboBox.currentIndex + " " + smartVector[currentIndex] + " AAA");
                 }
             }

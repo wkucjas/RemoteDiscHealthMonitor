@@ -87,8 +87,18 @@ public:
 
     auto operator<=>(const SmartData &) const = default;
 
-    static QString GetAttrTypeName(unsigned char uChar)
+    static const std::map<unsigned char, QString> dictionary;
+
+    static QString GetAttrTypeName(unsigned char _uChar)
     {
-        return "Name of element";
+        auto it = dictionary.find(_uChar);
+        if(it != dictionary.end())
+        {
+            return it->second;
+        }
+        else
+        {
+            return "Unknown Attribute";
+        }
     }
 };
