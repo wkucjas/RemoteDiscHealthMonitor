@@ -123,11 +123,11 @@ QVariant AgentsList::data(const QModelIndex& index, int role) const
                     QString item;
 
                     auto m = sData.smartData;
-                        for (auto i : m)
+                        for (auto &i : m)
                         {
                             item += SmartData::GetAttrTypeName(i.first);
-                            item += "-";
-                            item += QString::number(i.second.status);
+                            item += ": ";
+                            item += QString::number(i.second.value);
                             item += ";";
                         }
                     names.append(item);

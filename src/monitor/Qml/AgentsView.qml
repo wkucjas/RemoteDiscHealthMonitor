@@ -79,6 +79,7 @@ Item {
         }
 
         ColumnLayout {
+            height: parent.height
 
             Button {
                 id: agentDetailsBackBtn
@@ -94,12 +95,58 @@ Item {
                 id: agentDetailsDisksComboBox
                 width: label.width
                 visible: false
+                anchors.top: agentDetailsBackBtn.bottom
                 property var smartVector: []
+                property var stringList: []
                 onVisibleChanged: {
-                    console.log( agentDetailsDisksComboBox.currentIndex + " " + smartVector[currentIndex] + " AAA");
+                    //console.log( agentDetailsDisksComboBox.currentIndex + " " + smartVector[currentIndex] + " AAA");
+                    agentDetailsSmartLV.model.clear()
+                    stringList = (smartVector[currentIndex]).split(';');
+                    for(var i=0; i< stringList.length; i++)
+                    {
+                        console.log(stringList[i]);
+                        agentDetailsSmartLV.model.append({attrWithResult: stringList[i]})
+                    }
+
                 }
                 onCurrentIndexChanged: {
-                    console.log( agentDetailsDisksComboBox.currentIndex + " " + smartVector[currentIndex] + " AAA");
+                    agentDetailsSmartLV.model.clear()
+                    stringList = (smartVector[currentIndex]).split(';');
+                    for(var i=0; i< stringList.length; i++)
+                    {
+                        console.log(stringList[i]);
+                        agentDetailsSmartLV.model.append({attrWithResult: stringList[i]})
+                    }
+                }
+            }
+
+
+            Component {
+                id: delegate1
+                Item {
+                    width: 200; height: 28
+                    Label {
+                        text: attrWithResult
+                    }
+                }
+            }
+
+            ListView {
+                id: agentDetailsSmartLV
+                model: smartModel
+                visible: false
+                delegate: delegate1
+                height: parent.height
+                anchors.top: agentDetailsDisksComboBox.bottom
+                ScrollBar.vertical: ScrollBar {
+                    active: true
+                }
+            }
+
+            ListModel {
+                id: smartModel
+                ListElement { 
+                    attrWithResult: "testText"
                 }
             }
         }
@@ -109,6 +156,7 @@ Item {
         agentsList.visible = !agentsList.visible
         agentDetailsBackBtn.visible = !agentDetailsBackBtn.visible
         agentDetailsDisksComboBox.visible = !agentDetailsDisksComboBox.visible
+        agentDetailsSmartLV.visible = !agentDetailsSmartLV.visible
     }
 
 }
