@@ -90,13 +90,15 @@ Item {
             Button {
                 id: agentDetailsBackBtn
                 visible: false
+                width: 200
+                height: 10
                 text: "<<"
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+
                 onClicked: {
                     switchAgentsListViewAndAgentDetailsView()
                 }
             }
-
 
             ComboBox {
                 id: agentDetailsDisksComboBox
@@ -107,88 +109,24 @@ Item {
                 x: 0
                 y: 50
                 width: 150
-                onVisibleChanged: {
-                    //console.log( agentDetailsDisksComboBox.currentIndex + " " + smartVector[currentIndex] + " AAA");
-                    //agentDetailsSmartLV.model.clear()
-                    stringList = (smartVector[currentIndex]).split(';');
-                    for(var i=0; i< stringList.length; i++)
-                    {
-                        console.log(stringList[i]);
-                        var data=(stringList[i]).split(',')
-                        tableView.model.appendRow(                        {
-                            attr: data[0],
-                            value: data[1],
-                            worst: data[2],
-                            rawVal: data[3],
-                            rawVal2: data[4]
-                        })
-                        //agentDetailsSmartLV.model.append({attrWithResult: stringList[i]})
-                    }
 
+                onVisibleChanged: {
+                    fillSmartTable(currentIndex)
                 }
+
                 onCurrentIndexChanged: {
-//                    agentDetailsSmartLV.model.clear()
-//                    stringList = (smartVector[currentIndex]).split(';');
-//                    for(var i=0; i< stringList.length; i++)
-//                    {
-//                        console.log(stringList[i]);
-//                        agentDetailsSmartLV.model.append({attrWithResult: stringList[i]})
-//                    }
                     tableView.model.clear()
-                    tableView.model.appendRow(
-                                            {
+                    tableView.model.appendRow({
                             "attr": "Attribute Name",
                             "value": "Value",
                             "worst": "Worst",
                             "rawVal": "Raw Value",
                             "rawVal2": "Raw Value2"
+                    })
 
-                        })
-                    stringList = (smartVector[currentIndex]).split(';');
-                    for(var i=0; i< stringList.length; i++)
-                    {
-                        console.log(stringList[i]);
-                        var data=(stringList[i]).split(',')
-                        tableView.model.appendRow(                        {
-                            attr: data[0],
-                            value: data[1],
-                            worst: data[2],
-                            rawVal: data[3],
-                            rawVal2: data[4]
-                        })
-                        }
+                    fillSmartTable(currentIndex)
                 }
             }
-
-
-//            Component {
-//                id: delegate1
-//                Item {
-//                    width: 200; height: 28
-//                    Label {
-//                        text: attrWithResult
-//                    }
-//                }
-//            }
-
-//            ListView {
-//                id: agentDetailsSmartLV
-//                model: smartModel
-//                visible: true
-//                delegate: delegate1
-//                height: parent.height
-//                anchors.top: agentDetailsDisksComboBox.bottom
-//                ScrollBar.vertical: ScrollBar {
-//                    active: true
-//                }
-//            }
-
-//            ListModel {
-//                id: smartModel
-//                ListElement {
-//                    attrWithResult: "testText"
-//                }
-//            }
 
             TableView {
                 id: tableView
@@ -213,16 +151,13 @@ Item {
                     TableModelColumn { display: "rawVal" }
                     TableModelColumn { display: "rawVal2" }
 
-                    rows: [
-                        {
+                    rows: [{
                             "attr": "Attribute Name",
                             "value": "Value",
                             "worst": "Worst",
                             "rawVal": "Raw Value",
                             "rawVal2": "Raw Value2"
-
-                        }
-                    ]
+                    }]
                 }
 
                 delegate: Rectangle {
@@ -243,17 +178,26 @@ Item {
         agentsList.visible = !agentsList.visible
         agentDetailsBackBtn.visible = !agentDetailsBackBtn.visible
         agentDetailsDisksComboBox.visible = !agentDetailsDisksComboBox.visible
-        //agentDetailsSmartLV.visible = !agentDetailsSmartLV.visible
         tableView.visible = ! tableView.visible
+    }
+
+    function fillSmartTable( index)
+    {
+        agentDetailsDisksComboBox.stringList = (agentDetailsDisksComboBox.smartVector[index]).split(';');
+
+        for(var i=0; i< agentDetailsDisksComboBox.stringList.length; i++)
+        {
+            console.log(agentDetailsDisksComboBox.stringList[i]);
+            var data=(agentDetailsDisksComboBox.stringList[i]).split(',')
+            tableView.model.appendRow({
+                attr: data[0],
+                value: data[1],
+                worst: data[2],
+                rawVal: data[3],
+                rawVal2: data[4]
+            })
+        }
     }
 
 }
 
-
-
-
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:9}
-}
-##^##*/
