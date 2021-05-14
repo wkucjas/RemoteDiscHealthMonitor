@@ -112,7 +112,7 @@ QVariant AgentsList::data(const QModelIndex& index, int role) const
             if (it != m_diskInfoCollection.end())
             {
                 auto diskInfoVec = it.value();
-                for (auto i : diskInfoVec)
+                for (auto& i : diskInfoVec)
                 {
                     std::vector<ProbeStatus> statuses = i.GetProbesStatuses();
 
@@ -122,8 +122,8 @@ QVariant AgentsList::data(const QModelIndex& index, int role) const
 
                     QString item;
 
-                    auto m = sData.smartData;
-                        for (auto &i : m)
+                    auto data = sData.smartData;
+                        for (auto& i : data)
                         {
                             item += SmartData::GetAttrTypeName(i.first);
                             item += ",";
