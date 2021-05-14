@@ -89,7 +89,7 @@ public:
 
     static const std::map<unsigned char, QString> dictionary;
 
-    static QString GetAttrTypeName(unsigned char _uChar)
+    static QString GetAttrTypeName(const unsigned char& _uChar)
     {
         auto it = dictionary.find(_uChar);
         if(it != dictionary.end())
