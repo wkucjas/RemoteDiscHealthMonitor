@@ -112,9 +112,9 @@ QVariant AgentsList::data(const QModelIndex& index, int role) const
             if (it != m_diskInfoCollection.end())
             {
                 auto diskInfoVec = it.value();
-                for (auto item : diskInfoVec)
+                for (auto i : diskInfoVec)
                 {
-                    std::vector<ProbeStatus> statuses = item.GetProbesStatuses();
+                    std::vector<ProbeStatus> statuses = i.GetProbesStatuses();
 
                     ProbeStatus status = statuses[1];
 
