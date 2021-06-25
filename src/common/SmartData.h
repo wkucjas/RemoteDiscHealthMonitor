@@ -7,7 +7,7 @@ typedef unsigned char SmartAttribute;
 
 class SmartData
 {
-public:
+private:
 
     enum SmartAttributeType : unsigned char
     {
@@ -73,6 +73,8 @@ public:
         ReadErrorRetryRate = 0xFA,
         FreeFallProtection = 0xFE,
     };
+
+public:
 
     struct AttrData
     {
