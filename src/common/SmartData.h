@@ -3,11 +3,11 @@
 #include <map>
 #include <QString>
 
+typedef unsigned char SmartAttribute;
+
 class SmartData
 {
 public:
-
-    typedef unsigned char SmartAttribute;
 
     enum SmartAttributeType : unsigned char
     {

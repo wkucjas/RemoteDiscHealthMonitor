@@ -1,6 +1,6 @@
 #include "SmartData.h"
 
-const std::map<unsigned char, QString> SmartData::dictionary =
+const std::map<SmartAttribute, QString> SmartData::dictionary =
 {
 	{	0x01	,	"ReadErrorRate"	}	,
 	{	0x02	,	"ThroughputPerformance"	}	,
