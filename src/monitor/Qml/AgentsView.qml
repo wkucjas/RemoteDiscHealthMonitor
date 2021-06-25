@@ -106,8 +106,6 @@ Item {
                 Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                 property var smartVector: []
                 property var stringList: []
-                x: 0
-                y: 50
                 width: 150
 
                 onVisibleChanged: {
@@ -130,8 +128,6 @@ Item {
 
             TableView {
                 id: tableView
-                x: 0
-                y: 100
                 width: 600
                 height: 300
                 Layout.fillHeight: true
