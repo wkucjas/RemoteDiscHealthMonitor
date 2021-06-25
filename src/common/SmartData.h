@@ -7,6 +7,8 @@ class SmartData
 {
 public:
 
+    typedef unsigned char SmartAttribute;
+
     enum SmartAttributeType : unsigned char
     {
         ReadErrorRate = 0x01,
@@ -83,13 +85,13 @@ public:
         auto operator<=>(const AttrData &) const = default;
     };
 
-    std::map<unsigned char, AttrData> smartData;
+    std::map<SmartAttribute, AttrData> smartData;
 
     auto operator<=>(const SmartData &) const = default;
 
-    static const std::map<unsigned char, QString> dictionary;
+    static const std::map<SmartAttribute, QString> dictionary;
 
-    static QString GetAttrTypeName(const unsigned char& _uChar)
+    static QString GetAttrTypeName(const SmartAttribute& _uChar)
     {
         auto it = dictionary.find(_uChar);
         if(it != dictionary.end())
