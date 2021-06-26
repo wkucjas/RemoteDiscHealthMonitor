@@ -74,6 +74,8 @@ private:
         FreeFallProtection = 0xFE,
     };
 
+    static const std::map<SmartAttribute, QString> dictionary;
+
 public:
 
     struct AttrData
@@ -90,8 +92,6 @@ public:
     std::map<SmartAttribute, AttrData> smartData;
 
     auto operator<=>(const SmartData &) const = default;
-
-    static const std::map<SmartAttribute, QString> dictionary;
 
     static QString GetAttrTypeName(const SmartAttribute& _uChar)
     {

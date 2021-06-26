@@ -73,5 +73,5 @@ std::string CMDCommunication::GetInstanceName(const Disk& _disk) const
 
 void CMDCommunication::ChangeStringToLowerCase(std::string& _string) const
 {
-    std::transform(_string.begin(), _string.end(), _string.begin(), std::tolower);
+    std::transform(_string.begin(), _string.end(), _string.begin(), ::tolower);
 }
