@@ -1,10 +1,13 @@
 #pragma once
 
 #include <map>
+#include <QString>
+
+typedef unsigned char SmartAttribute;
 
 class SmartData
 {
-public:
+private:
 
     enum SmartAttributeType : unsigned char
     {
@@ -71,6 +74,10 @@ public:
         FreeFallProtection = 0xFE,
     };
 
+    static const std::map<SmartAttribute, QString> dictionary;
+
+public:
+
     struct AttrData
     {
         int status;
@@ -82,7 +89,20 @@ public:
         auto operator<=>(const AttrData &) const = default;
     };
 
-    std::map<unsigned char, AttrData> smartData;
+    std::map<SmartAttribute, AttrData> smartData;
 
     auto operator<=>(const SmartData &) const = default;
+
+    static QString GetAttrTypeName(const SmartAttribute& _uChar)
+    {
+        auto it = dictionary.find(_uChar);
+        if(it != dictionary.end())
+        {
+            return it->second;
+        }
+        else
+        {
+            return "Unknown Attribute";
+        }
+    }
 };

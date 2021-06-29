@@ -35,6 +35,7 @@ public:
         AgentHealthRole,
         AgentDetectionTypeRole,
         AgentDiskInfoNamesRole,
+        AgentDiskInfoDataRole,
     };
 
 private:
