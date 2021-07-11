@@ -132,8 +132,6 @@ QVariant AgentsList::data(const QModelIndex& index, int role) const
                             item += QString::number(i.second.worst);
                             item += ",";
                             item += QString::number(i.second.rawVal);
-                            item += ",";
-                            item += QString::number(i.second.rawVal2);
                             item += ";";
                         }
                     names.append(item);

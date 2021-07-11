@@ -5,14 +5,14 @@
 
 inline QDataStream& operator<<(QDataStream& _out, const SmartData::AttrData& _attrData)
 {
-	_out << _attrData.status << _attrData.value << _attrData.worst << _attrData.rawVal << _attrData.rawVal2;
+	_out << _attrData.value << _attrData.worst << _attrData.rawVal;
 
 	return _out;
 }
 
 inline QDataStream& operator>>(QDataStream& _in, SmartData::AttrData& _attrData)
 {
-	_in >> _attrData.status >> _attrData.value >> _attrData.worst >> _attrData.rawVal >> _attrData.rawVal2;
+	_in >> _attrData.value >> _attrData.worst >> _attrData.rawVal;
 	return _in;
 }
 

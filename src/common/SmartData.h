@@ -80,11 +80,9 @@ public:
 
     struct AttrData
     {
-        int status;
-        int value;
-        int worst;
+        int value; 
+        int worst; 
         int rawVal;
-        int rawVal2;
 
         auto operator<=>(const AttrData &) const = default;
     };

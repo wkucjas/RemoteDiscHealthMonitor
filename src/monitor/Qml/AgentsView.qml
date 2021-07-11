@@ -118,8 +118,7 @@ Item {
                             "attr": "Attribute Name",
                             "value": "Value",
                             "worst": "Worst",
-                            "rawVal": "Raw Value",
-                            "rawVal2": "Raw Value2"
+                            "rawVal": "Raw Value"
                     })
 
                     fillSmartTable(currentIndex)
@@ -145,14 +144,12 @@ Item {
                     TableModelColumn { display: "value" }
                     TableModelColumn { display: "worst" }
                     TableModelColumn { display: "rawVal" }
-                    TableModelColumn { display: "rawVal2" }
 
                     rows: [{
                             "attr": "Attribute Name",
                             "value": "Value",
                             "worst": "Worst",
                             "rawVal": "Raw Value",
-                            "rawVal2": "Raw Value2"
                     }]
                 }
 
@@ -189,8 +186,7 @@ Item {
                 attr: data[0],
                 value: data[1],
                 worst: data[2],
-                rawVal: data[3],
-                rawVal2: data[4]
+                rawVal: data[3]
             })
         }
     }

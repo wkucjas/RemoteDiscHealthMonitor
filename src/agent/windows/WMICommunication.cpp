@@ -300,11 +300,9 @@ void WMICommunication::FeedSmartDataStructure(const std::vector<BYTE>& _data, co
         if (_data.size() >= (i + 12))
         {
             SmartData::AttrData attrData;
-            attrData.status = _data.at(i + 3);
             attrData.value = _data.at(i + 5);
             attrData.worst = _data.at(i + 6);
             attrData.rawVal = _data.at(i + 7);
-            attrData.rawVal2 = _data.at(i + 8);
             m_smartData.smartData.insert(std::pair<unsigned char, SmartData::AttrData>(_data.at(i + 2), attrData));
         }
         
